@@ -1,0 +1,412 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		19091B381EF80F4B00292FA9 /* DayConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19091B371EF80F4B00292FA9 /* DayConfiguration.swift */; };
+		19C5E4BF1DA0125F005663E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C5E4BE1DA0125F005663E8 /* AppDelegate.swift */; };
+		19C5E4C11DA0125F005663E8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C5E4C01DA0125F005663E8 /* ViewController.swift */; };
+		19C5E4C41DA0125F005663E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19C5E4C21DA0125F005663E8 /* Main.storyboard */; };
+		19C5E4C61DA0125F005663E8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 19C5E4C51DA0125F005663E8 /* Assets.xcassets */; };
+		19C5E4C91DA0125F005663E8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19C5E4C71DA0125F005663E8 /* LaunchScreen.storyboard */; };
+		19C5E4D21DA012A3005663E8 /* ScrollingDateAndTimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C5E4D11DA012A3005663E8 /* ScrollingDateAndTimePicker.swift */; };
+		19C5E4D41DA013AA005663E8 /* LoadableFromXibView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C5E4D31DA013AA005663E8 /* LoadableFromXibView.swift */; };
+		19C5E4D61DA0157E005663E8 /* ScrollingDateAndTimePicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19C5E4D51DA0157E005663E8 /* ScrollingDateAndTimePicker.xib */; };
+		19C5E4D91DA0189A005663E8 /* TimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C5E4D81DA0189A005663E8 /* TimeCell.swift */; };
+		19C5E4DB1DA018DE005663E8 /* TimeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19C5E4DA1DA018DE005663E8 /* TimeCell.xib */; };
+		915DC899230A980B003D61E0 /* DayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 915DC897230A980B003D61E0 /* DayCell.xib */; };
+		915DC89A230A980B003D61E0 /* DayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915DC898230A980B003D61E0 /* DayCell.swift */; };
+		915DC89E230ABB2F003D61E0 /* DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915DC89D230ABB2F003D61E0 /* DatePicker.swift */; };
+		915DC8A0230ABB3A003D61E0 /* TimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915DC89F230ABB3A003D61E0 /* TimePicker.swift */; };
+		915DC8A2230ABE43003D61E0 /* TimeConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915DC8A1230ABE43003D61E0 /* TimeConfiguration.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		19091B371EF80F4B00292FA9 /* DayConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayConfiguration.swift; sourceTree = "<group>"; };
+		19C5E4BB1DA0125F005663E8 /* ScrollingDateAndTimePicker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScrollingDateAndTimePicker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		19C5E4BE1DA0125F005663E8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		19C5E4C01DA0125F005663E8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		19C5E4C31DA0125F005663E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		19C5E4C51DA0125F005663E8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		19C5E4C81DA0125F005663E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		19C5E4CA1DA0125F005663E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		19C5E4D11DA012A3005663E8 /* ScrollingDateAndTimePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollingDateAndTimePicker.swift; sourceTree = "<group>"; };
+		19C5E4D31DA013AA005663E8 /* LoadableFromXibView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadableFromXibView.swift; sourceTree = "<group>"; };
+		19C5E4D51DA0157E005663E8 /* ScrollingDateAndTimePicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScrollingDateAndTimePicker.xib; sourceTree = "<group>"; };
+		19C5E4D81DA0189A005663E8 /* TimeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeCell.swift; sourceTree = "<group>"; };
+		19C5E4DA1DA018DE005663E8 /* TimeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimeCell.xib; sourceTree = "<group>"; };
+		915DC897230A980B003D61E0 /* DayCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DayCell.xib; sourceTree = "<group>"; };
+		915DC898230A980B003D61E0 /* DayCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayCell.swift; sourceTree = "<group>"; };
+		915DC89D230ABB2F003D61E0 /* DatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePicker.swift; sourceTree = "<group>"; };
+		915DC89F230ABB3A003D61E0 /* TimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePicker.swift; sourceTree = "<group>"; };
+		915DC8A1230ABE43003D61E0 /* TimeConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeConfiguration.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		19C5E4B81DA0125F005663E8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		19C5E4B21DA0125E005663E8 = {
+			isa = PBXGroup;
+			children = (
+				19C5E4BC1DA0125F005663E8 /* Products */,
+				19C5E4BD1DA0125F005663E8 /* ScrollingDateAndTimePicker */,
+				19C5E4D01DA01268005663E8 /* Sources */,
+			);
+			sourceTree = "<group>";
+		};
+		19C5E4BC1DA0125F005663E8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				19C5E4BB1DA0125F005663E8 /* ScrollingDateAndTimePicker.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		19C5E4BD1DA0125F005663E8 /* ScrollingDateAndTimePicker */ = {
+			isa = PBXGroup;
+			children = (
+				19C5E4DC1DA040C3005663E8 /* ApplicationLayer */,
+				19C5E4DD1DA040D6005663E8 /* PresentationLayer */,
+				19C5E4DE1DA040F0005663E8 /* Resources */,
+			);
+			path = ScrollingDateAndTimePicker;
+			sourceTree = "<group>";
+		};
+		19C5E4D01DA01268005663E8 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				19C5E4D31DA013AA005663E8 /* LoadableFromXibView.swift */,
+				19C5E4D11DA012A3005663E8 /* ScrollingDateAndTimePicker.swift */,
+				19C5E4D51DA0157E005663E8 /* ScrollingDateAndTimePicker.xib */,
+				915DC89D230ABB2F003D61E0 /* DatePicker.swift */,
+				19091B371EF80F4B00292FA9 /* DayConfiguration.swift */,
+				915DC898230A980B003D61E0 /* DayCell.swift */,
+				915DC897230A980B003D61E0 /* DayCell.xib */,
+				915DC89F230ABB3A003D61E0 /* TimePicker.swift */,
+				915DC8A1230ABE43003D61E0 /* TimeConfiguration.swift */,
+				19C5E4D81DA0189A005663E8 /* TimeCell.swift */,
+				19C5E4DA1DA018DE005663E8 /* TimeCell.xib */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		19C5E4DC1DA040C3005663E8 /* ApplicationLayer */ = {
+			isa = PBXGroup;
+			children = (
+				19C5E4BE1DA0125F005663E8 /* AppDelegate.swift */,
+				19C5E4CA1DA0125F005663E8 /* Info.plist */,
+			);
+			path = ApplicationLayer;
+			sourceTree = "<group>";
+		};
+		19C5E4DD1DA040D6005663E8 /* PresentationLayer */ = {
+			isa = PBXGroup;
+			children = (
+				19C5E4C71DA0125F005663E8 /* LaunchScreen.storyboard */,
+				19C5E4C21DA0125F005663E8 /* Main.storyboard */,
+				19C5E4C01DA0125F005663E8 /* ViewController.swift */,
+			);
+			path = PresentationLayer;
+			sourceTree = "<group>";
+		};
+		19C5E4DE1DA040F0005663E8 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				19C5E4C51DA0125F005663E8 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		19C5E4BA1DA0125F005663E8 /* ScrollingDateAndTimePicker */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 19C5E4CD1DA0125F005663E8 /* Build configuration list for PBXNativeTarget "ScrollingDateAndTimePicker" */;
+			buildPhases = (
+				19C5E4B71DA0125F005663E8 /* Sources */,
+				19C5E4B81DA0125F005663E8 /* Frameworks */,
+				19C5E4B91DA0125F005663E8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ScrollingDateAndTimePicker;
+			productName = ScrollingDateAndTimePicker;
+			productReference = 19C5E4BB1DA0125F005663E8 /* ScrollingDateAndTimePicker.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		19C5E4B31DA0125E005663E8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0800;
+				LastUpgradeCheck = 1030;
+				ORGANIZATIONNAME = "Dmitry Ivanenko";
+				TargetAttributes = {
+					19C5E4BA1DA0125F005663E8 = {
+						CreatedOnToolsVersion = 8.0;
+						LastSwiftMigration = 1010;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 19C5E4B61DA0125E005663E8 /* Build configuration list for PBXProject "ScrollingDateAndTimePicker" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 19C5E4B21DA0125E005663E8;
+			productRefGroup = 19C5E4BC1DA0125F005663E8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				19C5E4BA1DA0125F005663E8 /* ScrollingDateAndTimePicker */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		19C5E4B91DA0125F005663E8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				19C5E4D61DA0157E005663E8 /* ScrollingDateAndTimePicker.xib in Resources */,
+				19C5E4C91DA0125F005663E8 /* LaunchScreen.storyboard in Resources */,
+				19C5E4C61DA0125F005663E8 /* Assets.xcassets in Resources */,
+				19C5E4DB1DA018DE005663E8 /* TimeCell.xib in Resources */,
+				915DC899230A980B003D61E0 /* DayCell.xib in Resources */,
+				19C5E4C41DA0125F005663E8 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		19C5E4B71DA0125F005663E8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				19C5E4D21DA012A3005663E8 /* ScrollingDateAndTimePicker.swift in Sources */,
+				19C5E4C11DA0125F005663E8 /* ViewController.swift in Sources */,
+				19C5E4D41DA013AA005663E8 /* LoadableFromXibView.swift in Sources */,
+				915DC8A2230ABE43003D61E0 /* TimeConfiguration.swift in Sources */,
+				915DC89A230A980B003D61E0 /* DayCell.swift in Sources */,
+				915DC8A0230ABB3A003D61E0 /* TimePicker.swift in Sources */,
+				19C5E4BF1DA0125F005663E8 /* AppDelegate.swift in Sources */,
+				19C5E4D91DA0189A005663E8 /* TimeCell.swift in Sources */,
+				19091B381EF80F4B00292FA9 /* DayConfiguration.swift in Sources */,
+				915DC89E230ABB2F003D61E0 /* DatePicker.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		19C5E4C21DA0125F005663E8 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				19C5E4C31DA0125F005663E8 /* Base */,
+			);
+			name = Main.storyboard;
+			path = .;
+			sourceTree = "<group>";
+		};
+		19C5E4C71DA0125F005663E8 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				19C5E4C81DA0125F005663E8 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			path = .;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		19C5E4CB1DA0125F005663E8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		19C5E4CC1DA0125F005663E8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		19C5E4CE1DA0125F005663E8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = ScrollingDateAndTimePicker/ApplicationLayer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Noxt.ScrollingDateAndTimePicker;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		19C5E4CF1DA0125F005663E8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = ScrollingDateAndTimePicker/ApplicationLayer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Noxt.ScrollingDateAndTimePicker;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		19C5E4B61DA0125E005663E8 /* Build configuration list for PBXProject "ScrollingDateAndTimePicker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				19C5E4CB1DA0125F005663E8 /* Debug */,
+				19C5E4CC1DA0125F005663E8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		19C5E4CD1DA0125F005663E8 /* Build configuration list for PBXNativeTarget "ScrollingDateAndTimePicker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				19C5E4CE1DA0125F005663E8 /* Debug */,
+				19C5E4CF1DA0125F005663E8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 19C5E4B31DA0125E005663E8 /* Project object */;
+}

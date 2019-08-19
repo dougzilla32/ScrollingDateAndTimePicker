@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ScrollingDateAndTimePicker" customModule="ScrollingDateAndTimePicker" customModuleProvider="target">
+            <connections>
+                <outlet property="datePicker" destination="bHB-sV-bER" id="F5O-MH-ERE"/>
+                <outlet property="timePicker" destination="veT-JR-cBT" id="sMJ-fK-TPF"/>
+                <outlet property="view" destination="aOu-w9-3Qt" id="f42-ko-4jU"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="aOu-w9-3Qt">
+            <rect key="frame" x="0.0" y="0.0" width="240" height="103"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="bHB-sV-bER" userLabel="Day Collection View" customClass="DatePicker" customModule="ScrollingDateAndTimePicker" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="50"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="5" id="XLp-AA-98S">
+                        <size key="itemSize" width="70" height="50"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="veT-JR-cBT" userLabel="Time Collection View" customClass="TimePicker" customModule="ScrollingDateAndTimePicker" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="53" width="240" height="50"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="5" id="QOf-d8-JMy">
+                        <size key="itemSize" width="70" height="50"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wg9-w4-wuv" userLabel="Selector View">
+                    <rect key="frame" x="83.5" y="50" width="73" height="3"/>
+                    <color key="backgroundColor" red="0.94901960784313721" green="0.36470588235294116" blue="0.10980392156862745" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="3" id="6mA-KJ-6Vt"/>
+                        <constraint firstAttribute="width" constant="73" id="Kps-lv-dJ8"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="bHB-sV-bER" firstAttribute="top" secondItem="aOu-w9-3Qt" secondAttribute="top" id="AcX-Y0-hSQ"/>
+                <constraint firstItem="veT-JR-cBT" firstAttribute="height" secondItem="bHB-sV-bER" secondAttribute="height" id="Bmr-gD-hyQ"/>
+                <constraint firstItem="bHB-sV-bER" firstAttribute="leading" secondItem="aOu-w9-3Qt" secondAttribute="leading" id="Dtv-LC-SA3"/>
+                <constraint firstAttribute="bottom" secondItem="veT-JR-cBT" secondAttribute="bottom" id="MlJ-ZK-xFe"/>
+                <constraint firstAttribute="trailing" secondItem="bHB-sV-bER" secondAttribute="trailing" id="SaY-bf-xbF"/>
+                <constraint firstAttribute="trailing" secondItem="veT-JR-cBT" secondAttribute="trailing" id="X0b-3I-Vs7"/>
+                <constraint firstItem="veT-JR-cBT" firstAttribute="top" secondItem="wg9-w4-wuv" secondAttribute="bottom" id="azP-kc-fg9"/>
+                <constraint firstItem="wg9-w4-wuv" firstAttribute="top" secondItem="bHB-sV-bER" secondAttribute="bottom" id="jzn-hg-EZV"/>
+                <constraint firstItem="wg9-w4-wuv" firstAttribute="centerX" secondItem="aOu-w9-3Qt" secondAttribute="centerX" id="sL6-Jv-C7N"/>
+                <constraint firstItem="veT-JR-cBT" firstAttribute="leading" secondItem="aOu-w9-3Qt" secondAttribute="leading" id="yNf-6a-vPC"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-216" y="-14"/>
+        </view>
+    </objects>
+</document>
