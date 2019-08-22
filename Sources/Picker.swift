@@ -34,6 +34,14 @@ class PickerStoredProperties {
     }
 }
 
+// From https://stackoverflow.com/a/46354989/5468406
+public extension Array where Element: Hashable {
+    func uniqued() -> [Element] {
+        var seen = Set<Element>()
+        return filter{ seen.insert($0).inserted }
+    }
+}
+
 extension Picker {
     var InfiniteScrollCount: Int { return 1500 }
     var InfiniteScrollAnchorIndex: Int { return InfiniteScrollCount / 3 }
@@ -48,12 +56,17 @@ extension Picker {
         get { return props.dates }
         
         set {
-            props.dates = newValue
-            if newValue == nil {
-                infiniteScrollAnchorDate = round(date: Date())
+            if let n = newValue{
+                infiniteScrollAnchorDate = nil
+                var dates = [Date]()
+                for d in n {
+                    dates.append(round(date: d))
+                }
+                props.dates = dates.uniqued()
             }
             else {
-                infiniteScrollAnchorDate = nil
+                infiniteScrollAnchorDate = round(date: Date())
+                props.dates = nil
             }
             reloadData()
         }
