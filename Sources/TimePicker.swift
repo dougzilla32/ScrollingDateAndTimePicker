@@ -14,8 +14,8 @@ public class TimePicker: UICollectionView, Picker {
     
     var props = PickerStoredProperties(configuration: TimeConfiguration())
     
-    var timeInterval = 900
-    
+    var timeInterval = TimePicker.MinuteGranularity * 60
+
     weak var timeDelegate: ScrollingDateAndTimePickerDelegate?
     
     // Derived from https://stackoverflow.com/a/42626860/5468406

@@ -7,19 +7,6 @@
 
 import UIKit
 
-class PickerStoredProperties {
-    var infiniteScrollAnchorDate: Date?
-    var dates: [Date]? = [Date]()
-    var selectedDate: Date?
-    var prevSelectedIndex: Int?
-    var cellConfiguration: ((_ cell: UICollectionViewCell, _ isWeekend: Bool, _ isSelected: Bool) -> Void)?
-    var configuration: PickerConfiguration
-    
-    init(configuration: PickerConfiguration) {
-        self.configuration = configuration
-    }
-}
-
 protocol Picker: AnyObject {
     associatedtype CellType: PickerCell
     
@@ -32,6 +19,19 @@ protocol Picker: AnyObject {
     func reloadItems(at: [IndexPath])
     func reloadData()
     func scrollToItem(at: IndexPath, at: UICollectionView.ScrollPosition, animated: Bool)
+}
+
+class PickerStoredProperties {
+    var infiniteScrollAnchorDate: Date?
+    var dates: [Date]? = [Date]()
+    var selectedDate: Date?
+    var prevSelectedIndex: Int?
+    var cellConfiguration: ((_ cell: UICollectionViewCell, _ isWeekend: Bool, _ isSelected: Bool) -> Void)?
+    var configuration: PickerConfiguration
+    
+    init(configuration: PickerConfiguration) {
+        self.configuration = configuration
+    }
 }
 
 extension Picker {
@@ -81,13 +81,15 @@ extension Picker {
             if let date = newValue {
                 props.selectedDate = round(date: date)
             }
+            var pathsToReload = [IndexPath]()
+            if let index = prevSelectedIndex {
+                pathsToReload.append(IndexPath(row: index, section: 0))
+            }
             if let index = selectedIndex {
-                reloadItemsNoAnimation(at: [IndexPath(row: index, section: 0)])
+                pathsToReload.append(IndexPath(row: index, section: 0))
                 prevSelectedIndex = index
             }
-            else if let index = prevSelectedIndex {
-                reloadItemsNoAnimation(at: [IndexPath(row: index, section: 0)])
-            }
+            reloadItemsNoAnimation(at: pathsToReload)
         }
     }
 
@@ -139,12 +141,10 @@ extension Picker {
 
 extension Picker {
     func pickerCollectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("picker count \(dates?.count ?? InfiniteScrollCount)")
         return dates?.count ?? InfiniteScrollCount
     }
 
     func pickerCollectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        print("Picker cellForItemAt \(indexPath)")
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellType.ClassName, for: indexPath) as! CellType
         
         let date = self.date(at: indexPath)
