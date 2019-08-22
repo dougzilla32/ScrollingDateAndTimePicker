@@ -8,6 +8,7 @@
 import UIKit
 
 public class DatePicker: UICollectionView, Picker {
+    typealias ConfigurationType = DayConfiguration
     typealias CellType = DayCell
 
     var props = PickerStoredProperties(configuration: DayConfiguration())

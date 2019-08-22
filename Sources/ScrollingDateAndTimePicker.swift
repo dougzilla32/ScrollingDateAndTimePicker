@@ -15,6 +15,39 @@ public protocol ScrollingDateAndTimePickerDelegate: class {
 
 open class ScrollingDateAndTimePicker: LoadableFromXibView {
     
+    public var dates: [Date]? {
+        get { return datePicker.dates }
+        set { datePicker.dates = newValue }
+    }
+    
+    public var times: [Date]? {
+        get { return timePicker.dates }
+        set { timePicker.dates = newValue }
+    }
+    
+    public var selectedDate: Date? {
+        get { return datePicker.selectedDate }
+        set {
+            datePicker.selectedDate = newValue
+            timePicker.selectedDate = newValue
+        }
+    }
+    
+    public func scrollToSelectedDate(animated: Bool) {
+        datePicker.scrollToSelectedDate(animated: animated)
+        timePicker.scrollToSelectedDate(animated: animated)
+    }
+    
+    public var dateConfiguration: DayConfiguration {
+        get { return datePicker.configuration }
+        set { datePicker.configuration = newValue }
+    }
+    
+    public var timeConfiguration: TimeConfiguration {
+        get { return timePicker.configuration }
+        set { timePicker.configuration = newValue }
+    }
+    
     var bundle: Bundle? {
         let podBundle = Bundle(for: ScrollingDateAndTimePicker.self)
         let bundlePath = podBundle.path(forResource: String(describing: type(of: self)), ofType: "bundle")
@@ -27,7 +60,7 @@ open class ScrollingDateAndTimePicker: LoadableFromXibView {
         return bundle
     }
 
-    @IBOutlet public weak var datePicker: DatePicker! {
+    @IBOutlet private weak var datePicker: DatePicker! {
         didSet {
             let cellNib = UINib(nibName: DayCell.ClassName, bundle: bundle)
             datePicker.register(cellNib, forCellWithReuseIdentifier: DayCell.ClassName)
@@ -36,7 +69,7 @@ open class ScrollingDateAndTimePicker: LoadableFromXibView {
         }
     }
 
-    @IBOutlet public weak var timePicker: TimePicker! {
+    @IBOutlet private weak var timePicker: TimePicker! {
         didSet {
             let cellNib = UINib(nibName: TimeCell.ClassName, bundle: bundle)
             timePicker.register(cellNib, forCellWithReuseIdentifier: TimeCell.ClassName)

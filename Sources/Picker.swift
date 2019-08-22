@@ -8,9 +8,10 @@
 import UIKit
 
 protocol Picker: AnyObject {
+    associatedtype ConfigurationType: PickerConfiguration
     associatedtype CellType: PickerCell
     
-    var props: PickerStoredProperties { get set }
+    var props: PickerStoredProperties<ConfigurationType> { get set }
     
     var timeInterval: Int { get }
     
@@ -21,15 +22,15 @@ protocol Picker: AnyObject {
     func scrollToItem(at: IndexPath, at: UICollectionView.ScrollPosition, animated: Bool)
 }
 
-class PickerStoredProperties {
+class PickerStoredProperties<ConfigurationType: PickerConfiguration> {
     var infiniteScrollAnchorDate: Date?
     var dates: [Date]? = [Date]()
     var selectedDate: Date?
     var prevSelectedIndex: Int?
     var cellConfiguration: ((_ cell: UICollectionViewCell, _ isWeekend: Bool, _ isSelected: Bool) -> Void)?
-    var configuration: PickerConfiguration
+    var configuration: ConfigurationType
     
-    init(configuration: PickerConfiguration) {
+    init(configuration: ConfigurationType) {
         self.configuration = configuration
     }
 }
@@ -89,11 +90,13 @@ extension Picker {
         get { return props.selectedDate }
         
         set {
-            props.selectedDate = newValue
-
             if let date = newValue {
                 props.selectedDate = round(date: date)
             }
+            else {
+                props.selectedDate = nil
+            }
+            
             var pathsToReload = [IndexPath]()
             if let index = prevSelectedIndex {
                 pathsToReload.append(IndexPath(row: index, section: 0))
@@ -141,7 +144,7 @@ extension Picker {
         return InfiniteScrollAnchorIndex + Int(interval) / timeInterval
     }
     
-    var configuration : PickerConfiguration {
+    var configuration : ConfigurationType {
         get { return props.configuration }
         set {
             props.configuration = newValue
@@ -163,6 +166,9 @@ extension Picker {
         let date = self.date(at: indexPath)
         let isWeekendDate = isWeekday(date: date)
         let isSelectedDate = isSelected(date: date)
+        if isSelectedDate {
+            prevSelectedIndex = indexPath.row
+        }
 
         cell.setup(date: date, style: configuration.calculateStyle(isWeekend: isWeekendDate, isSelected: isSelectedDate))
         

@@ -5,11 +5,12 @@
 
 import UIKit
 
-
 class ViewController: UIViewController {
 
     @IBOutlet weak var picker: ScrollingDateAndTimePicker! {
         didSet {
+            picker.selectedDate = Date()
+
             // DatePicker
             do {
                 var dates = [Date]()
@@ -17,8 +18,8 @@ class ViewController: UIViewController {
                     dates.append(Date(timeIntervalSinceNow: Double(day * 86400)))
                 }
                 
-                picker.datePicker.dates = dates
-                picker.datePicker.selectedDate = Date()
+//                picker.dates = nil
+                picker.dates = dates
                 picker.delegate = self
 
                 var configuration = DayConfiguration()
@@ -32,7 +33,7 @@ class ViewController: UIViewController {
                 configuration.selectedDayStyle.backgroundColor = UIColor(white: 0.9, alpha: 1)
                 configuration.sizeCalculation = .numberOfVisibleItems(5)
                 
-                picker.datePicker.configuration = configuration
+                picker.dateConfiguration = configuration
             }
             
             // TimePicker
@@ -57,15 +58,15 @@ class ViewController: UIViewController {
                     offset.day = day
                     for hour in 0..<24 {
                         offset.hour = hour
-                        for minute in [0,15,30,45] {
+                        for minute in [0,30] {
                             offset.minute = minute
                             times.append(calendar.date(byAdding: offset, to: startDate)!)
                         }
                     }
                 }
                 
-                picker.timePicker.dates = times
-                picker.timePicker.selectedDate = Date()
+//                picker.times = nil
+                picker.times = times
                 picker.delegate = self
                 
                 var configuration = TimeConfiguration()
@@ -79,7 +80,7 @@ class ViewController: UIViewController {
                 configuration.selectedTimeStyle.backgroundColor = UIColor(white: 0.9, alpha: 1)
                 configuration.sizeCalculation = .numberOfVisibleItems(5)
                 
-                picker.timePicker.configuration = configuration
+                picker.timeConfiguration = configuration
             }
         }
     }
@@ -91,12 +92,12 @@ class ViewController: UIViewController {
 
         DispatchQueue.main.async {
             self.showSelectedTime()
-            self.picker.timePicker.scrollToSelectedDate(animated: false)
+            self.picker.scrollToSelectedDate(animated: false)
         }
     }
 
     fileprivate func showSelectedTime() {
-        guard let selectedTime = picker.timePicker.selectedDate else {
+        guard let selectedTime = picker.selectedDate else {
             return
         }
 
@@ -106,10 +107,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func goToCurrentTime(_ sender: UIButton) {
-        picker.datePicker.selectedDate = Date()
-        picker.timePicker.selectedDate = Date()
-        picker.datePicker.scrollToSelectedDate(animated: true)
-        picker.timePicker.scrollToSelectedDate(animated: true)
+        picker.selectedDate = Date()
+        picker.scrollToSelectedDate(animated: true)
         showSelectedTime()
     }
 
