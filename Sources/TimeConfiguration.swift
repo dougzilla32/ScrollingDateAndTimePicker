@@ -7,15 +7,8 @@
 
 import UIKit
 
-public struct TimeConfiguration {
-
-    public enum TimeSizeCalculationStrategy {
-        case constantWidth(CGFloat)
-        case numberOfVisibleItems(Int)
-    }
-    
-    public var timeSizeCalculation: TimeSizeCalculationStrategy = TimeSizeCalculationStrategy.numberOfVisibleItems(5)
-    
+public struct TimeConfiguration: PickerConfiguration {
+    public var sizeCalculation = SizeCalculationStrategy.numberOfVisibleItems(5)
     
     public var defaultTimeStyle: TimeStyleConfiguration = {
         var configuration = TimeStyleConfiguration()
@@ -50,7 +43,7 @@ public struct TimeConfiguration {
     
     // MARK: - Methods
     
-    func calculateTimeStyle(isWeekend: Bool, isSelected: Bool) -> TimeStyleConfiguration {
+    func calculateStyle(isWeekend: Bool, isSelected: Bool) -> PickerStyleConfiguration {
         var style = defaultTimeStyle
         
         if isWeekend {
@@ -66,7 +59,7 @@ public struct TimeConfiguration {
 
 }
 
-public struct TimeStyleConfiguration {
+public struct TimeStyleConfiguration: PickerStyleConfiguration {
     
     public var timeTextFont: UIFont?
     public var timeTextColor: UIColor?

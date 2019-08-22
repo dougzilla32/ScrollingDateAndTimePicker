@@ -23,6 +23,9 @@
 		915DC89E230ABB2F003D61E0 /* DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915DC89D230ABB2F003D61E0 /* DatePicker.swift */; };
 		915DC8A0230ABB3A003D61E0 /* TimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915DC89F230ABB3A003D61E0 /* TimePicker.swift */; };
 		915DC8A2230ABE43003D61E0 /* TimeConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915DC8A1230ABE43003D61E0 /* TimeConfiguration.swift */; };
+		91E71E3C230CC72800957058 /* Picker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E71E3B230CC72800957058 /* Picker.swift */; };
+		91E71E3E230CF42800957058 /* PickerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E71E3D230CF42800957058 /* PickerConfiguration.swift */; };
+		91E71E40230CF60F00957058 /* PickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E71E3F230CF60F00957058 /* PickerCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +47,9 @@
 		915DC89D230ABB2F003D61E0 /* DatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePicker.swift; sourceTree = "<group>"; };
 		915DC89F230ABB3A003D61E0 /* TimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePicker.swift; sourceTree = "<group>"; };
 		915DC8A1230ABE43003D61E0 /* TimeConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeConfiguration.swift; sourceTree = "<group>"; };
+		91E71E3B230CC72800957058 /* Picker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Picker.swift; sourceTree = "<group>"; };
+		91E71E3D230CF42800957058 /* PickerConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerConfiguration.swift; sourceTree = "<group>"; };
+		91E71E3F230CF60F00957058 /* PickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +96,9 @@
 				19C5E4D31DA013AA005663E8 /* LoadableFromXibView.swift */,
 				19C5E4D11DA012A3005663E8 /* ScrollingDateAndTimePicker.swift */,
 				19C5E4D51DA0157E005663E8 /* ScrollingDateAndTimePicker.xib */,
+				91E71E3B230CC72800957058 /* Picker.swift */,
+				91E71E3D230CF42800957058 /* PickerConfiguration.swift */,
+				91E71E3F230CF60F00957058 /* PickerCell.swift */,
 				915DC89D230ABB2F003D61E0 /* DatePicker.swift */,
 				19091B371EF80F4B00292FA9 /* DayConfiguration.swift */,
 				915DC898230A980B003D61E0 /* DayCell.swift */,
@@ -157,7 +166,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
 				LastUpgradeCheck = 1030;
-				ORGANIZATIONNAME = "Dmitry Ivanenko";
+				ORGANIZATIONNAME = "Doug Stein";
 				TargetAttributes = {
 					19C5E4BA1DA0125F005663E8 = {
 						CreatedOnToolsVersion = 8.0;
@@ -209,12 +218,15 @@
 				19C5E4C11DA0125F005663E8 /* ViewController.swift in Sources */,
 				19C5E4D41DA013AA005663E8 /* LoadableFromXibView.swift in Sources */,
 				915DC8A2230ABE43003D61E0 /* TimeConfiguration.swift in Sources */,
+				91E71E40230CF60F00957058 /* PickerCell.swift in Sources */,
 				915DC89A230A980B003D61E0 /* DayCell.swift in Sources */,
 				915DC8A0230ABB3A003D61E0 /* TimePicker.swift in Sources */,
+				91E71E3E230CF42800957058 /* PickerConfiguration.swift in Sources */,
 				19C5E4BF1DA0125F005663E8 /* AppDelegate.swift in Sources */,
 				19C5E4D91DA0189A005663E8 /* TimeCell.swift in Sources */,
 				19091B381EF80F4B00292FA9 /* DayConfiguration.swift in Sources */,
 				915DC89E230ABB2F003D61E0 /* DatePicker.swift in Sources */,
+				91E71E3C230CC72800957058 /* Picker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

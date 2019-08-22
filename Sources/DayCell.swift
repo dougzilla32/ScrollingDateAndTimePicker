@@ -6,8 +6,9 @@
 import UIKit
 
 
-open class DayCell: UICollectionViewCell {
-
+open class DayCell: UICollectionViewCell, PickerCell {
+    typealias StyleConfigurationType = DayStyleConfiguration
+    
     @IBOutlet public weak var dateLabel: UILabel!
     @IBOutlet public weak var weekDayLabel: UILabel!
     @IBOutlet public weak var monthLabel: UILabel!
@@ -17,10 +18,10 @@ open class DayCell: UICollectionViewCell {
         return String(describing: self)
     }
 
-
     // MARK: - Setup
 
-    func setup(date: Date, style: DayStyleConfiguration) {
+    func setup(date: Date, style: PickerStyleConfiguration) {
+        let style = style as! DayStyleConfiguration
         let formatter = DateFormatter()
 
         formatter.dateFormat = "dd"

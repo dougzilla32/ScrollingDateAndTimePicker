@@ -59,7 +59,7 @@ open class ScrollingDateAndTimePicker: LoadableFromXibView {
         
         DispatchQueue.main.async {
             self.datePicker.scrollToSelectedDate(animated: false)
-            self.timePicker.scrollToSelectedTime(animated: false)
+            self.timePicker.scrollToSelectedDate(animated: false)
         }
     }
 }

@@ -30,7 +30,7 @@ class ViewController: UIViewController {
                 
                 // selected date customization
                 configuration.selectedDayStyle.backgroundColor = UIColor(white: 0.9, alpha: 1)
-                configuration.daySizeCalculation = .numberOfVisibleItems(5)
+                configuration.sizeCalculation = .numberOfVisibleItems(5)
                 
                 picker.datePicker.configuration = configuration
             }
@@ -64,8 +64,8 @@ class ViewController: UIViewController {
                     }
                 }
                 
-                picker.timePicker.times = times
-                picker.timePicker.selectedTime = Date()
+                picker.timePicker.dates = times
+                picker.timePicker.selectedDate = Date()
                 picker.delegate = self
                 
                 var configuration = TimeConfiguration()
@@ -77,7 +77,7 @@ class ViewController: UIViewController {
                 
                 // selected time customization
                 configuration.selectedTimeStyle.backgroundColor = UIColor(white: 0.9, alpha: 1)
-                configuration.timeSizeCalculation = .numberOfVisibleItems(5)
+                configuration.sizeCalculation = .numberOfVisibleItems(5)
                 
                 picker.timePicker.configuration = configuration
             }
@@ -91,12 +91,12 @@ class ViewController: UIViewController {
 
         DispatchQueue.main.async {
             self.showSelectedTime()
-            self.picker.timePicker.scrollToSelectedTime(animated: false)
+            self.picker.timePicker.scrollToSelectedDate(animated: false)
         }
     }
 
     fileprivate func showSelectedTime() {
-        guard let selectedTime = picker.timePicker.selectedTime else {
+        guard let selectedTime = picker.timePicker.selectedDate else {
             return
         }
 
@@ -107,9 +107,9 @@ class ViewController: UIViewController {
     
     @IBAction func goToCurrentTime(_ sender: UIButton) {
         picker.datePicker.selectedDate = Date()
-        picker.timePicker.selectedTime = Date()
+        picker.timePicker.selectedDate = Date()
         picker.datePicker.scrollToSelectedDate(animated: true)
-        picker.timePicker.scrollToSelectedTime(animated: true)
+        picker.timePicker.scrollToSelectedDate(animated: true)
         showSelectedTime()
     }
 

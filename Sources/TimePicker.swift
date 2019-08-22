@@ -5,116 +5,66 @@
 //  Created by Doug on 8/19/19.
 //
 
-import Foundation
 import UIKit
 
-public class TimePicker: UICollectionView {
-    public var times = [Date]() {
-        didSet {
-            reloadData()
-        }
-    }
+public class TimePicker: UICollectionView, Picker {
+    private static let MinuteGranularity = 30
     
-    public var selectedTime: Date? {
-        didSet {
-            reloadData()
-        }
-    }
-
-    public weak var timeDelegate: ScrollingDateAndTimePickerDelegate?
+    typealias CellType = TimeCell
     
-    public var cellConfiguration: ((_ cell: TimeCell, _ isWeekend: Bool, _ isSelected: Bool) -> Void)? {
-        didSet {
-            reloadData()
-        }
-    }
-
-    public func scrollToSelectedTime(animated: Bool) {
-        guard let index = times.firstIndex(where: isSelected) else {
-            return
-        }
+    var props = PickerStoredProperties(configuration: TimeConfiguration())
+    
+    var timeInterval = 900
+    
+    weak var timeDelegate: ScrollingDateAndTimePickerDelegate?
+    
+    // Derived from https://stackoverflow.com/a/42626860/5468406
+    func round(date: Date) -> Date {
+        // Find current date and date components
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: date)
+        let minute = calendar.component(.minute, from: date)
         
-        scrollToItem(at: IndexPath(item: index, section: 0), at: .centeredHorizontally, animated: animated)
-        reloadData()
-    }
-
-    public var configuration = TimeConfiguration() {
-        didSet {
-            reloadData()
+        // Round to nearest 'MinuteGranuity':
+        let modMinute = minute % TimePicker.MinuteGranularity
+        let roundedMinute = minute - modMinute
+        
+        var roundedDate = calendar.date(bySettingHour: hour, minute: roundedMinute, second: 0, of: date)!
+        if modMinute >= TimePicker.MinuteGranularity / 2 {
+            roundedDate = calendar.date(byAdding: .minute, value: TimePicker.MinuteGranularity, to: roundedDate)!
         }
+        return roundedDate
+    }
+    
+    func didSelect(date: Date) {
+        timeDelegate?.timepicker(self, didSelectTime: date)
     }
 }
 
 // MARK: - UICollectionViewDataSource
 
 extension TimePicker: UICollectionViewDataSource {
-    
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return times.count
+        return pickerCollectionView(collectionView, numberOfItemsInSection: section)
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TimeCell.ClassName, for: indexPath) as! TimeCell
-        
-        let time = times[indexPath.row]
-        let isWeekendTime = isWeekend(time: time)
-        let isSelectedTime = isSelected(time: time)
-        
-        cell.setup(time: time, style: configuration.calculateTimeStyle(isWeekend: isWeekendTime, isSelected: isSelectedTime))
-        
-        if let configuration = cellConfiguration {
-            configuration(cell, isWeekendTime, isSelectedTime)
-        }
-        
-        return cell
+        return pickerCollectionView(collectionView, cellForItemAt: indexPath)
     }
-    
-    private func isWeekend(time: Date) -> Bool {
-        return Calendar.current.isDateInWeekend(time)
-    }
-    
-    private func isSelected(time: Date) -> Bool {
-        guard let selectedTime = selectedTime else {
-            return false
-        }
-        return time == selectedTime
-        // return Calendar.current.isDate(time, inSameDayAs: selectedTime)
-    }
-    
 }
-
 
 // MARK: - UICollectionViewDelegate
 
 extension TimePicker: UICollectionViewDelegate {
-    
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: true)
-        
-        let time = times[indexPath.row]
-        selectedTime = time
-        timeDelegate?.timepicker(self, didSelectTime: time)
-        scrollToSelectedTime(animated: true)
+        pickerCollectionView(collectionView, didSelectItemAt: indexPath)
     }
-    
 }
-
 
 // MARK: - UICollectionViewDelegateFlowLayout
 
 extension TimePicker: UICollectionViewDelegateFlowLayout {
-    
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let itemWidth: CGFloat
-        switch configuration.timeSizeCalculation {
-        case .constantWidth(let width):
-            itemWidth = width
-            break
-        case .numberOfVisibleItems(let count):
-            itemWidth = collectionView.frame.width / CGFloat(count)
-            break
-        }
-        return CGSize(width: itemWidth, height: collectionView.frame.height)
+        return pickerCollectionView(collectionView, layout: collectionViewLayout, sizeForItemAt: indexPath)
     }
-    
 }

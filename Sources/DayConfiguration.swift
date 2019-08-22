@@ -6,15 +6,8 @@
 import UIKit
 
 
-public struct DayConfiguration {
-
-    public enum DaySizeCalculationStrategy {
-        case constantWidth(CGFloat)
-        case numberOfVisibleItems(Int)
-    }
-
-    public var daySizeCalculation: DaySizeCalculationStrategy = DaySizeCalculationStrategy.numberOfVisibleItems(5)
-
+public struct DayConfiguration: PickerConfiguration {
+    public var sizeCalculation = SizeCalculationStrategy.numberOfVisibleItems(5)
 
     // MARK: - Styles
 
@@ -55,7 +48,7 @@ public struct DayConfiguration {
 
     // MARK: - Methods
 
-    func calculateDayStyle(isWeekend: Bool, isSelected: Bool) -> DayStyleConfiguration {
+    func calculateStyle(isWeekend: Bool, isSelected: Bool) -> PickerStyleConfiguration {
         var style = defaultDayStyle
 
         if isWeekend {
@@ -70,7 +63,7 @@ public struct DayConfiguration {
     }
 }
 
-public struct DayStyleConfiguration {
+public struct DayStyleConfiguration: PickerStyleConfiguration {
     
     public var dateTextFont: UIFont?
     public var dateTextColor: UIColor?
