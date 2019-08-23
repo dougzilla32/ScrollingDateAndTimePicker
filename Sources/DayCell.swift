@@ -5,9 +5,7 @@
 
 import UIKit
 
-
-open class DayCell: UICollectionViewCell, PickerCell {
-    typealias StyleConfigurationType = DayStyleConfiguration
+class DayCell: PickerCell {
     
     @IBOutlet public weak var dateLabel: UILabel!
     @IBOutlet public weak var weekDayLabel: UILabel!
@@ -20,7 +18,7 @@ open class DayCell: UICollectionViewCell, PickerCell {
 
     // MARK: - Setup
 
-    func setup(date: Date, style: PickerStyleConfiguration) {
+    override func setup(date: Date, style: PickerStyleConfiguration) {
         let style = style as! DayStyleConfiguration
         let formatter = DateFormatter()
 

@@ -6,8 +6,7 @@
 import UIKit
 
 
-open class TimeCell: UICollectionViewCell, PickerCell {
-    typealias StyleConfigurationType = TimeStyleConfiguration
+class TimeCell: PickerCell {
 
     @IBOutlet public weak var timeLabel: UILabel!
     @IBOutlet public weak var amPmLabel: UILabel!
@@ -20,7 +19,7 @@ open class TimeCell: UICollectionViewCell, PickerCell {
 
     // MARK: - Setup
 
-    func setup(date: Date, style: PickerStyleConfiguration) {
+    override func setup(date: Date, style: PickerStyleConfiguration) {
         let style = style as! TimeStyleConfiguration
         let formatter = DateFormatter()
 

@@ -8,10 +8,7 @@
 
 import UIKit
 
-protocol PickerCell: UICollectionViewCell {
-    associatedtype StyleConfigurationType: PickerStyleConfiguration
-
-    static var ClassName: String { get }
+class PickerCell: UICollectionViewCell {
     
-    func setup(date: Date, style: PickerStyleConfiguration)
+    func setup(date: Date, style: PickerStyleConfiguration) { fatalError() }
 }

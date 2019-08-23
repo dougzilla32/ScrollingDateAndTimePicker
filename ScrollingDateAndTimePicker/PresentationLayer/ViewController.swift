@@ -118,11 +118,11 @@ class ViewController: UIViewController {
 // MARK: - ScrollingDateAndTimePickerDelegate
 
 extension ViewController: ScrollingDateAndTimePickerDelegate {
-    func datepicker(_ datepicker: DatePicker, didSelectDate date: Date) {
+    func datepicker(_ datepicker: ScrollingDateAndTimePicker, didSelectDate date: Date) {
         showSelectedTime()
     }
     
-    func timepicker(_ timepicker: TimePicker, didSelectTime time: Date) {
+    func timepicker(_ timepicker: ScrollingDateAndTimePicker, didSelectTime time: Date) {
         showSelectedTime()
     }
 }

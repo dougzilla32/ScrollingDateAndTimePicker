@@ -7,19 +7,15 @@
 
 import UIKit
 
-public class TimePicker: UICollectionView, Picker {
+class TimePicker: Picker {
     private static let MinuteGranularity = 30
     
-    typealias CellType = TimeCell
-    
-    var props = PickerStoredProperties(configuration: TimeConfiguration())
-    
-    var timeInterval = TimePicker.MinuteGranularity * 60
+    override var timeInterval: Int {
+        return TimePicker.MinuteGranularity * 60
+    }
 
-    weak var timeDelegate: ScrollingDateAndTimePickerDelegate?
-    
     // Derived from https://stackoverflow.com/a/42626860/5468406
-    func round(date: Date) -> Date {
+    override func round(date: Date) -> Date {
         // Find current date and date components
         let calendar = Calendar.current
         let hour = calendar.component(.hour, from: date)
@@ -36,35 +32,11 @@ public class TimePicker: UICollectionView, Picker {
         return roundedDate
     }
     
-    func didSelect(date: Date) {
-        timeDelegate?.timepicker(self, didSelectTime: date)
-    }
-}
-
-// MARK: - UICollectionViewDataSource
-
-extension TimePicker: UICollectionViewDataSource {
-    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return pickerCollectionView(collectionView, numberOfItemsInSection: section)
+    override func didSelect(date: Date) {
+        pickerDelegate?.timepicker(parent, didSelectTime: date)
     }
     
-    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return pickerCollectionView(collectionView, cellForItemAt: indexPath)
-    }
-}
-
-// MARK: - UICollectionViewDelegate
-
-extension TimePicker: UICollectionViewDelegate {
-    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        pickerCollectionView(collectionView, didSelectItemAt: indexPath)
-    }
-}
-
-// MARK: - UICollectionViewDelegateFlowLayout
-
-extension TimePicker: UICollectionViewDelegateFlowLayout {
-    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return pickerCollectionView(collectionView, layout: collectionViewLayout, sizeForItemAt: indexPath)
+    override func dequeueReusableCell(_ collectionView: UICollectionView, for indexPath: IndexPath) -> PickerCell {
+        return collectionView.dequeueReusableCell(withReuseIdentifier: TimeCell.ClassName, for: indexPath) as! TimeCell
     }
 }
