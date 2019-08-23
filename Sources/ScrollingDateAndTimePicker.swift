@@ -14,6 +14,22 @@ public protocol ScrollingDateAndTimePickerDelegate: class {
 
 
 open class ScrollingDateAndTimePicker: LoadableFromXibView {
+
+    @IBOutlet weak var selectorBackground: UIView!
+    @IBOutlet weak var selectorBackgroundWidth: NSLayoutConstraint!
+    @IBOutlet weak var selectorBar: UIView!
+    @IBOutlet weak var selectorBarWidth: NSLayoutConstraint!
+    
+    public var continuousSelection: Bool = true {
+        didSet {
+            if continuousSelection {
+                selectorBackground.isHidden = false
+            }
+            else {
+                selectorBackground.isHidden = true
+            }
+        }
+    }
     
     public var dates: [Date]? {
         get { return datePicker.dates }
@@ -96,6 +112,10 @@ open class ScrollingDateAndTimePicker: LoadableFromXibView {
     }
 
     open override func layoutSubviews() {
+        let size = dateConfiguration.sizeCalculation.calculateItemSize(frame: self.frame)
+        selectorBarWidth.constant = size.width
+        selectorBackgroundWidth.constant = size.width
+
         super.layoutSubviews()
         datePicker.reloadData()
         timePicker.reloadData()
@@ -104,14 +124,5 @@ open class ScrollingDateAndTimePicker: LoadableFromXibView {
             self.datePicker.scrollToSelectedDate(animated: false)
             self.timePicker.scrollToSelectedDate(animated: false)
         }
-
-//        switch configuration.daySizeCalculation {
-//        case .constantWidth(let width):
-//            itemWidth = width
-//            break
-//        case .numberOfVisibleItems(let count):
-//            itemWidth = collectionView.frame.width / CGFloat(count)
-//            break
-//        }
     }
 }

@@ -208,16 +208,6 @@ extension Picker: UICollectionViewDelegate {
 extension Picker: UICollectionViewDelegateFlowLayout {
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        return CGSize(width: 50.0, height: 50.0)
-        let itemWidth: CGFloat
-        switch configuration.sizeCalculation {
-        case .constantWidth(let width):
-            itemWidth = width
-            break
-        case .numberOfVisibleItems(let count):
-            itemWidth = collectionView.frame.width / CGFloat(count)
-            break
-        }
-        return CGSize(width: itemWidth, height: collectionView.frame.height)
+        return configuration.sizeCalculation.calculateItemSize(frame: collectionView.frame)
     }
  }

@@ -8,8 +8,8 @@
 import UIKit
 
 public struct TimeConfiguration: PickerConfiguration {
-    public var sizeCalculation = SizeCalculationStrategy.numberOfVisibleItems(5)
-    
+    public var sizeCalculation = SizeCalculationStrategy.adjustedWidth(80)
+
     public var defaultTimeStyle: TimeStyleConfiguration = {
         var configuration = TimeStyleConfiguration()
         
@@ -23,21 +23,17 @@ public struct TimeConfiguration: PickerConfiguration {
         configuration.weekDayTextColor = .gray
         
         configuration.selectorColor = .clear
-        configuration.backgroundColor = .white
+        configuration.backgroundColor = .clear
         
         return configuration
     }()
     
     public var weekendTimeStyle: TimeStyleConfiguration = {
-        var configuration = TimeStyleConfiguration()
-        configuration.amPmTextFont = .systemFont(ofSize: 8, weight: UIFont.Weight.bold)
-        return configuration
+        return TimeStyleConfiguration()
     }()
     
     public var selectedTimeStyle: TimeStyleConfiguration = {
-        var configuration = TimeStyleConfiguration()
-        configuration.selectorColor = UIColor(red: 242.0/255.0, green: 93.0/255.0, blue: 28.0/255.0, alpha: 1.0)
-        return configuration
+        return TimeStyleConfiguration()
     }()
     
     

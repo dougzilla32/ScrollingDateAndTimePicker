@@ -7,7 +7,7 @@ import UIKit
 
 
 public struct DayConfiguration: PickerConfiguration {
-    public var sizeCalculation = SizeCalculationStrategy.numberOfVisibleItems(5)
+    public var sizeCalculation = SizeCalculationStrategy.adjustedWidth(80)
 
     // MARK: - Styles
 
@@ -24,7 +24,7 @@ public struct DayConfiguration: PickerConfiguration {
         configuration.monthTextColor = .gray
         
         configuration.selectorColor = .clear
-        configuration.backgroundColor = .white
+        configuration.backgroundColor = .clear
         
         return configuration
     }()
@@ -36,9 +36,7 @@ public struct DayConfiguration: PickerConfiguration {
     }()
     
     public var selectedDayStyle: DayStyleConfiguration = {
-        var configuration = DayStyleConfiguration()
-        configuration.selectorColor = UIColor(red: 242.0/255.0, green: 93.0/255.0, blue: 28.0/255.0, alpha: 1.0)
-        return configuration
+        return DayStyleConfiguration()
     }()
     
     // MARK: - Initializer

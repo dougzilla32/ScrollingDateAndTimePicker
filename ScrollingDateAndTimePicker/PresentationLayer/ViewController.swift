@@ -6,19 +6,27 @@
 import UIKit
 
 class ViewController: UIViewController {
+    let continuousSelection = true
+    let infiniteScrolling = true
 
     @IBOutlet weak var picker: ScrollingDateAndTimePicker! {
         didSet {
+            picker.continuousSelection = continuousSelection
             picker.selectedDate = Date()
 
             // DatePicker
             do {
-                var dates = [Date]()
-                for day in -15...15 {
-                    dates.append(Date(timeIntervalSinceNow: Double(day * 86400)))
+                var dates: [Date]!
+                if infiniteScrolling {
+                    dates = nil
+                }
+                else {
+                    dates = [Date]()
+                    for day in -15...15 {
+                        dates.append(Date(timeIntervalSinceNow: Double(day * 86400)))
+                    }
                 }
                 
-//                picker.dates = nil
                 picker.dates = dates
                 picker.delegate = self
 
@@ -30,55 +38,57 @@ class ViewController: UIViewController {
                 configuration.weekendDayStyle.weekDayTextColor = UIColor(red: 242.0/255.0, green: 93.0/255.0, blue: 28.0/255.0, alpha: 1.0)
                 
                 // selected date customization
-                configuration.selectedDayStyle.backgroundColor = UIColor(white: 0.9, alpha: 1)
-                configuration.sizeCalculation = .numberOfVisibleItems(5)
+                if !continuousSelection {
+                    configuration.selectedDayStyle.backgroundColor = UIColor(white: 0.9, alpha: 1)
+                }
                 
                 picker.dateConfiguration = configuration
             }
             
             // TimePicker
             do {
-                var times = [Date]()
-                
-                let now = Date()
-                let calendar = Calendar.current
-                
-                var startOfToday = DateComponents()
-                startOfToday.year = calendar.component(.year, from: now)
-                startOfToday.month = calendar.component(.month, from: now)
-                startOfToday.day = calendar.component(.day, from: now)
-                startOfToday.timeZone = TimeZone.current
-                startOfToday.hour = 0
-                startOfToday.minute = 0
-                
-                let startDate = calendar.date(from: startOfToday)!
-                var offset = DateComponents()
-                
-                for day in -14...14 {
-                    offset.day = day
-                    for hour in 0..<24 {
-                        offset.hour = hour
-                        for minute in [0,30] {
-                            offset.minute = minute
-                            times.append(calendar.date(byAdding: offset, to: startDate)!)
+                var times: [Date]!
+                if infiniteScrolling {
+                    times = nil
+                }
+                else {
+                    times = [Date]()
+                    
+                    let now = Date()
+                    let calendar = Calendar.current
+                    
+                    var startOfToday = DateComponents()
+                    startOfToday.year = calendar.component(.year, from: now)
+                    startOfToday.month = calendar.component(.month, from: now)
+                    startOfToday.day = calendar.component(.day, from: now)
+                    startOfToday.timeZone = TimeZone.current
+                    startOfToday.hour = 0
+                    startOfToday.minute = 0
+                    
+                    let startDate = calendar.date(from: startOfToday)!
+                    var offset = DateComponents()
+                    
+                    for day in -14...14 {
+                        offset.day = day
+                        for hour in 0..<24 {
+                            offset.hour = hour
+                            for minute in [0,30] {
+                                offset.minute = minute
+                                times.append(calendar.date(byAdding: offset, to: startDate)!)
+                            }
                         }
                     }
                 }
                 
-//                picker.times = nil
                 picker.times = times
                 picker.delegate = self
                 
                 var configuration = TimeConfiguration()
                 
-                // weekend customization
-                configuration.weekendTimeStyle.timeTextColor = UIColor(red: 242.0/255.0, green: 93.0/255.0, blue: 28.0/255.0, alpha: 1.0)
-                configuration.weekendTimeStyle.timeTextFont = UIFont.boldSystemFont(ofSize: 20)
-                configuration.weekendTimeStyle.amPmTextColor = UIColor(red: 242.0/255.0, green: 93.0/255.0, blue: 28.0/255.0, alpha: 1.0)
-                
                 // selected time customization
-                configuration.selectedTimeStyle.backgroundColor = UIColor(white: 0.9, alpha: 1)
-                configuration.sizeCalculation = .numberOfVisibleItems(5)
+                if !continuousSelection {
+                    configuration.selectedTimeStyle.backgroundColor = UIColor(white: 0.9, alpha: 1)
+                }
                 
                 picker.timeConfiguration = configuration
             }
