@@ -8,7 +8,11 @@
 import UIKit
 
 class TimePicker: Picker {
-    private static let MinuteGranularity = 30
+    static let MinuteGranularity = 30
+    
+    override var infiniteScrollCount: Int {
+        return DatePicker.InfiniteScrollCount * (24 * 60 / TimePicker.MinuteGranularity)
+    }
     
     override var timeInterval: Int {
         return TimePicker.MinuteGranularity * 60
@@ -33,10 +37,35 @@ class TimePicker: Picker {
     }
     
     override func didSelect(date: Date) {
+        if let datePicker = parent?.datePicker {
+            if datePicker.selectedDate != datePicker.round(date: date) {
+                datePicker.selectedDate = date
+                datePicker.scrollToSelectedDate(animated: !datePicker.isScrolling)
+            }
+            else {
+                datePicker.scrollToSelectedDate(animated: false)
+            }
+        }
         pickerDelegate?.timepicker(parent, didSelectTime: date)
     }
     
     override func dequeueReusableCell(_ collectionView: UICollectionView, for indexPath: IndexPath) -> PickerCell {
         return collectionView.dequeueReusableCell(withReuseIdentifier: TimeCell.ClassName, for: indexPath) as! TimeCell
+    }
+
+    override public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        super.scrollViewWillBeginDragging(scrollView)
+        parent?.datePicker.scrollToSelectedDate(animated: false)
+    }
+
+    var day: Date? {
+        didSet {
+            if let day = self.day,
+                day != oldValue,
+                let time = self.selectedDate {
+                let timeRoundedToDay = Calendar.current.startOfDay(for: time)
+                self.selectedDate = time.addingTimeInterval(day.timeIntervalSince(timeRoundedToDay))
+            }
+        }
     }
 }

@@ -7,19 +7,12 @@
 
 import UIKit
 
-// From https://stackoverflow.com/a/46354989/5468406
-public extension Array where Element: Hashable {
-    func uniqued() -> [Element] {
-        var seen = Set<Element>()
-        return filter{ seen.insert($0).inserted }
-    }
-}
-
 class Picker: UICollectionView {
     
     // MARK: - subclasses must override these
     
-    var timeInterval: Int { get { fatalError() } }
+    var infiniteScrollCount: Int { fatalError() }
+    var timeInterval: Int { fatalError() }
     func round(date: Date) -> Date { fatalError() }
     func didSelect(date: Date) { fatalError() }
     func dequeueReusableCell(_: UICollectionView, for: IndexPath) -> PickerCell { fatalError() }
@@ -29,15 +22,18 @@ class Picker: UICollectionView {
     weak var parent: ScrollingDateAndTimePicker!
     weak var pickerDelegate: ScrollingDateAndTimePickerDelegate!
 
-    private var InfiniteScrollCount: Int { return 1500 }
-    private var InfiniteScrollAnchorIndex: Int { return InfiniteScrollCount / 3 }
+    var isScrolling = false
+    var isScrollAnimatingFromUser = false
+    private var infiniteScrollAnchorIndex: Int { return infiniteScrollCount / 3 }
 
     private lazy var infiniteScrollAnchorDate: Date? = {
         return round(date: Date())
     }()
 
     private var centerItem: Int?
-    private var itemWidth: CGFloat!
+    private var cachedFrameWidth: CGFloat!
+    private var cachedItemWidth: CGFloat!
+    private var scrollEndWorkItem: DispatchWorkItem?
 
     var dates: [Date]? {
         didSet {
@@ -61,16 +57,23 @@ class Picker: UICollectionView {
             if let date = self.selectedDate {
                 self.selectedDate = round(date: date)
             }
+            guard self.selectedDate != oldValue else {
+                return
+            }
             
-            var pathsToReload = [IndexPath]()
-            if let index = prevSelectedIndex {
-                pathsToReload.append(IndexPath(row: index, section: 0))
+            // Only need to redraw the selected and deselected item for
+            // manual selection (i.e. non-continuous selection)
+            if !(parent?.continuousSelection ?? true) {
+                var pathsToReload = [IndexPath]()
+                if let index = prevSelectedIndex {
+                    pathsToReload.append(IndexPath(row: index, section: 0))
+                }
+                if let index = selectedIndex {
+                    pathsToReload.append(IndexPath(row: index, section: 0))
+                    prevSelectedIndex = index
+                }
+                reloadItemsNoAnimation(at: pathsToReload)
             }
-            if let index = selectedIndex {
-                pathsToReload.append(IndexPath(row: index, section: 0))
-                prevSelectedIndex = index
-            }
-            reloadItemsNoAnimation(at: pathsToReload)
         }
     }
     
@@ -87,10 +90,21 @@ class Picker: UICollectionView {
         UIView.setAnimationsEnabled(animationsEnabled)
     }
 
-    func date(at indexPath: IndexPath) -> Date {
-        return dates?[indexPath.row]
+    func date(at index: Int) -> Date {
+        return dates?[index]
             ?? infiniteScrollAnchorDate!.addingTimeInterval(
-                TimeInterval((indexPath.row - InfiniteScrollAnchorIndex) * timeInterval))
+                TimeInterval((index - infiniteScrollAnchorIndex) * timeInterval))
+    }
+    
+    func index(of date: Date) -> Int? {
+        let index: Int?
+        if let dates = dates {
+            index = dates.firstIndex(of: date)
+        }
+        else {
+            index = infiniteScrollAnchorIndex + Int(date.timeIntervalSince(infiniteScrollAnchorDate!)) / timeInterval
+        }
+        return index
     }
 
     var selectedIndex: Int? {
@@ -104,7 +118,7 @@ class Picker: UICollectionView {
             return nil
         }
         let interval = date.timeIntervalSince(anchor)
-        return InfiniteScrollAnchorIndex + Int(interval) / timeInterval
+        return infiniteScrollAnchorIndex + Int(interval) / timeInterval
     }
     
     var configuration: PickerConfiguration! {
@@ -114,12 +128,46 @@ class Picker: UICollectionView {
     }
     
     func scrollToSelectedDate(animated: Bool) {
-        guard let index = selectedIndex else {
-            return
+        if let index = selectedIndex, index >= 0, index < self.numberOfItems(inSection: 0) {
+            cancelScroll()
+            scrollToItem(at: IndexPath(item: index, section: 0), at: .centeredHorizontally, animated: animated)
+            cancelScroll()
         }
-        
-        scrollToItem(at: IndexPath(item: index, section: 0), at: .centeredHorizontally, animated: animated)
-//        reloadData()
+    }
+    
+    func scrollTo(_ date: Date, animated: Bool) {
+        if let index = self.index(of: date), index >= 0, index < self.numberOfItems(inSection: 0) {
+            cancelScroll()
+            scrollToItem(at: IndexPath(item: index, section: 0), at: .centeredHorizontally, animated: animated)
+            cancelScroll()
+        }
+    }
+    
+    private func cancelScroll() {
+        // Ensure that 'scrollViewDidEndScrollingAnimation' is always called
+        // From https://stackoverflow.com/a/1857162/5468406
+        self.isScrolling = false
+        self.isScrollAnimatingFromUser = false
+        scrollEndWorkItem?.cancel()
+        scrollEndWorkItem = nil
+    }
+    
+    open override func layoutSubviews() {
+        let itemSize: CGSize
+        if let w = cachedItemWidth, frame.width == cachedFrameWidth {
+            itemSize = CGSize(width: w, height: frame.height)
+        }
+        else {
+            itemSize = configuration.sizeCalculation.calculateItemSize(frame: frame)
+            cachedFrameWidth = frame.width
+            cachedItemWidth = itemSize.width
+        }
+        let layout = self.collectionViewLayout as! UICollectionViewFlowLayout
+        if itemSize != layout.itemSize {
+            layout.itemSize = itemSize
+        }
+
+        super.layoutSubviews()
     }
 }
 
@@ -128,18 +176,17 @@ class Picker: UICollectionView {
 extension Picker: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dates?.count ?? InfiniteScrollCount
+        return dates?.count ?? infiniteScrollCount
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellType.ClassName, for: indexPath) as! CellType
         let cell = dequeueReusableCell(collectionView, for: indexPath)
 
-        let date = self.date(at: indexPath)
+        let date = self.date(at: indexPath.item)
         let isWeekendDate = isWeekday(date: date)
         let isSelectedDate = isSelected(date: date)
         if isSelectedDate {
-            prevSelectedIndex = indexPath.row
+            prevSelectedIndex = indexPath.item
         }
 
         cell.setup(date: date, style: configuration.calculateStyle(isWeekend: isWeekendDate, isSelected: isSelectedDate))
@@ -168,46 +215,96 @@ extension Picker: UICollectionViewDelegate {
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         
-        let date = self.date(at: indexPath)
-        selectedDate = date
-        didSelect(date: date)
-        scrollToSelectedDate(animated: true)
-    }
-
-    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let itemWidth = scrollView.frame.width / CGFloat(5)
-        let midLocationX = scrollView.contentOffset.x + (scrollView.frame.width / 2.0)
-        let item = Int(midLocationX / itemWidth)
-//        print("scrollView.contentOffset \(scrollView.contentOffset)")
-//        print("  itemWidth \(itemWidth)")
-//        print("  midLocationX \(midLocationX)")
-        if item != centerItem {
-            // ToDo: select the center item
-            centerItem = item
-//            print("centerItem: \(item)")
+        let date = self.date(at: indexPath.item)
+        if !(parent?.continuousSelection ?? true) {
+            selectedDate = date
+            didSelect(date: date)
+            scrollToSelectedDate(animated: true)
+        }
+        else {
+            scrollTo(date, animated: true)
         }
     }
     
+    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        self.isScrolling = true
+        self.isScrollAnimatingFromUser = false
+        centerItem = nil
+    }
+    
     public func scrollViewWillEndDragging(_ scrollView: UIScrollView,
-                                                withVelocity velocity: CGPoint,
-                                                targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        // ToDo: overshoots slightly
-        let itemWidth = scrollView.frame.width / CGFloat(5)
-        let halfFrame = scrollView.frame.width / 2.0
+                                          withVelocity velocity: CGPoint,
+                                          targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        self.isScrolling = true
+        self.isScrollAnimatingFromUser = true
+        guard let itemWidth = cachedItemWidth, let frameWidth = cachedFrameWidth else {
+            return
+        }
+        let halfFrame = frameWidth / 2.0
         let midLocationX = targetContentOffset.pointee.x + halfFrame
-        let itemOffset = velocity.x > 0 ? (itemWidth / 2.0) : -(itemWidth / 2.0)
+        let itemOffset: CGFloat
+        if velocity.x > 0 {
+            itemOffset = itemWidth / 2.0
+        }
+        else if velocity.x < 0 {
+            itemOffset = -(itemWidth / 2.0)
+        }
+        else {
+            itemOffset = 0.0
+        }
         let item = Int((midLocationX + itemOffset) / itemWidth)
         
         targetContentOffset.pointee.x = CGFloat(item) * itemWidth + itemWidth / 2 - halfFrame
     }
+    
+    
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if !self.isScrolling { return }
+
+        // Ensure that 'scrollViewDidEndScrollingAnimation' is always called
+        // From https://stackoverflow.com/a/1857162/5468406
+        scrollEndWorkItem?.cancel()
+        let workItem = DispatchWorkItem {
+            self.scrollViewDidEndScrollingAnimation(scrollView)
+        }
+        scrollEndWorkItem = workItem
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: workItem)
+        
+        // Continuous selection
+        guard parent?.continuousSelection ?? false, let itemWidth = cachedItemWidth, let frameWidth = cachedFrameWidth else {
+            return
+        }
+        let midLocationX = scrollView.contentOffset.x + frameWidth / 2.0
+        let item = Int(midLocationX / itemWidth)
+        if item != centerItem {
+            centerItem = item
+            let date = self.date(at: item)
+            if date != selectedDate {
+                selectedDate = date
+                didSelect(date: date)
+            }
+        }
+    }
+
+    public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        if !isScrollAnimatingFromUser { return }
+        
+        cancelScroll()
+
+        // Scroll to the 'centerItem'
+        if let item = centerItem, item >= 0, item < numberOfItems(inSection: 0) {
+            centerItem = nil
+            self.scrollToItem(at: IndexPath(item: item, section: 0),
+                              at: .centeredHorizontally,
+                              animated: true)
+        }
+    }
 }
 
-
-// MARK: - UICollectionViewDelegateFlowLayout
-
-extension Picker: UICollectionViewDelegateFlowLayout {
-    
-    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return configuration.sizeCalculation.calculateItemSize(frame: collectionView.frame)
+// From https://stackoverflow.com/a/46354989/5468406
+public extension Array where Element: Hashable {
+    func uniqued() -> [Element] {
+        var seen = Set<Element>()
+        return filter{ seen.insert($0).inserted }
     }
- }
+}

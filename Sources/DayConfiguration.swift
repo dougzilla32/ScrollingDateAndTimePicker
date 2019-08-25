@@ -39,11 +39,6 @@ public struct DayConfiguration: PickerConfiguration {
         return DayStyleConfiguration()
     }()
     
-    // MARK: - Initializer
-    public init() {
-    }
-
-
     // MARK: - Methods
 
     func calculateStyle(isWeekend: Bool, isSelected: Bool) -> PickerStyleConfiguration {
