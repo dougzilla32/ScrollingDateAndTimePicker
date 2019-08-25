@@ -37,14 +37,9 @@ class TimePicker: Picker {
     }
     
     override func didSelect(date: Date) {
-        if let datePicker = parent?.datePicker {
-            if datePicker.selectedDate != datePicker.round(date: date) {
-                datePicker.selectedDate = date
-                datePicker.scrollToSelectedDate(animated: !datePicker.isScrolling)
-            }
-            else {
-                datePicker.scrollToSelectedDate(animated: false)
-            }
+        if let datePicker = parent?.datePicker, datePicker.selectedDate != datePicker.round(date: date) {
+            datePicker.selectedDate = date
+            datePicker.scrollToSelectedDate(animated: !datePicker.isScrolling)
         }
         pickerDelegate?.timepicker(parent, didSelectTime: date)
     }

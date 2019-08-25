@@ -23,7 +23,7 @@ class TimeCell: PickerCell {
         let style = style as! TimeStyleConfiguration
         let formatter = DateFormatter()
 
-        formatter.dateFormat = "H:mm"
+        formatter.dateFormat = "h:mm"
         timeLabel.text = formatter.string(from: date)
         timeLabel.font = style.timeTextFont ?? timeLabel.font
         timeLabel.textColor = style.timeTextColor ?? timeLabel.textColor
