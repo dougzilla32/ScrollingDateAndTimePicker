@@ -7,6 +7,8 @@ import UIKit
 
 
 public struct DayConfiguration: PickerConfiguration {
+    public init() { }
+    
     public var sizeCalculation = SizeCalculationStrategy.adjustedWidth(80)
 
     // MARK: - Styles

@@ -8,6 +8,8 @@
 import UIKit
 
 public struct TimeConfiguration: PickerConfiguration {
+    public init() { }
+    
     public var sizeCalculation = SizeCalculationStrategy.adjustedWidth(80)
 
     public var defaultTimeStyle: TimeStyleConfiguration = {
