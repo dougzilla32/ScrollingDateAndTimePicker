@@ -32,9 +32,7 @@ public struct DayConfiguration: PickerConfiguration {
     }()
     
     public var weekendDayStyle: DayStyleConfiguration = {
-        var configuration = DayStyleConfiguration()
-        configuration.weekDayTextFont = .systemFont(ofSize: 8, weight: UIFont.Weight.bold)
-        return configuration
+        return DayStyleConfiguration()
     }()
     
     public var selectedDayStyle: DayStyleConfiguration = {
