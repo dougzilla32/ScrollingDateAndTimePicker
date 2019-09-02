@@ -24,10 +24,12 @@ class DatePicker: Picker {
     }
 
     override func didSelect(date: Date) {
+        var date = date
         // Adjust timepicker according to new datepicker selection
         if let timePicker = parent?.timePicker {
             timePicker.day = date
             timePicker.scrollToSelectedDate(animated: false)
+            date = timePicker.selectedDate ?? date
         }
         pickerDelegate?.datepicker(parent, didSelectDate: date)
     }
