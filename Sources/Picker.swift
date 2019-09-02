@@ -216,14 +216,9 @@ extension Picker: UICollectionViewDelegate {
         collectionView.deselectItem(at: indexPath, animated: true)
         
         let date = self.date(at: indexPath.item)
-        if !(parent?.continuousSelection ?? true) {
-            selectedDate = date
-            didSelect(date: date)
-            scrollToSelectedDate(animated: true)
-        }
-        else {
-            scrollTo(date, animated: true)
-        }
+        selectedDate = date
+        didSelect(date: date)
+        scrollToSelectedDate(animated: true)
     }
     
     public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
