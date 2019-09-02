@@ -8,14 +8,15 @@
 import UIKit
 
 class TimePicker: Picker {
-    static let MinuteGranularity = 30
+    var minuteGranularity = 60
+    var showTimeRange = false
     
     override var infiniteScrollCount: Int {
-        return DatePicker.InfiniteScrollCount * (24 * 60 / TimePicker.MinuteGranularity)
+        return DatePicker.InfiniteScrollCount * (24 * 60 / self.minuteGranularity)
     }
     
     override var timeInterval: Int {
-        return TimePicker.MinuteGranularity * 60
+        return self.minuteGranularity * 60
     }
 
     // Derived from https://stackoverflow.com/a/42626860/5468406
@@ -26,12 +27,12 @@ class TimePicker: Picker {
         let minute = calendar.component(.minute, from: date)
         
         // Round to nearest 'MinuteGranuity':
-        let modMinute = minute % TimePicker.MinuteGranularity
+        let modMinute = minute % self.minuteGranularity
         let roundedMinute = minute - modMinute
         
         var roundedDate = calendar.date(bySettingHour: hour, minute: roundedMinute, second: 0, of: date)!
-        if modMinute >= TimePicker.MinuteGranularity / 2 {
-            roundedDate = calendar.date(byAdding: .minute, value: TimePicker.MinuteGranularity, to: roundedDate)!
+        if modMinute >= self.minuteGranularity / 2 {
+            roundedDate = calendar.date(byAdding: .minute, value: self.minuteGranularity, to: roundedDate)!
         }
         return roundedDate
     }
@@ -45,7 +46,9 @@ class TimePicker: Picker {
     }
     
     override func dequeueReusableCell(_ collectionView: UICollectionView, for indexPath: IndexPath) -> PickerCell {
-        return collectionView.dequeueReusableCell(withReuseIdentifier: TimeCell.ClassName, for: indexPath) as! TimeCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TimeCell.ClassName, for: indexPath) as! TimeCell
+        cell.showTimeRange = self.showTimeRange
+        return cell
     }
 
     override public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
