@@ -20,25 +20,20 @@ class TimePicker: Picker {
     }
 
     // Derived from https://stackoverflow.com/a/42626860/5468406
-    override func round(date: Date) -> Date {
+    override func truncate(date: Date) -> Date {
         // Find current date and date components
         let calendar = Calendar.current
         let hour = calendar.component(.hour, from: date)
         let minute = calendar.component(.minute, from: date)
         
-        // Round to nearest 'MinuteGranuity':
+        // Truncate to 'MinuteGranuity':
         let modMinute = minute % self.minuteGranularity
-        let roundedMinute = minute - modMinute
-        
-        var roundedDate = calendar.date(bySettingHour: hour, minute: roundedMinute, second: 0, of: date)!
-        if modMinute >= self.minuteGranularity / 2 {
-            roundedDate = calendar.date(byAdding: .minute, value: self.minuteGranularity, to: roundedDate)!
-        }
-        return roundedDate
+        let truncatedMinute = minute - modMinute
+        return calendar.date(bySettingHour: hour, minute: truncatedMinute, second: 0, of: date)!
     }
     
     override func didSelect(date: Date) {
-        if let datePicker = parent?.datePicker, datePicker.selectedDate != datePicker.round(date: date) {
+        if let datePicker = parent?.datePicker, datePicker.selectedDate != datePicker.truncate(date: date) {
             datePicker.selectedDate = date
             datePicker.scrollToSelectedDate(animated: !datePicker.isScrolling)
         }

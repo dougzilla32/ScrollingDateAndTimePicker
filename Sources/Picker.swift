@@ -13,7 +13,7 @@ class Picker: UICollectionView {
     
     var infiniteScrollCount: Int { fatalError() }
     var timeInterval: Int { fatalError() }
-    func round(date: Date) -> Date { fatalError() }
+    func truncate(date: Date) -> Date { fatalError() }
     func didSelect(date: Date) { fatalError() }
     func dequeueReusableCell(_: UICollectionView, for: IndexPath) -> PickerCell { fatalError() }
 
@@ -27,7 +27,7 @@ class Picker: UICollectionView {
     private var infiniteScrollAnchorIndex: Int { return infiniteScrollCount / 3 }
 
     private lazy var infiniteScrollAnchorDate: Date? = {
-        return round(date: Date())
+        return truncate(date: Date())
     }()
 
     private var centerItem: Int?
@@ -41,12 +41,12 @@ class Picker: UICollectionView {
                 infiniteScrollAnchorDate = nil
                 var dates = [Date]()
                 for d in n {
-                    dates.append(round(date: d))
+                    dates.append(truncate(date: d))
                 }
                 self.dates = dates.uniqued()
             }
             else {
-                infiniteScrollAnchorDate = round(date: Date())
+                infiniteScrollAnchorDate = truncate(date: selectedDate ?? Date())
             }
             reloadData()
         }
@@ -55,7 +55,7 @@ class Picker: UICollectionView {
     var selectedDate: Date? {
         didSet {
             if let date = self.selectedDate {
-                self.selectedDate = round(date: date)
+                self.selectedDate = truncate(date: date)
             }
             guard self.selectedDate != oldValue else {
                 return

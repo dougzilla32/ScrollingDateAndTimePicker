@@ -19,7 +19,7 @@ class DatePicker: Picker {
         return DatePicker.MinuteGranularity * 60
     }
     
-    override func round(date: Date) -> Date {
+    override func truncate(date: Date) -> Date {
         return Calendar.current.startOfDay(for: date)
     }
 
