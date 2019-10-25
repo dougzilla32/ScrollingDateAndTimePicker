@@ -72,12 +72,12 @@ open class ScrollingDateAndTimePicker: LoadableFromXibView {
         didSet { timePicker.configuration = timeConfiguration }
     }
     
-    var dateCellConfiguration: ((_ cell: UICollectionViewCell, _ isWeekend: Bool, _ isSelected: Bool) -> Void)? {
-        didSet { datePicker.cellConfiguration = dateCellConfiguration }
+    public var dateCellConfigurer: ((_ cell: DayCell, _ date: Date, _ isWeekend: Bool, _ isSelected: Bool) -> Void)? {
+        didSet { datePicker.cellConfigurer = dateCellConfigurer }
     }
     
-    var timeCellConfiguration: ((_ cell: UICollectionViewCell, _ isWeekend: Bool, _ isSelected: Bool) -> Void)? {
-        didSet { timePicker.cellConfiguration = timeCellConfiguration }
+    public var timeCellConfigurer: ((_ cell: TimeCell, _ date: Date, _ isWeekend: Bool, _ isSelected: Bool) -> Void)? {
+        didSet { timePicker.cellConfigurer = timeCellConfigurer }
     }
     
     var bundle: Bundle? {

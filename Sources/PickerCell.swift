@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PickerCell: UICollectionViewCell {
+public class PickerCell: UICollectionViewCell {
     
     func setup(date: Date, style: PickerStyleConfiguration) { fatalError() }
 }

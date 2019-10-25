@@ -5,7 +5,7 @@
 
 import UIKit
 
-class DayCell: PickerCell {
+public class DayCell: PickerCell {
     
     @IBOutlet public weak var dateLabel: UILabel!
     @IBOutlet public weak var weekDayLabel: UILabel!

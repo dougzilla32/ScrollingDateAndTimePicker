@@ -16,6 +16,7 @@ class Picker: UICollectionView {
     func truncate(date: Date) -> Date { fatalError() }
     func didSelect(date: Date) { fatalError() }
     func dequeueReusableCell(_: UICollectionView, for: IndexPath) -> PickerCell { fatalError() }
+    func configureCell(_ cell: PickerCell, date: Date, isWeekend: Bool, isSelected: Bool) { fatalError() }
 
     // MARK: - properties and methods
     
@@ -74,12 +75,6 @@ class Picker: UICollectionView {
                 }
                 reloadItemsNoAnimation(at: pathsToReload)
             }
-        }
-    }
-    
-    var cellConfiguration: ((_ cell: UICollectionViewCell, _ isWeekend: Bool, _ isSelected: Bool) -> Void)? {
-        didSet {
-            reloadData()
         }
     }
     
@@ -191,9 +186,7 @@ extension Picker: UICollectionViewDataSource {
 
         cell.setup(date: date, style: configuration.calculateStyle(isWeekend: isWeekendDate, isSelected: isSelectedDate))
         
-        if let configuration = cellConfiguration {
-            configuration(cell, isWeekendDate, isSelectedDate)
-        }
+        configureCell(cell, date: date, isWeekend: isWeekendDate, isSelected: isSelectedDate)
         
         return cell
     }

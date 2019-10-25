@@ -5,8 +5,7 @@
 
 import UIKit
 
-
-class TimeCell: PickerCell {
+public class TimeCell: PickerCell {
     var showTimeRange = false
 
     @IBOutlet public weak var timeLabel: UILabel!
@@ -49,5 +48,4 @@ class TimeCell: PickerCell {
         selectorView.backgroundColor = style.selectorColor ?? UIColor.clear
         backgroundColor = style.backgroundColor ?? backgroundColor
     }
-
 }

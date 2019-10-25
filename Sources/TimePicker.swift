@@ -45,7 +45,17 @@ class TimePicker: Picker {
         cell.showTimeRange = self.showTimeRange
         return cell
     }
+    
+    override func configureCell(_ cell: PickerCell, date: Date, isWeekend: Bool, isSelected: Bool) {
+        cellConfigurer?(cell as! TimeCell, date, isWeekend, isSelected)
+    }
 
+    var cellConfigurer: ((_ cell: TimeCell, _ date: Date, _ isWeekend: Bool, _ isSelected: Bool) -> Void)? {
+        didSet {
+            reloadData()
+        }
+    }
+    
     override public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         super.scrollViewWillBeginDragging(scrollView)
         parent?.datePicker.scrollToSelectedDate(animated: false)

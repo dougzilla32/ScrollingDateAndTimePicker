@@ -37,7 +37,17 @@ class DatePicker: Picker {
     override func dequeueReusableCell(_ collectionView: UICollectionView, for indexPath: IndexPath) -> PickerCell {
         return collectionView.dequeueReusableCell(withReuseIdentifier: DayCell.ClassName, for: indexPath) as! DayCell
     }
+    
+    override func configureCell(_ cell: PickerCell, date: Date, isWeekend: Bool, isSelected: Bool) {
+        cellConfigurer?(cell as! DayCell, date, isWeekend, isSelected)
+    }
 
+    var cellConfigurer: ((_ cell: DayCell, _ date: Date, _ isWeekend: Bool, _ isSelected: Bool) -> Void)? {
+        didSet {
+            reloadData()
+        }
+    }
+    
     // Immediately cancel the timepicker scroll
     override public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         super.scrollViewWillBeginDragging(scrollView)
