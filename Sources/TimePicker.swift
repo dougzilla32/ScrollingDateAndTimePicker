@@ -55,9 +55,10 @@ class TimePicker: Picker {
         didSet {
             if let day = self.day,
                 day != oldValue,
-                let time = self.selectedDate {
-                let timeRoundedToDay = Calendar.current.startOfDay(for: time)
-                self.selectedDate = time.addingTimeInterval(day.timeIntervalSince(timeRoundedToDay))
+                let selectedDate = self.selectedDate {
+                self.selectedDate = day.addingTimeInterval(
+                    selectedDate.timeIntervalSince(
+                        Calendar.current.startOfDay(for: selectedDate)))
             }
         }
     }

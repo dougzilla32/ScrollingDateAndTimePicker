@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -32,6 +30,16 @@
                         <constraint firstAttribute="width" constant="80" id="FLr-Sh-pv6"/>
                     </constraints>
                 </view>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="veT-JR-cBT" userLabel="Time Collection View" customClass="TimePicker" customModule="ScrollingDateAndTimePicker" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="50"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="5" id="QOf-d8-JMy">
+                        <size key="itemSize" width="70" height="50"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wg9-w4-wuv" userLabel="Selector Bar">
                     <rect key="frame" x="80" y="50" width="80" height="3"/>
                     <color key="backgroundColor" red="0.950621698943662" green="0.36470588235294116" blue="0.10980392156862745" alpha="1" colorSpace="calibratedRGB"/>
@@ -41,19 +49,9 @@
                     </constraints>
                 </view>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="bHB-sV-bER" userLabel="Day Collection View" customClass="DatePicker" customModule="ScrollingDateAndTimePicker" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="0.0" width="240" height="50"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="5" id="XLp-AA-98S">
-                        <size key="itemSize" width="70" height="50"/>
-                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                    </collectionViewFlowLayout>
-                </collectionView>
-                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="veT-JR-cBT" userLabel="Time Collection View" customClass="TimePicker" customModule="ScrollingDateAndTimePicker" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="53" width="240" height="50"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="5" id="QOf-d8-JMy">
+                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="5" id="XLp-AA-98S">
                         <size key="itemSize" width="70" height="50"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -63,18 +61,18 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="bHB-sV-bER" firstAttribute="top" secondItem="aOu-w9-3Qt" secondAttribute="top" id="AcX-Y0-hSQ"/>
+                <constraint firstItem="bHB-sV-bER" firstAttribute="top" secondItem="wg9-w4-wuv" secondAttribute="bottom" id="3qF-Ag-qYn"/>
+                <constraint firstItem="veT-JR-cBT" firstAttribute="top" secondItem="aOu-w9-3Qt" secondAttribute="top" id="7ZM-Vp-Dl9"/>
                 <constraint firstItem="veT-JR-cBT" firstAttribute="height" secondItem="bHB-sV-bER" secondAttribute="height" id="Bmr-gD-hyQ"/>
                 <constraint firstItem="bHB-sV-bER" firstAttribute="leading" secondItem="aOu-w9-3Qt" secondAttribute="leading" id="Dtv-LC-SA3"/>
                 <constraint firstItem="EKn-YN-Lpp" firstAttribute="top" secondItem="aOu-w9-3Qt" secondAttribute="top" id="Ezn-0s-BjI"/>
-                <constraint firstAttribute="bottom" secondItem="veT-JR-cBT" secondAttribute="bottom" id="MlJ-ZK-xFe"/>
                 <constraint firstAttribute="bottom" secondItem="EKn-YN-Lpp" secondAttribute="bottom" id="NrX-XE-QZT"/>
                 <constraint firstAttribute="trailing" secondItem="bHB-sV-bER" secondAttribute="trailing" id="SaY-bf-xbF"/>
                 <constraint firstAttribute="trailing" secondItem="veT-JR-cBT" secondAttribute="trailing" id="X0b-3I-Vs7"/>
                 <constraint firstItem="EKn-YN-Lpp" firstAttribute="centerX" secondItem="aOu-w9-3Qt" secondAttribute="centerX" id="euD-j0-j9Q"/>
-                <constraint firstItem="veT-JR-cBT" firstAttribute="top" secondItem="wg9-w4-wuv" secondAttribute="bottom" id="kZ3-d6-pa8"/>
+                <constraint firstItem="wg9-w4-wuv" firstAttribute="top" secondItem="veT-JR-cBT" secondAttribute="bottom" id="lP5-4F-neo"/>
+                <constraint firstAttribute="bottom" secondItem="bHB-sV-bER" secondAttribute="bottom" id="mXI-a2-ecf"/>
                 <constraint firstItem="wg9-w4-wuv" firstAttribute="centerX" secondItem="aOu-w9-3Qt" secondAttribute="centerX" id="sL6-Jv-C7N"/>
-                <constraint firstItem="wg9-w4-wuv" firstAttribute="top" secondItem="bHB-sV-bER" secondAttribute="bottom" id="w2V-Ib-U1M"/>
                 <constraint firstItem="veT-JR-cBT" firstAttribute="leading" secondItem="aOu-w9-3Qt" secondAttribute="leading" id="yNf-6a-vPC"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
