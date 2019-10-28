@@ -80,6 +80,12 @@ open class ScrollingDateAndTimePicker: LoadableFromXibView {
         didSet { timePicker.cellConfigurer = timeCellConfigurer }
     }
     
+    // ToDo: for much better efficiency, update the configurations without recreating the cells
+    public func updateCellConfigurations() {
+        datePicker.reloadData()
+        timePicker.reloadData()
+    }
+    
     var bundle: Bundle? {
         let podBundle = Bundle(for: ScrollingDateAndTimePicker.self)
         let bundlePath = podBundle.path(forResource: String(describing: type(of: self)), ofType: "bundle")

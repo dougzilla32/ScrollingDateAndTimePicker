@@ -25,7 +25,7 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EKn-YN-Lpp" userLabel="Selector Background">
                     <rect key="frame" x="80" y="0.0" width="80" height="103"/>
-                    <color key="backgroundColor" white="0.80122139084507038" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" white="1" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="80" id="FLr-Sh-pv6"/>
                     </constraints>
@@ -41,11 +41,11 @@
                     </collectionViewFlowLayout>
                 </collectionView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wg9-w4-wuv" userLabel="Selector Bar">
-                    <rect key="frame" x="80" y="50" width="80" height="3"/>
+                    <rect key="frame" x="80" y="49.5" width="80" height="4"/>
                     <color key="backgroundColor" red="0.950621698943662" green="0.36470588235294116" blue="0.10980392156862745" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="80" id="Kps-lv-dJ8"/>
-                        <constraint firstAttribute="height" constant="3" id="nrF-K5-WNM"/>
+                        <constraint firstAttribute="height" constant="4" id="nrF-K5-WNM"/>
                     </constraints>
                 </view>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="bHB-sV-bER" userLabel="Day Collection View" customClass="DatePicker" customModule="ScrollingDateAndTimePicker" customModuleProvider="target">
@@ -61,7 +61,7 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="bHB-sV-bER" firstAttribute="top" secondItem="wg9-w4-wuv" secondAttribute="bottom" constant="-1.5" id="3qF-Ag-qYn"/>
+                <constraint firstItem="bHB-sV-bER" firstAttribute="top" secondItem="wg9-w4-wuv" secondAttribute="bottom" constant="-2" id="3qF-Ag-qYn"/>
                 <constraint firstItem="veT-JR-cBT" firstAttribute="top" secondItem="aOu-w9-3Qt" secondAttribute="top" id="7ZM-Vp-Dl9"/>
                 <constraint firstItem="veT-JR-cBT" firstAttribute="height" secondItem="bHB-sV-bER" secondAttribute="height" id="Bmr-gD-hyQ"/>
                 <constraint firstItem="bHB-sV-bER" firstAttribute="leading" secondItem="aOu-w9-3Qt" secondAttribute="leading" id="Dtv-LC-SA3"/>
@@ -70,7 +70,7 @@
                 <constraint firstAttribute="trailing" secondItem="bHB-sV-bER" secondAttribute="trailing" id="SaY-bf-xbF"/>
                 <constraint firstAttribute="trailing" secondItem="veT-JR-cBT" secondAttribute="trailing" id="X0b-3I-Vs7"/>
                 <constraint firstItem="EKn-YN-Lpp" firstAttribute="centerX" secondItem="aOu-w9-3Qt" secondAttribute="centerX" id="euD-j0-j9Q"/>
-                <constraint firstItem="wg9-w4-wuv" firstAttribute="top" secondItem="veT-JR-cBT" secondAttribute="bottom" constant="-1.5" id="lP5-4F-neo"/>
+                <constraint firstItem="wg9-w4-wuv" firstAttribute="top" secondItem="veT-JR-cBT" secondAttribute="bottom" constant="-2" id="lP5-4F-neo"/>
                 <constraint firstAttribute="bottom" secondItem="bHB-sV-bER" secondAttribute="bottom" id="mXI-a2-ecf"/>
                 <constraint firstItem="wg9-w4-wuv" firstAttribute="centerX" secondItem="aOu-w9-3Qt" secondAttribute="centerX" id="sL6-Jv-C7N"/>
                 <constraint firstItem="veT-JR-cBT" firstAttribute="leading" secondItem="aOu-w9-3Qt" secondAttribute="leading" id="yNf-6a-vPC"/>
