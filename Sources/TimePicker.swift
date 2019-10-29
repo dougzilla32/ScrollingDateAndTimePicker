@@ -7,8 +7,12 @@
 
 import UIKit
 
+public enum MinuteGranularity: Int {
+    case sixty = 60, thirty = 30, twenty = 20, fifteen = 15, twelve = 12, ten = 10, six = 6, five = 5, four = 4, three = 3, two = 2, one = 1
+}
+
 class TimePicker: Picker {
-    var minuteGranularity = 60
+    var minuteGranularity = MinuteGranularity.sixty
     var showTimeRange = false
     
     override var infiniteScrollCount: Int {
@@ -23,17 +27,14 @@ class TimePicker: Picker {
         return Calendar.current.dateComponents([.hour], from: anchorDate, to: date).hour!
     }
     
-    // Derived from https://stackoverflow.com/a/42626860/5468406
     override func truncate(date: Date) -> Date {
-        // Find current date and date components
+        var date = date
         let calendar = Calendar.current
-        let hour = calendar.component(.hour, from: date)
-        let minute = calendar.component(.minute, from: date)
-        
-        // Truncate to 'MinuteGranuity':
-        let modMinute = minute % self.minuteGranularity
-        let truncatedMinute = minute - modMinute
-        return calendar.date(bySettingHour: hour, minute: truncatedMinute, second: 0, of: date)!
+        let minutes = Calendar.current.component(.minute, from: date) % minuteGranularity.rawValue
+        if minutes != 0 {
+            date = calendar.date(byAdding: .minute, value: -minutes, to: date)!
+        }
+        return date
     }
     
     override func didSelect(date: Date) {

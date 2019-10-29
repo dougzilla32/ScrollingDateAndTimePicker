@@ -46,7 +46,7 @@ open class ScrollingDateAndTimePicker: LoadableFromXibView {
         set { timePicker.showTimeRange = newValue }
     }
     
-    public var minuteGranularity: Int {
+    public var minuteGranularity: MinuteGranularity {
         get { return timePicker.minuteGranularity }
         set { timePicker.minuteGranularity = newValue }
     }

@@ -8,7 +8,6 @@
 import UIKit
 
 class Picker: UICollectionView {
-    
     // MARK: - subclasses must override these
     
     var infiniteScrollCount: Int { fatalError() }
@@ -168,7 +167,6 @@ class Picker: UICollectionView {
 // MARK: - UICollectionViewDataSource
 
 extension Picker: UICollectionViewDataSource {
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dates?.count ?? infiniteScrollCount
     }
@@ -203,7 +201,6 @@ extension Picker: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate
 
 extension Picker: UICollectionViewDelegate {
-    
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         
