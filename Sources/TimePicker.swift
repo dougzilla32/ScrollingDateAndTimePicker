@@ -30,10 +30,10 @@ class TimePicker: Picker {
     override func truncate(date: Date) -> Date {
         var date = date
         let calendar = Calendar.current
-        let minutes = Calendar.current.component(.minute, from: date) % minuteGranularity.rawValue
-        if minutes != 0 {
-            date = calendar.date(byAdding: .minute, value: -minutes, to: date)!
-        }
+        let minutes = calendar.component(.minute, from: date) % minuteGranularity.rawValue
+        date = calendar.date(byAdding: .minute, value: -minutes, to: date)!
+        date = calendar.date(byAdding: .second, value: -calendar.component(.second, from: date), to: date)!
+        date = calendar.date(byAdding: .nanosecond, value: -calendar.component(.nanosecond, from: date), to: date)!
         return date
     }
     
