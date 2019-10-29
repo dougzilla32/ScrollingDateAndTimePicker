@@ -12,13 +12,17 @@ class TimePicker: Picker {
     var showTimeRange = false
     
     override var infiniteScrollCount: Int {
-        return DatePicker.InfiniteScrollCount * (24 * 60 / self.minuteGranularity)
+        return DatePicker.InfiniteScrollCount * 24
     }
     
-    override var timeInterval: Int {
-        return self.minuteGranularity * 60
+    override func infiniteScrollDate(at index: Int, anchorDate: Date) -> Date {
+        return Calendar.current.date(byAdding: .hour, value: index, to: anchorDate)!
     }
-
+    
+    override func infiniteScrollIndex(of date: Date, anchorDate: Date) -> Int {
+        return Calendar.current.dateComponents([.hour], from: anchorDate, to: date).hour!
+    }
+    
     // Derived from https://stackoverflow.com/a/42626860/5468406
     override func truncate(date: Date) -> Date {
         // Find current date and date components
@@ -63,12 +67,9 @@ class TimePicker: Picker {
 
     var day: Date? {
         didSet {
-            if let day = self.day,
-                day != oldValue,
-                let selectedDate = self.selectedDate {
-                self.selectedDate = day.addingTimeInterval(
-                    selectedDate.timeIntervalSince(
-                        Calendar.current.startOfDay(for: selectedDate)))
+            if let day = self.day, day != oldValue, let selectedDate = self.selectedDate {
+                let hour = Calendar.current.component(.hour, from: selectedDate)
+                self.selectedDate = Calendar.current.date(bySettingHour: hour, minute: 0, second: 0, of: day)!
             }
         }
     }

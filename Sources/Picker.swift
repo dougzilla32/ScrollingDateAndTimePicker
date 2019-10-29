@@ -12,7 +12,8 @@ class Picker: UICollectionView {
     // MARK: - subclasses must override these
     
     var infiniteScrollCount: Int { fatalError() }
-    var timeInterval: Int { fatalError() }
+    func infiniteScrollDate(at index: Int, anchorDate: Date) -> Date { fatalError() }
+    func infiniteScrollIndex(of date: Date, anchorDate: Date) -> Int { fatalError() }
     func truncate(date: Date) -> Date { fatalError() }
     func didSelect(date: Date) { fatalError() }
     func dequeueReusableCell(_: UICollectionView, for: IndexPath) -> PickerCell { fatalError() }
@@ -86,9 +87,7 @@ class Picker: UICollectionView {
     }
 
     func date(at index: Int) -> Date {
-        return dates?[index]
-            ?? infiniteScrollAnchorDate!.addingTimeInterval(
-                TimeInterval((index - infiniteScrollAnchorIndex) * timeInterval))
+        return dates?[index] ?? infiniteScrollDate(at: index - infiniteScrollAnchorIndex, anchorDate: infiniteScrollAnchorDate!)
     }
     
     func index(of date: Date) -> Int? {
@@ -97,7 +96,8 @@ class Picker: UICollectionView {
             index = dates.firstIndex(of: date)
         }
         else {
-            index = infiniteScrollAnchorIndex + Int(date.timeIntervalSince(infiniteScrollAnchorDate!)) / timeInterval
+            index = infiniteScrollAnchorIndex + infiniteScrollIndex(of: date, anchorDate: infiniteScrollAnchorDate!)
+
         }
         return index
     }
@@ -109,11 +109,10 @@ class Picker: UICollectionView {
     private var prevSelectedIndex: Int?
 
     private var infiniteScrollSelectedDateIndex: Int? {
-        guard let date = selectedDate, let anchor = infiniteScrollAnchorDate else {
+        guard let date = selectedDate else {
             return nil
         }
-        let interval = date.timeIntervalSince(anchor)
-        return infiniteScrollAnchorIndex + Int(interval) / timeInterval
+        return infiniteScrollAnchorIndex + infiniteScrollIndex(of: date, anchorDate: infiniteScrollAnchorDate!)
     }
     
     var configuration: PickerConfiguration! {

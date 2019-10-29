@@ -9,14 +9,17 @@ import UIKit
 
 class DatePicker: Picker {
     static let InfiniteScrollCount = 2000
-    private static let MinuteGranularity = 24 * 60
     
     override var infiniteScrollCount: Int {
         return DatePicker.InfiniteScrollCount
     }
     
-    override var timeInterval: Int {
-        return DatePicker.MinuteGranularity * 60
+    override func infiniteScrollDate(at index: Int, anchorDate: Date) -> Date {
+        return Calendar.current.date(byAdding: .day, value: index, to: anchorDate)!
+    }
+    
+    override func infiniteScrollIndex(of date: Date, anchorDate: Date) -> Int {
+        return Calendar.current.dateComponents([.day], from: anchorDate, to: date).day!
     }
     
     override func truncate(date: Date) -> Date {
