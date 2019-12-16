@@ -22,7 +22,7 @@ public class DayCell: PickerCell {
         let style = style as! DayStyleConfiguration
         let formatter = DateFormatter()
 
-        formatter.dateFormat = "dd"
+        formatter.dateFormat = "d"
         dateLabel.text = formatter.string(from: date)
         dateLabel.font = style.dateTextFont ?? dateLabel.font
         dateLabel.textColor = style.dateTextColor ?? dateLabel.textColor
@@ -37,7 +37,7 @@ public class DayCell: PickerCell {
         monthLabel.font = style.monthTextFont ?? monthLabel.font
         monthLabel.textColor = style.monthTextColor ?? monthLabel.textColor
 
-        selectorView.backgroundColor = style.selectorColor ?? UIColor.clear
+        selectorView.backgroundColor = style.selectorColor ?? .clear
         backgroundColor = style.backgroundColor ?? backgroundColor
     }
 

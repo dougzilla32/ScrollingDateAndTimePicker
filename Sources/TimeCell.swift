@@ -45,7 +45,7 @@ public class TimeCell: PickerCell {
         weekDayLabel.font = style.weekDayTextFont ?? weekDayLabel.font
         weekDayLabel.textColor = style.weekDayTextColor ?? weekDayLabel.textColor
 
-        selectorView.backgroundColor = style.selectorColor ?? UIColor.clear
+        selectorView.backgroundColor = style.selectorColor ?? .clear
         backgroundColor = style.backgroundColor ?? backgroundColor
     }
 }
