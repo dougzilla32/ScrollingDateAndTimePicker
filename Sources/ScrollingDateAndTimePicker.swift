@@ -17,8 +17,9 @@ open class ScrollingDateAndTimePicker: LoadableFromXibView {
 
     @IBOutlet weak var selectorBackground: UIView!
     @IBOutlet weak var selectorBackgroundWidth: NSLayoutConstraint!
-    @IBOutlet weak var selectorBar: UIView!
+    @IBOutlet public weak var selectorBar: UIView!
     @IBOutlet weak var selectorBarWidth: NSLayoutConstraint!
+    @IBOutlet public weak var selectorBarHeight: NSLayoutConstraint!
     
     public var continuousSelection: Bool = true {
         didSet {

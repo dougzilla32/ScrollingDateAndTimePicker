@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -13,6 +13,7 @@
                 <outlet property="selectorBackground" destination="EKn-YN-Lpp" id="7zz-qO-Mql"/>
                 <outlet property="selectorBackgroundWidth" destination="FLr-Sh-pv6" id="YfY-m4-Jyc"/>
                 <outlet property="selectorBar" destination="wg9-w4-wuv" id="BmV-eN-T8c"/>
+                <outlet property="selectorBarHeight" destination="nrF-K5-WNM" id="mI1-tm-Gel"/>
                 <outlet property="selectorBarWidth" destination="Kps-lv-dJ8" id="Pva-iN-oRr"/>
                 <outlet property="timePicker" destination="veT-JR-cBT" id="sMJ-fK-TPF"/>
                 <outlet property="view" destination="aOu-w9-3Qt" id="f42-ko-4jU"/>
@@ -40,14 +41,6 @@
                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </collectionViewFlowLayout>
                 </collectionView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wg9-w4-wuv" userLabel="Selector Bar">
-                    <rect key="frame" x="80" y="49.5" width="80" height="4"/>
-                    <color key="backgroundColor" red="0.950621698943662" green="0.36470588235294116" blue="0.10980392156862745" alpha="1" colorSpace="calibratedRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="80" id="Kps-lv-dJ8"/>
-                        <constraint firstAttribute="height" constant="4" id="nrF-K5-WNM"/>
-                    </constraints>
-                </view>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="bHB-sV-bER" userLabel="Day Collection View" customClass="DatePicker" customModule="ScrollingDateAndTimePicker" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="51.5" width="240" height="51.5"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -58,6 +51,14 @@
                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </collectionViewFlowLayout>
                 </collectionView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wg9-w4-wuv" userLabel="Selector Bar">
+                    <rect key="frame" x="80" y="49.5" width="80" height="4"/>
+                    <color key="backgroundColor" red="0.950621698943662" green="0.36470588235294116" blue="0.10980392156862745" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="80" id="Kps-lv-dJ8"/>
+                        <constraint firstAttribute="height" constant="4" id="nrF-K5-WNM"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
