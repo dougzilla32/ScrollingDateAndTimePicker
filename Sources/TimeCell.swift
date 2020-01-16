@@ -6,6 +6,7 @@
 import UIKit
 
 public class TimeCell: PickerCell {
+    static let Moons = ["🌑", "🌒", " 🌓", "🌔", "🌕", "🌖", "🌗", "🌘", "🌑"]
     var showTimeRange = false
 
     @IBOutlet public weak var timeLabel: UILabel!
@@ -47,5 +48,19 @@ public class TimeCell: PickerCell {
 
         selectorView.backgroundColor = style.selectorColor ?? .clear
         backgroundColor = style.backgroundColor ?? backgroundColor
+        
+        if showTimeRange && timeLabel.text == "11-12" {
+            if amPmLabel.text == "PM" {
+                amPmLabel.text = "NOON"
+                amPmLabel.font = .systemFont(ofSize: 8.0, weight: .medium)
+            } else {
+                let illumination = Moon.shared.illumination(date: date)
+                amPmLabel.text = TimeCell.Moons[Int(round(illumination.phase * 8))]
+                amPmLabel.font = .systemFont(ofSize: 15.0, weight: .thin)
+            }
+        }
+        else {
+            amPmLabel.font = .systemFont(ofSize: 8.0, weight: .thin)
+        }
     }
 }

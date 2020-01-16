@@ -23,6 +23,7 @@
 		915DC89E230ABB2F003D61E0 /* DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915DC89D230ABB2F003D61E0 /* DatePicker.swift */; };
 		915DC8A0230ABB3A003D61E0 /* TimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915DC89F230ABB3A003D61E0 /* TimePicker.swift */; };
 		915DC8A2230ABE43003D61E0 /* TimeConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915DC8A1230ABE43003D61E0 /* TimeConfiguration.swift */; };
+		91B7D9C123D1269A009A0E42 /* Moon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B7D9C023D1269A009A0E42 /* Moon.swift */; };
 		91E71E3C230CC72800957058 /* Picker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E71E3B230CC72800957058 /* Picker.swift */; };
 		91E71E3E230CF42800957058 /* PickerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E71E3D230CF42800957058 /* PickerConfiguration.swift */; };
 		91E71E40230CF60F00957058 /* PickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E71E3F230CF60F00957058 /* PickerCell.swift */; };
@@ -47,6 +48,7 @@
 		915DC89D230ABB2F003D61E0 /* DatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePicker.swift; sourceTree = "<group>"; };
 		915DC89F230ABB3A003D61E0 /* TimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePicker.swift; sourceTree = "<group>"; };
 		915DC8A1230ABE43003D61E0 /* TimeConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeConfiguration.swift; sourceTree = "<group>"; };
+		91B7D9C023D1269A009A0E42 /* Moon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Moon.swift; sourceTree = "<group>"; };
 		91E71E3B230CC72800957058 /* Picker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Picker.swift; sourceTree = "<group>"; };
 		91E71E3D230CF42800957058 /* PickerConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerConfiguration.swift; sourceTree = "<group>"; };
 		91E71E3F230CF60F00957058 /* PickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerCell.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 				915DC8A1230ABE43003D61E0 /* TimeConfiguration.swift */,
 				19C5E4D81DA0189A005663E8 /* TimeCell.swift */,
 				19C5E4DA1DA018DE005663E8 /* TimeCell.xib */,
+				91B7D9C023D1269A009A0E42 /* Moon.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -221,6 +224,7 @@
 				915DC8A2230ABE43003D61E0 /* TimeConfiguration.swift in Sources */,
 				91E71E40230CF60F00957058 /* PickerCell.swift in Sources */,
 				915DC89A230A980B003D61E0 /* DayCell.swift in Sources */,
+				91B7D9C123D1269A009A0E42 /* Moon.swift in Sources */,
 				915DC8A0230ABB3A003D61E0 /* TimePicker.swift in Sources */,
 				91E71E3E230CF42800957058 /* PickerConfiguration.swift in Sources */,
 				19C5E4BF1DA0125F005663E8 /* AppDelegate.swift in Sources */,
