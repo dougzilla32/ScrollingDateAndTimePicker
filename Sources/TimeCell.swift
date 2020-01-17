@@ -54,8 +54,22 @@ public class TimeCell: PickerCell {
                 amPmLabel.text = "NOON"
                 amPmLabel.font = .systemFont(ofSize: 8.0, weight: .medium)
             } else {
-                let illumination = Moon.shared.illumination(date: date)
-                amPmLabel.text = TimeCell.Moons[Int(round(illumination.phase * 8))]
+                var phase = Moon.shared.illumination(date: date).phase
+                // Show new moon and full moon less often, because this better matches
+                // the actual appearance in the sky.
+                switch phase {
+                case 0.045...0.125:
+                    phase = 0.126
+                case 0.375...0.455:
+                    phase = 0.374
+                case 0.545...0.625:
+                    phase = 0.626
+                case 0.875...0.955:
+                    phase = 0.874
+                default:
+                    break
+                }
+                amPmLabel.text = TimeCell.Moons[Int(round(phase * 8))]
                 amPmLabel.font = .systemFont(ofSize: 15.0, weight: .thin)
             }
         }
