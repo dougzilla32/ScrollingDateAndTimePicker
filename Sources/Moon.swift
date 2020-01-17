@@ -1,6 +1,6 @@
 /** Moon phase utils.
 Ported from https://github.com/mourner/suncalc
-Maksym Huk 2017
+Maksym Huk 2017 https://gist.github.com/capt-hook/7a3d1fd889e5cc9dca4cc13afb85c3a0
 */
 
 import Foundation
