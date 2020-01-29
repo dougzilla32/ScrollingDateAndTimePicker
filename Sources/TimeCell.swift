@@ -5,6 +5,26 @@
 
 import UIKit
 
+public protocol DateText {
+    var time: String { get }
+    var weekDay: String { get }
+    var amPm: String { get }
+    var noon: String? { get }
+    var midnight: String? { get }
+}
+
+private struct MutableDateText: DateText {
+    public var time: String
+    public var weekDay: String
+    public var amPm: String
+    public var noon: String?
+    public var midnight: String?
+    
+    public static var emptyDateText: MutableDateText {
+        return MutableDateText(time: "", weekDay: "", amPm: "", noon: nil, midnight: nil)
+    }
+}
+
 public class TimeCell: PickerCell {
     static let Moons = ["🌑", "🌒", " 🌓", "🌔", "🌕", "🌖", "🌗", "🌘", "🌑"]
     var showTimeRange = false
@@ -18,41 +38,29 @@ public class TimeCell: PickerCell {
         return String(describing: self)
     }
 
-    // MARK: - Setup
-
-    override func setup(date: Date, style: PickerStyleConfiguration) {
-        let style = style as! TimeStyleConfiguration
+    public static func text(forDate date: Date, showTimeRange: Bool) -> DateText {
+        var text = MutableDateText.emptyDateText
         let formatter = DateFormatter()
         let datePlusHour: Date? = (showTimeRange ? date.addingTimeInterval(60 * 60) : nil)
 
         if let dph = datePlusHour {
             formatter.dateFormat = "h"
-            timeLabel.text = "\(formatter.string(from: date))-\(formatter.string(from: dph))"
+            text.time = "\(formatter.string(from: date))-\(formatter.string(from: dph))"
         }
         else {
             formatter.dateFormat = "h:mm"
-            timeLabel.text = formatter.string(from: date)
+            text.time = formatter.string(from: date)
         }
-        timeLabel.font = style.timeTextFont ?? timeLabel.font
-        timeLabel.textColor = style.timeTextColor ?? timeLabel.textColor
 
         formatter.dateFormat = "a"
-        amPmLabel.text = formatter.string(from: datePlusHour ?? date).uppercased()
-        amPmLabel.font = style.amPmTextFont ?? amPmLabel.font
-        amPmLabel.textColor = style.amPmTextColor ?? amPmLabel.textColor
+        text.amPm = formatter.string(from: datePlusHour ?? date)
 
         formatter.dateFormat = "EEE"
-        weekDayLabel.text = formatter.string(from: date).uppercased()
-        weekDayLabel.font = style.weekDayTextFont ?? weekDayLabel.font
-        weekDayLabel.textColor = style.weekDayTextColor ?? weekDayLabel.textColor
+        text.weekDay = formatter.string(from: date)
 
-        selectorView.backgroundColor = style.selectorColor ?? .clear
-        backgroundColor = style.backgroundColor ?? backgroundColor
-        
-        if showTimeRange && timeLabel.text == "11-12" {
-            if amPmLabel.text == "PM" {
-                amPmLabel.text = "NOON"
-                amPmLabel.font = .systemFont(ofSize: 8.0, weight: .medium)
+        if showTimeRange && text.time == "11-12" {
+            if text.amPm == "PM" {
+                text.noon = "NOON"
             } else {
                 var phase = Moon.shared.illumination(date: date).phase
                 // Show new moon and full moon less often, because this better matches
@@ -69,12 +77,44 @@ public class TimeCell: PickerCell {
                 default:
                     break
                 }
-                amPmLabel.text = TimeCell.Moons[Int(round(phase * 8))]
-                amPmLabel.font = .systemFont(ofSize: 15.0, weight: .thin)
+                text.midnight = TimeCell.Moons[Int(round(phase * 8))]
             }
         }
-        else {
-            amPmLabel.font = .systemFont(ofSize: 8.0, weight: .thin)
+
+        return text
+    }
+
+    // MARK: - Setup
+
+    override func setup(date: Date, style: PickerStyleConfiguration) {
+        let style = style as! TimeStyleConfiguration
+        let dateText = TimeCell.text(forDate: date, showTimeRange: showTimeRange)
+
+        timeLabel.text = dateText.time
+        timeLabel.font = style.timeTextFont ?? timeLabel.font
+        timeLabel.textColor = style.timeTextColor ?? timeLabel.textColor
+
+        let defaultFont = style.amPmTextFont ?? amPmLabel.font
+        let defaultPointSize = defaultFont?.pointSize ?? 8.0
+        if let noon = dateText.noon {
+            amPmLabel.text = noon
+            amPmLabel.font = .systemFont(ofSize: defaultPointSize, weight: .medium)
         }
+        else if let midnight = dateText.midnight {
+            amPmLabel.text = midnight
+            amPmLabel.font = .systemFont(ofSize: defaultPointSize + 7.0, weight: .thin)
+        }
+        else {
+            amPmLabel.text = dateText.amPm
+            amPmLabel.font = defaultFont
+        }
+        amPmLabel.textColor = style.amPmTextColor ?? amPmLabel.textColor
+
+        weekDayLabel.text = dateText.weekDay.uppercased()
+        weekDayLabel.font = style.weekDayTextFont ?? weekDayLabel.font
+        weekDayLabel.textColor = style.weekDayTextColor ?? weekDayLabel.textColor
+
+        selectorView.backgroundColor = style.selectorColor ?? .clear
+        backgroundColor = style.backgroundColor ?? backgroundColor
     }
 }
