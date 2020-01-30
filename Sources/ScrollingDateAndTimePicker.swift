@@ -99,7 +99,7 @@ open class ScrollingDateAndTimePicker: LoadableFromXibView {
         return bundle
     }
 
-    @IBOutlet weak var datePicker: DatePicker! {
+    @IBOutlet public weak var datePicker: DatePicker! {
         didSet {
             let cellNib = UINib(nibName: DayCell.ClassName, bundle: bundle)
             datePicker.register(cellNib, forCellWithReuseIdentifier: DayCell.ClassName)
@@ -110,7 +110,7 @@ open class ScrollingDateAndTimePicker: LoadableFromXibView {
         }
     }
 
-    @IBOutlet weak var timePicker: TimePicker! {
+    @IBOutlet public weak var timePicker: TimePicker! {
         didSet {
             let cellNib = UINib(nibName: TimeCell.ClassName, bundle: bundle)
             timePicker.register(cellNib, forCellWithReuseIdentifier: TimeCell.ClassName)

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DatePicker: Picker {
+public class DatePicker: Picker {
     static let InfiniteScrollCount = 2000
     
     override var infiniteScrollCount: Int {

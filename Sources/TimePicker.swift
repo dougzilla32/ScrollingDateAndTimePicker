@@ -11,7 +11,7 @@ public enum MinuteGranularity: Int {
     case sixty = 60, thirty = 30, twenty = 20, fifteen = 15, twelve = 12, ten = 10, six = 6, five = 5, four = 4, three = 3, two = 2, one = 1
 }
 
-class TimePicker: Picker {
+public class TimePicker: Picker {
     var minuteGranularity = MinuteGranularity.sixty
     var showTimeRange = false
     
