@@ -7,6 +7,8 @@ import UIKit
 
 public protocol DateText {
     var time: String { get }
+    var startTime: String? { get }
+    var endTime: String? { get }
     var weekDay: String { get }
     var amPm: String { get }
     var noon: String? { get }
@@ -15,13 +17,15 @@ public protocol DateText {
 
 private struct MutableDateText: DateText {
     public var time: String
+    public var startTime: String?
+    public var endTime: String?
     public var weekDay: String
     public var amPm: String
     public var noon: String?
     public var midnight: String?
     
     public static var emptyDateText: MutableDateText {
-        return MutableDateText(time: "", weekDay: "", amPm: "", noon: nil, midnight: nil)
+        return MutableDateText(time: "", startTime: nil, endTime: nil, weekDay: "", amPm: "", noon: nil, midnight: nil)
     }
 }
 
@@ -45,7 +49,13 @@ public class TimeCell: PickerCell {
 
         if let dph = datePlusHour {
             formatter.dateFormat = "h"
-            text.time = "\(formatter.string(from: date))-\(formatter.string(from: dph))"
+            let startTime = formatter.string(from: date)
+            let endTime = formatter.string(from: dph)
+            text.time = "\(startTime)-\(endTime)"
+
+            formatter.dateFormat = "a"
+            text.startTime = "\(startTime)\(formatter.string(from: date))"
+            text.endTime = "\(endTime)\(formatter.string(from: dph))"
         }
         else {
             formatter.dateFormat = "h:mm"
