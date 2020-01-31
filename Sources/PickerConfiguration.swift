@@ -10,7 +10,7 @@ import UIKit
 protocol PickerConfiguration {
     var sizeCalculation: SizeCalculationStrategy { get set }
     
-    func calculateStyle(isWeekend: Bool, isSelected: Bool) -> PickerStyleConfiguration
+    func calculateStyle(isWeekend: Bool, isSelected: Bool, isCurrent: Bool) -> PickerStyleConfiguration
 }
 
 protocol PickerStyleConfiguration {

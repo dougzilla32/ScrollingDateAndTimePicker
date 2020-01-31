@@ -38,10 +38,13 @@ public struct TimeConfiguration: PickerConfiguration {
         return TimeStyleConfiguration()
     }()
     
+    public var currentTimeStyle: TimeStyleConfiguration = {
+        return TimeStyleConfiguration()
+    }()
     
     // MARK: - Methods
     
-    func calculateStyle(isWeekend: Bool, isSelected: Bool) -> PickerStyleConfiguration {
+    func calculateStyle(isWeekend: Bool, isSelected: Bool, isCurrent: Bool) -> PickerStyleConfiguration {
         var style = defaultTimeStyle
         
         if isWeekend {
@@ -50,6 +53,10 @@ public struct TimeConfiguration: PickerConfiguration {
         
         if isSelected {
             style = style.merge(with: selectedTimeStyle)
+        }
+        
+        if isCurrent {
+            style = style.merge(with: currentTimeStyle)
         }
         
         return style

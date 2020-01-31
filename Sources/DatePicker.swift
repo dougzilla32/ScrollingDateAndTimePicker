@@ -51,6 +51,10 @@ public class DatePicker: Picker {
         }
     }
     
+    override func isCurrent(date: Date) -> Bool {
+        return date.isCurrentDay
+    }
+    
     // Immediately cancel the timepicker scroll
     override public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         super.scrollViewWillBeginDragging(scrollView)

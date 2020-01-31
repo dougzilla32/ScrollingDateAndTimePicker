@@ -17,6 +17,7 @@ public class Picker: UICollectionView {
     func didSelect(date: Date) { fatalError() }
     func dequeueReusableCell(_: UICollectionView, for: IndexPath) -> PickerCell { fatalError() }
     func configureCell(_ cell: PickerCell, date: Date, isWeekend: Bool, isSelected: Bool) { fatalError() }
+    func isCurrent(date: Date) -> Bool { fatalError() }
 
     // MARK: - properties and methods
     
@@ -177,11 +178,12 @@ extension Picker: UICollectionViewDataSource {
         let date = self.date(at: indexPath.item)
         let isWeekendDate = isWeekday(date: date)
         let isSelectedDate = isSelected(date: date)
+        let isCurrentDate = isCurrent(date: date)
         if isSelectedDate {
             prevSelectedIndex = indexPath.item
         }
 
-        cell.setup(date: date, style: configuration.calculateStyle(isWeekend: isWeekendDate, isSelected: isSelectedDate))
+        cell.setup(date: date, style: configuration.calculateStyle(isWeekend: isWeekendDate, isSelected: isSelectedDate, isCurrent: isCurrentDate))
         
         configureCell(cell, date: date, isWeekend: isWeekendDate, isSelected: isSelectedDate)
         
@@ -195,7 +197,6 @@ extension Picker: UICollectionViewDataSource {
     private func isSelected(date: Date) -> Bool {
         return date == selectedDate
     }
-
 }
 
 // MARK: - UICollectionViewDelegate
@@ -290,5 +291,15 @@ public extension Array where Element: Hashable {
     func uniqued() -> [Element] {
         var seen = Set<Element>()
         return filter{ seen.insert($0).inserted }
+    }
+}
+
+extension Date {
+    var isCurrentDay: Bool {
+        return Calendar.current.component(.day, from: Date()) == Calendar.current.component(.day, from: self)
+    }
+    
+    var isCurrentHour: Bool {
+        return Calendar.current.component(.hour, from: Date()) == Calendar.current.component(.hour, from: self)
     }
 }
