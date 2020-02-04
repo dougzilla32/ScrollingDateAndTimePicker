@@ -17,6 +17,10 @@ open class ScrollingDateAndTimePicker: LoadableFromXibView {
 
     @IBOutlet weak var selectorBackground: UIView!
     @IBOutlet weak var selectorBackgroundWidth: NSLayoutConstraint!
+    @IBOutlet weak var topMagnifier: MagnifierView!
+    @IBOutlet weak var topMagnifierWidth: NSLayoutConstraint!
+    @IBOutlet weak var bottomMagnifier: MagnifierView!
+    @IBOutlet weak var bottomMagnifierWidth: NSLayoutConstraint!
     @IBOutlet public weak var selectorBar: UIView!
     @IBOutlet weak var selectorBarWidth: NSLayoutConstraint!
     @IBOutlet public weak var selectorBarHeight: NSLayoutConstraint!
@@ -28,6 +32,25 @@ open class ScrollingDateAndTimePicker: LoadableFromXibView {
             }
             else {
                 selectorBackground.isHidden = true
+            }
+        }
+    }
+    
+    public var magnification: CGFloat? {
+        didSet {
+            let isMagnified = (magnification != nil)
+            selectorBackground.isHidden = isMagnified
+            topMagnifier.isHidden = !isMagnified
+            topMagnifier.magnification = magnification
+            bottomMagnifier.isHidden = !isMagnified
+            bottomMagnifier.magnification = magnification
+            if isMagnified {
+                // Wait until picker layer is updated before updating the magnifier layer -- couldn't figure out
+                // a better way to do this.
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.01) {
+                    self.timePicker.updateMagnifier()
+                    self.datePicker.updateMagnifier()
+                }
             }
         }
     }
@@ -128,10 +151,24 @@ open class ScrollingDateAndTimePicker: LoadableFromXibView {
         }
     }
 
+    override func xibSetup() {
+        super.xibSetup()
+        
+        topMagnifier.viewToMagnify = datePicker
+        datePicker.magnifier = topMagnifier
+        topMagnifier.isHidden = true
+        
+        bottomMagnifier.viewToMagnify = timePicker
+        timePicker.magnifier = bottomMagnifier
+        bottomMagnifier.isHidden = true
+    }
+
     open override func layoutSubviews() {
         let size = dateConfiguration.sizeCalculation.calculateItemSize(frame: self.frame)
         selectorBarWidth.constant = size.width
         selectorBackgroundWidth.constant = size.width
+        topMagnifierWidth.constant = size.width
+        bottomMagnifierWidth.constant = size.width
 
         super.layoutSubviews()
         datePicker.reloadData()

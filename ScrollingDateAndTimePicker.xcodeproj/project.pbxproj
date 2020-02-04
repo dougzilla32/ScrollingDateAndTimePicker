@@ -18,6 +18,8 @@
 		19C5E4D61DA0157E005663E8 /* ScrollingDateAndTimePicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19C5E4D51DA0157E005663E8 /* ScrollingDateAndTimePicker.xib */; };
 		19C5E4D91DA0189A005663E8 /* TimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C5E4D81DA0189A005663E8 /* TimeCell.swift */; };
 		19C5E4DB1DA018DE005663E8 /* TimeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19C5E4DA1DA018DE005663E8 /* TimeCell.xib */; };
+		913A61B523E8BEB3009E5D58 /* TAProgressLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913A61B423E8BEB3009E5D58 /* TAProgressLayer.swift */; };
+		91446CC423E5403400754147 /* MagnifierView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91446CC323E5403400754147 /* MagnifierView.swift */; };
 		915DC899230A980B003D61E0 /* DayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 915DC897230A980B003D61E0 /* DayCell.xib */; };
 		915DC89A230A980B003D61E0 /* DayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915DC898230A980B003D61E0 /* DayCell.swift */; };
 		915DC89E230ABB2F003D61E0 /* DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915DC89D230ABB2F003D61E0 /* DatePicker.swift */; };
@@ -43,6 +45,8 @@
 		19C5E4D51DA0157E005663E8 /* ScrollingDateAndTimePicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScrollingDateAndTimePicker.xib; sourceTree = "<group>"; };
 		19C5E4D81DA0189A005663E8 /* TimeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeCell.swift; sourceTree = "<group>"; };
 		19C5E4DA1DA018DE005663E8 /* TimeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimeCell.xib; sourceTree = "<group>"; };
+		913A61B423E8BEB3009E5D58 /* TAProgressLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAProgressLayer.swift; sourceTree = "<group>"; };
+		91446CC323E5403400754147 /* MagnifierView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagnifierView.swift; sourceTree = "<group>"; };
 		915DC897230A980B003D61E0 /* DayCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DayCell.xib; sourceTree = "<group>"; };
 		915DC898230A980B003D61E0 /* DayCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayCell.swift; sourceTree = "<group>"; };
 		915DC89D230ABB2F003D61E0 /* DatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePicker.swift; sourceTree = "<group>"; };
@@ -110,6 +114,8 @@
 				19C5E4D81DA0189A005663E8 /* TimeCell.swift */,
 				19C5E4DA1DA018DE005663E8 /* TimeCell.xib */,
 				91B7D9C023D1269A009A0E42 /* Moon.swift */,
+				91446CC323E5403400754147 /* MagnifierView.swift */,
+				913A61B423E8BEB3009E5D58 /* TAProgressLayer.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -226,12 +232,14 @@
 				915DC89A230A980B003D61E0 /* DayCell.swift in Sources */,
 				91B7D9C123D1269A009A0E42 /* Moon.swift in Sources */,
 				915DC8A0230ABB3A003D61E0 /* TimePicker.swift in Sources */,
+				91446CC423E5403400754147 /* MagnifierView.swift in Sources */,
 				91E71E3E230CF42800957058 /* PickerConfiguration.swift in Sources */,
 				19C5E4BF1DA0125F005663E8 /* AppDelegate.swift in Sources */,
 				19C5E4D91DA0189A005663E8 /* TimeCell.swift in Sources */,
 				19091B381EF80F4B00292FA9 /* DayConfiguration.swift in Sources */,
 				915DC89E230ABB2F003D61E0 /* DatePicker.swift in Sources */,
 				91E71E3C230CC72800957058 /* Picker.swift in Sources */,
+				913A61B523E8BEB3009E5D58 /* TAProgressLayer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

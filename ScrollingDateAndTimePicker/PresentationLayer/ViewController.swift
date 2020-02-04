@@ -91,6 +91,8 @@ class ViewController: UIViewController {
                 }
                 
                 picker.timeConfiguration = configuration
+                
+                picker.magnification = 1.2
             }
         }
     }

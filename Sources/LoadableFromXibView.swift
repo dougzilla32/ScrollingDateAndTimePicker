@@ -26,7 +26,7 @@ open class LoadableFromXibView: UIView {
 
     // MARK: - Setup
 
-    private func xibSetup() {
+    func xibSetup() {
         let podBundle = Bundle(for: ScrollingDateAndTimePicker.self)
         let bundlePath = podBundle.path(forResource: String(describing: type(of: self)), ofType: "bundle")
         var bundle: Bundle? = nil

@@ -22,7 +22,9 @@ public class Picker: UICollectionView {
     // MARK: - properties and methods
     
     weak var parent: ScrollingDateAndTimePicker!
+    weak var magnifier: MagnifierView!
     weak var pickerDelegate: ScrollingDateAndTimePickerDelegate!
+    var progressLayer: TAProgressLayer?
 
     var isScrolling = false
     var isScrollAnimatingFromUser = false
@@ -163,6 +165,74 @@ public class Picker: UICollectionView {
 
         super.layoutSubviews()
     }
+    
+    override public func scrollToItem(at indexPath: IndexPath, at scrollPosition: UICollectionView.ScrollPosition, animated: Bool) {
+        guard let _ = magnifier.magnification else {
+            super.scrollToItem(at: indexPath, at: scrollPosition, animated: animated)
+            return
+        }
+        
+        if animated {
+            let startOffset = contentOffset
+            super.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
+            let endOffset = contentOffset
+            contentOffset = startOffset
+
+            self.progressLayer?.cancel()
+            let progressLayer = TAProgressLayer(layer: magnifier.layer, progressDelegate: PickerProgressDelegate(picker: self, startOffset: startOffset, endOffset: endOffset))
+            self.progressLayer = progressLayer
+
+            do {
+                let anim = CABasicAnimation(keyPath: TAProgressLayer.ProgressKey)
+                anim.duration = 0.3
+                anim.beginTime = 0
+                anim.fromValue = CGFloat(0)
+                anim.toValue = CGFloat(1)
+                anim.fillMode = .forwards
+                anim.isRemovedOnCompletion = true
+                anim.delegate = TAProgressAnimationDelegate(progressLayer: progressLayer)
+                anim.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+                progressLayer.add(anim, forKey: TAProgressLayer.ProgressKey)
+            }
+       }
+        else {
+            super.scrollToItem(at: indexPath, at: scrollPosition, animated: false)
+            
+            // Wait until picker layer is updated before updating the magnifier layer -- couldn't figure out
+            // a better way to do this.
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.01) {
+                self.updateMagnifier()
+            }
+        }
+    }
+    
+    func updateMagnifier() {
+        guard let magnifier = self.magnifier, let _ = magnifier.magnification else { return }
+        
+        magnifier.touchPoint = CGPoint(
+            x: contentOffset.x + self.frame.size.width / 2,
+            y: contentOffset.y + self.frame.size.height / 2)
+        magnifier.setNeedsDisplay()
+    }
+}
+
+class PickerProgressDelegate: TAProgressDelegate {
+    weak var picker: Picker?
+    let startOffset: CGPoint
+    let endOffset: CGPoint
+    
+    init(picker: Picker, startOffset: CGPoint, endOffset: CGPoint) {
+        self.picker = picker
+        self.startOffset = startOffset
+        self.endOffset = endOffset
+    }
+
+    func progressUpdated(_ progress: CGFloat, in ctx: CGContext) {
+        picker?.contentOffset = CGPoint(
+            x: startOffset.x + (endOffset.x - startOffset.x) * progress,
+            y: startOffset.y + (endOffset.y - startOffset.y) * progress)
+        picker?.updateMagnifier()
+    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -269,6 +339,8 @@ extension Picker: UICollectionViewDelegate {
                 didSelect(date: date)
             }
         }
+        
+        updateMagnifier()
     }
 
     public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
