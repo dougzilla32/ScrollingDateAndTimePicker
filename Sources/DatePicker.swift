@@ -8,6 +8,10 @@
 import UIKit
 
 public class DatePicker: Picker {
+    override var xibClass: AnyClass {
+        return DayCell.self
+    }
+    
     static let InfiniteScrollCount = 2000
     
     override var infiniteScrollCount: Int {
@@ -41,11 +45,11 @@ public class DatePicker: Picker {
         return collectionView.dequeueReusableCell(withReuseIdentifier: DayCell.ClassName, for: indexPath) as! DayCell
     }
     
-    override func configureCell(_ cell: PickerCell, date: Date, isWeekend: Bool, isSelected: Bool) {
-        cellConfigurer?(cell as! DayCell, date, isWeekend, isSelected)
+    override func configureCell(_ cell: PickerCell, date: Date, isWeekend: Bool, isSelected: Bool, isHighlighted: Bool) {
+        cellConfigurer?(cell as! DayCell, date, isWeekend, isSelected, isHighlighted)
     }
 
-    var cellConfigurer: ((_ cell: DayCell, _ date: Date, _ isWeekend: Bool, _ isSelected: Bool) -> Void)? {
+    var cellConfigurer: ((_ cell: DayCell, _ date: Date, _ isWeekend: Bool, _ isSelected: Bool, _ isHighlighted: Bool) -> Void)? {
         didSet {
             reloadData()
         }

@@ -36,7 +36,7 @@
                     </constraints>
                 </view>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="bHB-sV-bER" userLabel="Day Collection View" customClass="DatePicker" customModule="ScrollingDateAndTimePicker" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="0.0" width="240" height="50.5"/>
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="51.5"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="5" id="XLp-AA-98S">
                         <size key="itemSize" width="70" height="50"/>
@@ -46,7 +46,7 @@
                     </collectionViewFlowLayout>
                 </collectionView>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="veT-JR-cBT" userLabel="Time Collection View" customClass="TimePicker" customModule="ScrollingDateAndTimePicker" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="52.5" width="240" height="50.5"/>
+                    <rect key="frame" x="0.0" y="51.5" width="240" height="51.5"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="5" id="QOf-d8-JMy">
                         <size key="itemSize" width="70" height="50"/>
@@ -94,8 +94,8 @@
                 <constraint firstAttribute="trailing" secondItem="veT-JR-cBT" secondAttribute="trailing" id="X0b-3I-Vs7"/>
                 <constraint firstItem="TYI-i7-oYu" firstAttribute="top" secondItem="aOu-w9-3Qt" secondAttribute="top" id="cNI-bK-3PG"/>
                 <constraint firstItem="EKn-YN-Lpp" firstAttribute="centerX" secondItem="aOu-w9-3Qt" secondAttribute="centerX" id="euD-j0-j9Q"/>
-                <constraint firstItem="wg9-w4-wuv" firstAttribute="top" secondItem="bHB-sV-bER" secondAttribute="bottom" constant="-1" id="hMs-ZR-Fko"/>
-                <constraint firstItem="veT-JR-cBT" firstAttribute="top" secondItem="wg9-w4-wuv" secondAttribute="bottom" constant="-1" id="m2J-mE-DaE"/>
+                <constraint firstItem="wg9-w4-wuv" firstAttribute="top" secondItem="bHB-sV-bER" secondAttribute="bottom" constant="-2" id="hMs-ZR-Fko"/>
+                <constraint firstItem="veT-JR-cBT" firstAttribute="top" secondItem="wg9-w4-wuv" secondAttribute="bottom" constant="-2" id="m2J-mE-DaE"/>
                 <constraint firstAttribute="bottom" secondItem="veT-JR-cBT" secondAttribute="bottom" id="r6M-BS-YAe"/>
                 <constraint firstItem="wg9-w4-wuv" firstAttribute="centerX" secondItem="aOu-w9-3Qt" secondAttribute="centerX" id="sL6-Jv-C7N"/>
                 <constraint firstItem="veT-JR-cBT" firstAttribute="leading" secondItem="aOu-w9-3Qt" secondAttribute="leading" id="yNf-6a-vPC"/>

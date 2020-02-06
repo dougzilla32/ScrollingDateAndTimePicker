@@ -15,6 +15,10 @@ public class TimePicker: Picker {
     var minuteGranularity = MinuteGranularity.sixty
     var showTimeRange = false
     
+    override var xibClass: AnyClass {
+        return TimeCell.self
+    }
+    
     override var infiniteScrollCount: Int {
         return DatePicker.InfiniteScrollCount * 24
     }
@@ -46,16 +50,14 @@ public class TimePicker: Picker {
     }
     
     override func dequeueReusableCell(_ collectionView: UICollectionView, for indexPath: IndexPath) -> PickerCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TimeCell.ClassName, for: indexPath) as! TimeCell
-        cell.showTimeRange = self.showTimeRange
-        return cell
+        return collectionView.dequeueReusableCell(withReuseIdentifier: TimeCell.ClassName, for: indexPath) as! TimeCell
     }
     
-    override func configureCell(_ cell: PickerCell, date: Date, isWeekend: Bool, isSelected: Bool) {
-        cellConfigurer?(cell as! TimeCell, date, isWeekend, isSelected)
+    override func configureCell(_ cell: PickerCell, date: Date, isWeekend: Bool, isSelected: Bool, isHighlighted: Bool) {
+        cellConfigurer?(cell as! TimeCell, date, isWeekend, isSelected, isHighlighted)
     }
 
-    var cellConfigurer: ((_ cell: TimeCell, _ date: Date, _ isWeekend: Bool, _ isSelected: Bool) -> Void)? {
+    var cellConfigurer: ((_ cell: TimeCell, _ date: Date, _ isWeekend: Bool, _ isSelected: Bool, _ isHighlighted: Bool) -> Void)? {
         didSet {
             reloadData()
         }

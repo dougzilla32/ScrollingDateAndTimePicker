@@ -10,5 +10,5 @@ import UIKit
 
 public class PickerCell: UICollectionViewCell {
     
-    func setup(date: Date, style: PickerStyleConfiguration) { fatalError() }
+    func setup(date: Date, style: PickerStyleConfiguration, showTimeRange: Bool) { fatalError() }
 }

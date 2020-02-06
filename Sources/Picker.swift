@@ -10,13 +10,14 @@ import UIKit
 public class Picker: UICollectionView {
     // MARK: - subclasses must override these
     
+    var xibClass: AnyClass { fatalError() }
     var infiniteScrollCount: Int { fatalError() }
     func infiniteScrollDate(at index: Int, anchorDate: Date) -> Date { fatalError() }
     func infiniteScrollIndex(of date: Date, anchorDate: Date) -> Int { fatalError() }
     func truncate(date: Date) -> Date { fatalError() }
     func didSelect(date: Date) { fatalError() }
     func dequeueReusableCell(_: UICollectionView, for: IndexPath) -> PickerCell { fatalError() }
-    func configureCell(_ cell: PickerCell, date: Date, isWeekend: Bool, isSelected: Bool) { fatalError() }
+    func configureCell(_ cell: PickerCell, date: Date, isWeekend: Bool, isSelected: Bool, isHighlighted: Bool) { fatalError() }
     func isCurrent(date: Date) -> Bool { fatalError() }
 
     // MARK: - properties and methods
@@ -167,7 +168,7 @@ public class Picker: UICollectionView {
     }
     
     override public func scrollToItem(at indexPath: IndexPath, at scrollPosition: UICollectionView.ScrollPosition, animated: Bool) {
-        guard let _ = magnifier.magnification else {
+        guard magnifier?.magnification != nil || (parent?.isHighlightingEnabled ?? false) else {
             super.scrollToItem(at: indexPath, at: scrollPosition, animated: animated)
             return
         }
@@ -194,7 +195,7 @@ public class Picker: UICollectionView {
                 anim.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
                 progressLayer.add(anim, forKey: TAProgressLayer.ProgressKey)
             }
-       }
+        }
         else {
             super.scrollToItem(at: indexPath, at: scrollPosition, animated: false)
             
@@ -206,13 +207,82 @@ public class Picker: UICollectionView {
         }
     }
     
+    var leftHighlightCell: PickerCell!
+    var rightHighlightCell: PickerCell!
+
     func updateMagnifier() {
-        guard let magnifier = self.magnifier, let _ = magnifier.magnification else { return }
+        guard let magnifier = self.magnifier else { return }
         
-        magnifier.touchPoint = CGPoint(
-            x: contentOffset.x + self.frame.size.width / 2,
-            y: contentOffset.y + self.frame.size.height / 2)
-        magnifier.setNeedsDisplay()
+        if parent?.isHighlightingEnabled ?? false {
+            magnifier.clipsToBounds = true
+            
+            let addCell: (PickerCell?) -> PickerCell = { currentCell in
+                let cell = currentCell ?? (LoadableFromXibView.xibView(bundleClass: ScrollingDateAndTimePicker.self, viewClass: self.xibClass) as! PickerCell)
+                if cell.superview == nil {
+                    magnifier.addSubview(cell)
+                    cell.frame = CGRect(x: 0, y: 0, width: magnifier.frame.size.width, height: magnifier.frame.size.height)
+                }
+                return cell
+            }
+            leftHighlightCell = addCell(leftHighlightCell)
+            rightHighlightCell = addCell(rightHighlightCell)
+            
+            if magnifier.drawCallback == nil {
+                magnifier.drawCallback = unown(self, type(of: self).drawCallback)
+            }
+            
+            magnifier.setNeedsDisplay()
+        }
+        else {
+            magnifier.clipsToBounds = false
+            leftHighlightCell?.removeFromSuperview()
+            rightHighlightCell?.removeFromSuperview()
+            magnifier.drawCallback = nil
+
+            if magnifier.magnification != nil {
+                magnifier.touchPoint = CGPoint(
+                    x: contentOffset.x + self.frame.size.width / 2,
+                    y: contentOffset.y + self.frame.size.height / 2)
+                magnifier.setNeedsDisplay()
+            }
+        }
+    }
+    
+    private func drawCallback(_ rect: CGRect) {
+        let itemSize = (self.collectionViewLayout as! UICollectionViewFlowLayout).itemSize
+
+        let translateCell: (String, PickerCell, Int?, CGFloat, CGFloat) -> Int? = { msg, cell, index, superX, cellX in
+            let io = Picker.indexAndOffset(x: superX + cellX, cellWidth: itemSize.width)
+            guard io.index != index else {
+                cell.isHidden = true
+                return nil
+            }
+            cell.isHidden = false
+
+            let date = self.date(at: io.index)
+            self.setup(cell: cell, date: date, isHighlighted: true)
+            cell.frame.origin = CGPoint(x: cellX - io.offset, y: 0.0)
+            return io.index
+        }
+        
+        let superX = self.contentOffset.x + magnifier.frame.origin.x
+        let leftIndex = translateCell("leftHighlightCell", leftHighlightCell, nil, superX, 0)
+        let _ = translateCell("rightHighlightCell", rightHighlightCell, leftIndex, superX, magnifier.frame.size.width)
+    }
+    
+    private static func indexAndOffset(x: CGFloat, cellWidth: CGFloat) -> (index: Int, offset: CGFloat) {
+        return (
+            index: Int((x / cellWidth).rounded(.towardZero)),
+            offset: x.truncatingRemainder(dividingBy: cellWidth))
+    }
+}
+
+// How to avoid implicit retain cycles when using function references
+// https://sveinhal.github.io/2016/03/16/retain-cycles-function-references/
+func unown<T: AnyObject, U, V>(_ instance: T, _ classFunction: @escaping (T)->(U)->V) -> (U)->V {
+    return { [unowned instance] args in
+        let instanceFunction = classFunction(instance)
+        return instanceFunction(args)
     }
 }
 
@@ -244,20 +314,29 @@ extension Picker: UICollectionViewDataSource {
 
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = dequeueReusableCell(collectionView, for: indexPath)
-
         let date = self.date(at: indexPath.item)
+        if isSelected(date: date) {
+            prevSelectedIndex = indexPath.item
+        }
+        setup(cell: cell, date: date, isHighlighted: false)
+        return cell
+    }
+    
+    private func setup(cell: PickerCell, date: Date, isHighlighted: Bool) {
         let isWeekendDate = isWeekday(date: date)
         let isSelectedDate = isSelected(date: date)
         let isCurrentDate = isCurrent(date: date)
-        if isSelectedDate {
-            prevSelectedIndex = indexPath.item
-        }
 
-        cell.setup(date: date, style: configuration.calculateStyle(isWeekend: isWeekendDate, isSelected: isSelectedDate, isCurrent: isCurrentDate))
+        cell.setup(
+            date: date,
+            style: configuration.calculateStyle(
+                isWeekend: isWeekendDate,
+                isSelected: isSelectedDate,
+                isCurrent: isCurrentDate,
+                isHighlighted: isHighlighted),
+            showTimeRange: parent?.showTimeRange ?? false)
         
-        configureCell(cell, date: date, isWeekend: isWeekendDate, isSelected: isSelectedDate)
-        
-        return cell
+        configureCell(cell, date: date, isWeekend: isWeekendDate, isSelected: isSelectedDate, isHighlighted: isHighlighted)
     }
     
     private func isWeekday(date: Date) -> Bool {

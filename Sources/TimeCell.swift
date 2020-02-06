@@ -31,7 +31,6 @@ private struct MutableDateText: DateText {
 
 public class TimeCell: PickerCell {
     static let Moons = ["🌑", "🌒", " 🌓", "🌔", "🌕", "🌖", "🌗", "🌘", "🌑"]
-    var showTimeRange = false
 
     @IBOutlet public weak var timeLabel: UILabel!
     @IBOutlet public weak var amPmLabel: UILabel!
@@ -96,7 +95,7 @@ public class TimeCell: PickerCell {
 
     // MARK: - Setup
 
-    override func setup(date: Date, style: PickerStyleConfiguration) {
+    override func setup(date: Date, style: PickerStyleConfiguration, showTimeRange: Bool) {
         let style = style as! TimeStyleConfiguration
         let dateText = TimeCell.text(forDate: date, showTimeRange: showTimeRange)
 

@@ -11,15 +11,21 @@ import UIKit
 class MagnifierView: UIView {
     var magnification: CGFloat?
     weak var viewToMagnify: UIView?
+    var drawCallback: ((CGRect) -> Void)?
     var touchPoint: CGPoint!
     
     // Pass-through for all events
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         let view = super.hitTest(point, with: event)
-        return view == self ? nil : view
+        return (view?.isDescendant(of: self) ?? false) ? nil : view
     }
     
     override func draw(_ rect: CGRect) {
+        if let drawCallback = self.drawCallback {
+            drawCallback(rect)
+            return
+        }
+        
         guard let magnification = self.magnification,
             let viewToMagnify = self.viewToMagnify,
             let touchPoint = self.touchPoint else {

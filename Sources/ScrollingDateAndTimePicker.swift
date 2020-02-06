@@ -14,7 +14,6 @@ public protocol ScrollingDateAndTimePickerDelegate: class {
 
 
 open class ScrollingDateAndTimePicker: LoadableFromXibView {
-
     @IBOutlet weak var selectorBackground: UIView!
     @IBOutlet weak var selectorBackgroundWidth: NSLayoutConstraint!
     @IBOutlet weak var topMagnifier: MagnifierView!
@@ -27,30 +26,46 @@ open class ScrollingDateAndTimePicker: LoadableFromXibView {
     
     public var continuousSelection: Bool = true {
         didSet {
-            if continuousSelection {
-                selectorBackground.isHidden = false
-            }
-            else {
-                selectorBackground.isHidden = true
+            updateViewerVisibility()
+            updateMagnifiers()
+        }
+    }
+    
+    public var isHighlightingEnabled = false {
+        didSet {
+            if isHighlightingEnabled {
+                updateViewerVisibility()
+                updateMagnifiers()
             }
         }
     }
     
     public var magnification: CGFloat? {
         didSet {
-            let isMagnified = (magnification != nil)
-            selectorBackground.isHidden = isMagnified
-            topMagnifier.isHidden = !isMagnified
             topMagnifier.magnification = magnification
-            bottomMagnifier.isHidden = !isMagnified
             bottomMagnifier.magnification = magnification
-            if isMagnified {
-                // Wait until picker layer is updated before updating the magnifier layer -- couldn't figure out
-                // a better way to do this.
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.01) {
-                    self.timePicker.updateMagnifier()
-                    self.datePicker.updateMagnifier()
-                }
+            updateViewerVisibility()
+            updateMagnifiers()
+        }
+    }
+    
+    private func updateViewerVisibility() {
+        selectorBackground.isHidden = !continuousSelection || (magnification != nil) || isHighlightingEnabled
+        topMagnifier.isHidden = !continuousSelection || (magnification == nil) && !isHighlightingEnabled
+        bottomMagnifier.isHidden = !continuousSelection || (magnification == nil) && !isHighlightingEnabled
+    }
+    
+    private func updateMagnifiers() {
+        guard magnification != nil || isHighlightingEnabled else { return }
+        
+        // Wait until picker layer is updated before updating the magnifier layer -- couldn't figure out
+        // a better way to do this.
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.01) {
+            self.timePicker.updateMagnifier()
+            self.datePicker.updateMagnifier()
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1) {
+                self.timePicker.updateMagnifier()
+                self.datePicker.updateMagnifier()
             }
         }
     }
@@ -65,10 +80,7 @@ open class ScrollingDateAndTimePicker: LoadableFromXibView {
         set { timePicker.dates = newValue }
     }
     
-    public var showTimeRange: Bool {
-        get { return timePicker.showTimeRange }
-        set { timePicker.showTimeRange = newValue }
-    }
+    public var showTimeRange = false
     
     public var minuteGranularity: MinuteGranularity {
         get { return timePicker.minuteGranularity }
@@ -96,11 +108,11 @@ open class ScrollingDateAndTimePicker: LoadableFromXibView {
         didSet { timePicker.configuration = timeConfiguration }
     }
     
-    public var dateCellConfigurer: ((_ cell: DayCell, _ date: Date, _ isWeekend: Bool, _ isSelected: Bool) -> Void)? {
+    public var dateCellConfigurer: ((_ cell: DayCell, _ date: Date, _ isWeekend: Bool, _ isSelected: Bool, _ isHighlighted: Bool) -> Void)? {
         didSet { datePicker.cellConfigurer = dateCellConfigurer }
     }
     
-    public var timeCellConfigurer: ((_ cell: TimeCell, _ date: Date, _ isWeekend: Bool, _ isSelected: Bool) -> Void)? {
+    public var timeCellConfigurer: ((_ cell: TimeCell, _ date: Date, _ isWeekend: Bool, _ isSelected: Bool, _ isHighlighted: Bool) -> Void)? {
         didSet { timePicker.cellConfigurer = timeCellConfigurer }
     }
     

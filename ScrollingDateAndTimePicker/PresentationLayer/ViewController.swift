@@ -92,6 +92,7 @@ class ViewController: UIViewController {
                 
                 picker.timeConfiguration = configuration
                 
+                picker.isHighlightingEnabled = true
                 picker.magnification = 1.2
             }
         }
