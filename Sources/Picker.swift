@@ -150,23 +150,45 @@ public class Picker: UICollectionView {
     }
     
     open override func layoutSubviews() {
-        let itemSize: CGSize
-        if let w = cachedItemWidth, frame.width == cachedFrameWidth {
-            itemSize = CGSize(width: w, height: frame.height)
-        }
-        else {
-            itemSize = configuration.sizeCalculation.calculateItemSize(frame: frame)
+        if cachedFrameWidth != frame.width {
+            let itemSize = configuration.sizeCalculation.calculateItemSize(frame: frame)
             cachedFrameWidth = frame.width
             cachedItemWidth = itemSize.width
-        }
-        let layout = self.collectionViewLayout as! UICollectionViewFlowLayout
-        if itemSize != layout.itemSize {
-            layout.itemSize = itemSize
+            let layout = self.collectionViewLayout as! UICollectionViewFlowLayout
+            if itemSize != layout.itemSize {
+                layout.itemSize = itemSize
+            }
         }
 
         super.layoutSubviews()
+
+        if parent?.isHighlightingEnabled ?? false {
+            let maskView = MaskingView(frame: self.bounds)
+            maskView.itemWidth = cachedItemWidth
+            maskView.backgroundColor = .clear
+            self.mask = maskView
+        }
+        else {
+            self.mask = nil
+        }
     }
     
+    private class MaskingView: UIView {
+        var itemWidth: CGFloat?
+        
+        override func draw(_ rect: CGRect) {
+            super.draw(rect)
+
+            guard let context = UIGraphicsGetCurrentContext(), let itemWidth = self.itemWidth else { return }
+
+            context.setStrokeColor(UIColor.white.cgColor)
+            context.addRect(CGRect(x: 0, y: 0, width: (self.frame.size.width - itemWidth) / 2, height: self.bounds.size.height))
+            context.fillPath()
+            context.addRect(CGRect(x: (self.frame.size.width + itemWidth) / 2, y: 0, width: (self.frame.size.width - itemWidth) / 2, height: self.bounds.size.height))
+            context.fillPath()
+        }
+    }
+
     override public func scrollToItem(at indexPath: IndexPath, at scrollPosition: UICollectionView.ScrollPosition, animated: Bool) {
         guard magnifier?.magnification != nil || (parent?.isHighlightingEnabled ?? false) else {
             super.scrollToItem(at: indexPath, at: scrollPosition, animated: animated)
@@ -220,8 +242,8 @@ public class Picker: UICollectionView {
                 let cell = currentCell ?? (LoadableFromXibView.xibView(bundleClass: ScrollingDateAndTimePicker.self, viewClass: self.xibClass) as! PickerCell)
                 if cell.superview == nil {
                     magnifier.addSubview(cell)
-                    cell.frame = CGRect(x: 0, y: 0, width: magnifier.frame.size.width, height: magnifier.frame.size.height)
                 }
+                cell.frame = CGRect(x: 0, y: 0, width: magnifier.frame.size.width, height: magnifier.frame.size.height)
                 return cell
             }
             leftHighlightCell = addCell(leftHighlightCell)

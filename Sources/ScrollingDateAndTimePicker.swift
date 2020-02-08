@@ -60,6 +60,10 @@ open class ScrollingDateAndTimePicker: LoadableFromXibView {
         
         // Wait until picker layer is updated before updating the magnifier layer -- couldn't figure out
         // a better way to do this.
+        if magnification == nil && isHighlightingEnabled {
+            self.timePicker.updateMagnifier()
+            self.datePicker.updateMagnifier()
+        }
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.01) {
             self.timePicker.updateMagnifier()
             self.datePicker.updateMagnifier()
@@ -116,8 +120,9 @@ open class ScrollingDateAndTimePicker: LoadableFromXibView {
         didSet { timePicker.cellConfigurer = timeCellConfigurer }
     }
     
-    // ToDo: for much better efficiency, update the configurations without recreating the cells
+    // ToDo: for better efficiency, update the configurations without recreating the cells
     public func updateCellConfigurations() {
+        updateMagnifiers()
         datePicker.reloadData()
         timePicker.reloadData()
     }
@@ -176,11 +181,11 @@ open class ScrollingDateAndTimePicker: LoadableFromXibView {
     }
 
     open override func layoutSubviews() {
-        let size = dateConfiguration.sizeCalculation.calculateItemSize(frame: self.frame)
-        selectorBarWidth.constant = size.width
-        selectorBackgroundWidth.constant = size.width
-        topMagnifierWidth.constant = size.width
-        bottomMagnifierWidth.constant = size.width
+        let itemSize = dateConfiguration.sizeCalculation.calculateItemSize(frame: self.frame)
+        selectorBarWidth.constant = itemSize.width
+        selectorBackgroundWidth.constant = itemSize.width
+        topMagnifierWidth.constant = itemSize.width
+        bottomMagnifierWidth.constant = itemSize.width
 
         super.layoutSubviews()
         datePicker.reloadData()

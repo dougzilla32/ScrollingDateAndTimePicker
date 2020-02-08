@@ -57,7 +57,7 @@
                 </collectionView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TYI-i7-oYu" userLabel="Top Magnifier" customClass="MagnifierView" customModule="ScrollingDateAndTimePicker" customModuleProvider="target">
                     <rect key="frame" x="80" y="0.0" width="80" height="50.5"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="80" id="7Tk-SH-vwh"/>
                     </constraints>
@@ -72,7 +72,7 @@
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vGZ-LB-6d6" userLabel="Bottom Magnifier" customClass="MagnifierView" customModule="ScrollingDateAndTimePicker" customModuleProvider="target">
                     <rect key="frame" x="80" y="52.5" width="80" height="50.5"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="80" id="S7r-l0-uFF"/>
                     </constraints>
