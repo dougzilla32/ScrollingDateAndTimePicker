@@ -9,7 +9,7 @@
 import UIKit
 
 protocol TAProgressDelegate {
-    func progressUpdated(_ progress: CGFloat, in: CGContext)
+    func progressUpdated(_ progress: CGFloat)
 }
 
 class TAProgressAnimationDelegate: NSObject, CAAnimationDelegate {
@@ -22,7 +22,7 @@ class TAProgressAnimationDelegate: NSObject, CAAnimationDelegate {
     public func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         guard let progressLayer = self.progressLayer else { return }
         self.progressLayer = nil
-        progressLayer.cancel()
+        progressLayer.didStop(toValue: (anim as! CABasicAnimation).toValue as! CGFloat)
     }
 }
 
@@ -83,12 +83,19 @@ public class TAProgressLayer : CALayer {
 
     override public func draw(in ctx: CGContext) {
         if let del = self.progressDelegate {
-            del.progressUpdated(progress, in: ctx)
+            del.progressUpdated(progress)
         }
     }
     
     func cancel() {
         removeAnimation(forKey: TAProgressLayer.ProgressKey)
         removeFromSuperlayer()
+    }
+    
+    func didStop(toValue: CGFloat) {
+        cancel()
+        if let del = self.progressDelegate {
+            del.progressUpdated(toValue)
+        }
     }
 }

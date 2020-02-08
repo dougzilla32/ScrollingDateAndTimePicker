@@ -212,7 +212,7 @@ public class Picker: UICollectionView {
                 anim.fromValue = CGFloat(0)
                 anim.toValue = CGFloat(1)
                 anim.fillMode = .forwards
-                anim.isRemovedOnCompletion = true
+                anim.isRemovedOnCompletion = false
                 anim.delegate = TAProgressAnimationDelegate(progressLayer: progressLayer)
                 anim.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
                 progressLayer.add(anim, forKey: TAProgressLayer.ProgressKey)
@@ -319,7 +319,7 @@ class PickerProgressDelegate: TAProgressDelegate {
         self.endOffset = endOffset
     }
 
-    func progressUpdated(_ progress: CGFloat, in ctx: CGContext) {
+    func progressUpdated(_ progress: CGFloat) {
         picker?.contentOffset = CGPoint(
             x: startOffset.x + (endOffset.x - startOffset.x) * progress,
             y: startOffset.y + (endOffset.y - startOffset.y) * progress)
