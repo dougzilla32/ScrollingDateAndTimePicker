@@ -94,6 +94,7 @@ class ViewController: UIViewController {
                 
                 picker.isHighlightingEnabled = true
                 picker.magnification = 1.2
+                picker.isHapticFeedbackEnabled = true
             }
         }
     }

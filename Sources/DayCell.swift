@@ -19,6 +19,9 @@ public class DayCell: PickerCell {
     // MARK: - Setup
 
     override func setup(date: Date, style: PickerStyleConfiguration, showTimeRange: Bool) {
+        guard date != self.setupDate else { return }
+        self.setupDate = date
+        
         let style = style as! DayStyleConfiguration
         let formatter = DateFormatter()
 

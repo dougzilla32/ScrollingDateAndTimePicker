@@ -30,12 +30,12 @@ public class DatePicker: Picker {
         return Calendar.current.startOfDay(for: date)
     }
 
-    override func didSelect(date: Date) {
+    override func didSelect(date: Date, animated: Bool, secondary: Bool) {
         var date = date
         // Adjust timepicker according to new datepicker selection
-        if let timePicker = parent?.timePicker {
+        if !secondary, let timePicker = parent?.timePicker {
             timePicker.day = date
-            timePicker.scrollToSelectedDate(animated: false)
+            timePicker.scrollToSelectedDate(animated: false, secondary: true)
             date = timePicker.selectedDate ?? date
         }
         pickerDelegate?.datepicker(parent, didSelectDate: date)
@@ -57,6 +57,11 @@ public class DatePicker: Picker {
     
     override func isCurrent(date: Date) -> Bool {
         return date.isCurrentDay
+    }
+    
+    override func numberOfImpacts(from: Date, to: Date) -> Int {
+        let seconds = from.timeIntervalSince(to)
+        return Int(abs(round(seconds / (3600 * 24))))
     }
     
     // Immediately cancel the timepicker scroll

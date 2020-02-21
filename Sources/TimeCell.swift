@@ -96,6 +96,9 @@ public class TimeCell: PickerCell {
     // MARK: - Setup
 
     override func setup(date: Date, style: PickerStyleConfiguration, showTimeRange: Bool) {
+        guard date != self.setupDate else { return }
+        self.setupDate = date
+        
         let style = style as! TimeStyleConfiguration
         let dateText = TimeCell.text(forDate: date, showTimeRange: showTimeRange)
 

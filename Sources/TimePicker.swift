@@ -41,10 +41,10 @@ public class TimePicker: Picker {
         return date
     }
     
-    override func didSelect(date: Date) {
-        if let datePicker = parent?.datePicker, datePicker.selectedDate != datePicker.truncate(date: date) {
+    override func didSelect(date: Date, animated: Bool, secondary: Bool) {
+        if !secondary, let datePicker = parent?.datePicker, datePicker.selectedDate != datePicker.truncate(date: date) {
             datePicker.selectedDate = date
-            datePicker.scrollToSelectedDate(animated: !datePicker.isScrolling)
+            datePicker.scrollToSelectedDate(animated: !datePicker.isScrolling, secondary: true)
         }
         pickerDelegate?.timepicker(parent, didSelectTime: date)
     }
@@ -65,6 +65,11 @@ public class TimePicker: Picker {
     
     override func isCurrent(date: Date) -> Bool {
         return date.isCurrentDay && date.isCurrentHour
+    }
+    
+    override func numberOfImpacts(from: Date, to: Date) -> Int {
+        let seconds = from.timeIntervalSince(to)
+        return Int(abs(round(seconds / 3600)))
     }
     
     override public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {

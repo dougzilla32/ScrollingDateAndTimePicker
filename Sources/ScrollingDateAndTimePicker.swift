@@ -31,6 +31,8 @@ open class ScrollingDateAndTimePicker: LoadableFromXibView {
         }
     }
     
+    public var isHapticFeedbackEnabled = false
+
     public var isHighlightingEnabled = false {
         didSet {
             if isHighlightingEnabled {
