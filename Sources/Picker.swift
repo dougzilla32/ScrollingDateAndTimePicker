@@ -7,6 +7,10 @@
 
 import UIKit
 
+enum PickerScrollStyle {
+    case primary, secondaryNoHaptic, secondaryWithHaptic
+}
+
 public class Picker: UICollectionView {
     // MARK: - subclasses must override these
     
@@ -15,7 +19,7 @@ public class Picker: UICollectionView {
     func infiniteScrollDate(at index: Int, anchorDate: Date) -> Date { fatalError() }
     func infiniteScrollIndex(of date: Date, anchorDate: Date) -> Int { fatalError() }
     func truncate(date: Date) -> Date { fatalError() }
-    func didSelect(date: Date, animated: Bool, secondary: Bool) { fatalError() }
+    func didSelect(date: Date, animated: Bool, scrollStyle: PickerScrollStyle) { fatalError() }
     func dequeueReusableCell(_: UICollectionView, for: IndexPath) -> PickerCell { fatalError() }
     func configureCell(_ cell: PickerCell, date: Date, isWeekend: Bool, isSelected: Bool, isHighlighted: Bool) { fatalError() }
     func isCurrent(date: Date) -> Bool { fatalError() }
@@ -33,7 +37,7 @@ public class Picker: UICollectionView {
     private var infiniteScrollAnchorIndex: Int { return infiniteScrollCount / 3 }
 
     private lazy var infiniteScrollAnchorDate: Date? = {
-        return truncate(date: Date())
+        return truncate(date: Date.currentDate)
     }()
     
     @available(iOS 10.0, *)
@@ -55,7 +59,7 @@ public class Picker: UICollectionView {
                 self.dates = dates.uniqued()
             }
             else {
-                infiniteScrollAnchorDate = truncate(date: selectedDate ?? Date())
+                infiniteScrollAnchorDate = truncate(date: selectedDate ?? Date.currentDate)
             }
             reloadData()
         }
@@ -128,13 +132,31 @@ public class Picker: UICollectionView {
         }
     }
     
-    func scrollToSelectedDate(animated: Bool, secondary: Bool = false) {
-        if let index = selectedIndex, index >= 0, index < self.numberOfItems(inSection: 0) {
+    var centerIndex: IndexPath? {
+        if let centerPoint = self.parent?.convert(self.center, to: self) {
+            return self.indexPathForItem(at: centerPoint)
+        }
+        else {
+            return nil
+        }
+    }
+    
+    @discardableResult
+    func scrollToSelectedDate(animated: Bool, scrollStyle: PickerScrollStyle) -> Bool {
+        let sIndex = self.selectedIndex
+        var willScroll = false
+        if let centerIndex = self.centerIndex {
+            willScroll = (centerIndex.row != sIndex)
+        }
+        
+        if let sIndex = sIndex, sIndex >= 0, sIndex < self.numberOfItems(inSection: 0) {
             cancelScroll()
             releaseHapticFeedback()
-            scrollToItem(at: IndexPath(item: index, section: 0), at: .centeredHorizontally, animated: animated, secondary: secondary)
+            scrollToItem(at: IndexPath(item: sIndex, section: 0), at: .centeredHorizontally, animated: animated, scrollStyle: scrollStyle)
             cancelScroll()
         }
+
+        return willScroll
     }
     
     func scrollTo(_ date: Date, animated: Bool) {
@@ -147,7 +169,13 @@ public class Picker: UICollectionView {
     }
     
     func prepareHapticFeedback() {
-        centerItem = nil
+        if let centerIndex = self.centerIndex {
+            centerItem = centerIndex.row
+        }
+        else {
+            centerItem = nil
+        }
+        
         if #available(iOS 10.0, *), let parent = parent, parent.isHapticFeedbackEnabled {
             if let generator = parent.datePicker.impactFeedbackGenerator ?? parent.timePicker.impactFeedbackGenerator {
                 self.impactFeedbackGenerator = generator
@@ -159,7 +187,9 @@ public class Picker: UICollectionView {
         }
     }
     
-    func updateSelectedDate(itemWidth: CGFloat, frameWidth: CGFloat) {
+    func updateSelectedDate(itemWidth: CGFloat, frameWidth: CGFloat, scrollStyle: PickerScrollStyle) {
+        guard scrollStyle != .secondaryNoHaptic else { return }
+        
         let midLocationX = self.contentOffset.x + frameWidth / 2.0
         let item = Int(midLocationX / itemWidth)
 
@@ -167,11 +197,8 @@ public class Picker: UICollectionView {
 
         let date = self.date(at: item)
         
-        if #available(iOS 10.0, *), centerItem != nil, parent?.isHapticFeedbackEnabled ?? false {
-            var difference = 1
-            if let from = selectedDate {
-                difference = numberOfImpacts(from: from, to: date)
-            }
+        if #available(iOS 10.0, *), let centerItem = centerItem, parent?.isHapticFeedbackEnabled ?? false {
+            let difference = abs(item - centerItem)
             if let impactFeedbackGenerator = self.impactFeedbackGenerator {
                 for _ in 0..<difference {
                     impactFeedbackGenerator.impactOccurred()
@@ -180,9 +207,9 @@ public class Picker: UICollectionView {
         }
         
         centerItem = item
-        if date != selectedDate {
+        if scrollStyle == .primary, date != selectedDate {
             selectedDate = date
-            didSelect(date: date, animated: false, secondary: false)
+            didSelect(date: date, animated: false, scrollStyle: scrollStyle)
         }
     }
 
@@ -243,10 +270,10 @@ public class Picker: UICollectionView {
     }
 
     override public func scrollToItem(at indexPath: IndexPath, at scrollPosition: UICollectionView.ScrollPosition, animated: Bool) {
-        self.scrollToItem(at: indexPath, at: scrollPosition, animated: animated, secondary: false)
+        self.scrollToItem(at: indexPath, at: scrollPosition, animated: animated, scrollStyle: .primary)
     }
     
-    private func scrollToItem(at indexPath: IndexPath, at scrollPosition: UICollectionView.ScrollPosition, animated: Bool, secondary: Bool) {
+    private func scrollToItem(at indexPath: IndexPath, at scrollPosition: UICollectionView.ScrollPosition, animated: Bool, scrollStyle: PickerScrollStyle) {
         guard magnifier?.magnification != nil || (parent?.isHighlightingEnabled ?? false) else {
             super.scrollToItem(at: indexPath, at: scrollPosition, animated: animated)
             return
@@ -261,7 +288,7 @@ public class Picker: UICollectionView {
             prepareHapticFeedback()
             
             self.progressLayer?.cancel()
-            let progressLayer = TAProgressLayer(layer: magnifier.layer, progressDelegate: PickerProgressDelegate(picker: self, startOffset: startOffset, endOffset: endOffset, secondary: secondary))
+            let progressLayer = TAProgressLayer(layer: magnifier.layer, progressDelegate: PickerProgressDelegate(picker: self, startOffset: startOffset, endOffset: endOffset, scrollStyle: scrollStyle))
             self.progressLayer = progressLayer
 
             do {
@@ -307,6 +334,9 @@ public class Picker: UICollectionView {
             }
             leftHighlightCell = addCell(leftHighlightCell)
             rightHighlightCell = addCell(rightHighlightCell)
+            
+            leftHighlightCell.setupDate = nil
+            rightHighlightCell.setupDate = nil
             
             if magnifier.drawCallback == nil {
                 magnifier.drawCallback = unown(self, type(of: self).drawCallback)
@@ -371,13 +401,13 @@ class PickerProgressDelegate: TAProgressDelegate {
     weak var picker: Picker?
     let startOffset: CGPoint
     let endOffset: CGPoint
-    let secondary: Bool
+    let scrollStyle: PickerScrollStyle
     
-    init(picker: Picker, startOffset: CGPoint, endOffset: CGPoint, secondary: Bool) {
+    init(picker: Picker, startOffset: CGPoint, endOffset: CGPoint, scrollStyle: PickerScrollStyle) {
         self.picker = picker
         self.startOffset = startOffset
         self.endOffset = endOffset
-        self.secondary = secondary
+        self.scrollStyle = scrollStyle
     }
 
     func progressUpdated(_ progress: CGFloat) {
@@ -390,8 +420,8 @@ class PickerProgressDelegate: TAProgressDelegate {
         if progress == 1.0 {
             picker.releaseHapticFeedback()
         }
-        else if !secondary, let itemWidth = picker.cachedItemWidth, let frameWidth = picker.cachedFrameWidth {
-            picker.updateSelectedDate(itemWidth: itemWidth, frameWidth: frameWidth)
+        else if scrollStyle != .secondaryNoHaptic, let itemWidth = picker.cachedItemWidth, let frameWidth = picker.cachedFrameWidth {
+            picker.updateSelectedDate(itemWidth: itemWidth, frameWidth: frameWidth, scrollStyle: scrollStyle)
         }
         
         picker.updateMagnifier()
@@ -451,8 +481,8 @@ extension Picker: UICollectionViewDelegate {
         
         let date = self.date(at: indexPath.item)
         selectedDate = date
-        didSelect(date: date, animated: true, secondary: false)
-        scrollToSelectedDate(animated: true)
+        didSelect(date: date, animated: true, scrollStyle: .primary)
+        scrollToSelectedDate(animated: true, scrollStyle: .primary)
     }
     
     public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
@@ -504,7 +534,7 @@ extension Picker: UICollectionViewDelegate {
             return
         }
         
-        updateSelectedDate(itemWidth: itemWidth, frameWidth: frameWidth)
+        updateSelectedDate(itemWidth: itemWidth, frameWidth: frameWidth, scrollStyle: .primary)
         
         updateMagnifier()
     }
@@ -534,10 +564,10 @@ public extension Array where Element: Hashable {
 
 extension Date {
     var isCurrentDay: Bool {
-        return Calendar.current.component(.day, from: Date()) == Calendar.current.component(.day, from: self)
+        return Calendar.current.component(.day, from: Date.currentDate) == Calendar.current.component(.day, from: self)
     }
     
     var isCurrentHour: Bool {
-        return Calendar.current.component(.hour, from: Date()) == Calendar.current.component(.hour, from: self)
+        return Calendar.current.component(.hour, from: Date.currentDate) == Calendar.current.component(.hour, from: self)
     }
 }

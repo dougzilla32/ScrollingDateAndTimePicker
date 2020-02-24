@@ -41,10 +41,10 @@ public class TimePicker: Picker {
         return date
     }
     
-    override func didSelect(date: Date, animated: Bool, secondary: Bool) {
-        if !secondary, let datePicker = parent?.datePicker, datePicker.selectedDate != datePicker.truncate(date: date) {
+    override func didSelect(date: Date, animated: Bool, scrollStyle: PickerScrollStyle) {
+        if scrollStyle == .primary, let datePicker = parent?.datePicker, datePicker.selectedDate != datePicker.truncate(date: date) {
             datePicker.selectedDate = date
-            datePicker.scrollToSelectedDate(animated: !datePicker.isScrolling, secondary: true)
+            datePicker.scrollToSelectedDate(animated: !datePicker.isScrolling, scrollStyle: .secondaryNoHaptic)
         }
         pickerDelegate?.timepicker(parent, didSelectTime: date)
     }
@@ -74,7 +74,7 @@ public class TimePicker: Picker {
     
     override public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         super.scrollViewWillBeginDragging(scrollView)
-        parent?.datePicker.scrollToSelectedDate(animated: false)
+        parent?.datePicker.scrollToSelectedDate(animated: false, scrollStyle: .primary)
     }
 
     var day: Date? {

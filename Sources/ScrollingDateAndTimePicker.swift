@@ -102,8 +102,8 @@ open class ScrollingDateAndTimePicker: LoadableFromXibView {
     }
     
     public func scrollToSelectedDate(animated: Bool) {
-        datePicker.scrollToSelectedDate(animated: animated)
-        timePicker.scrollToSelectedDate(animated: animated)
+        let dateScrolled = datePicker.scrollToSelectedDate(animated: animated, scrollStyle: .secondaryWithHaptic)
+        timePicker.scrollToSelectedDate(animated: animated, scrollStyle: dateScrolled ? .secondaryNoHaptic : .secondaryWithHaptic)
     }
     
     public var dateConfiguration = DayConfiguration() {
@@ -124,9 +124,9 @@ open class ScrollingDateAndTimePicker: LoadableFromXibView {
     
     // ToDo: for better efficiency, update the configurations without recreating the cells
     public func updateCellConfigurations() {
-        updateMagnifiers()
         datePicker.reloadData()
         timePicker.reloadData()
+        updateMagnifiers()
     }
     
     var bundle: Bundle? {
@@ -194,8 +194,8 @@ open class ScrollingDateAndTimePicker: LoadableFromXibView {
         timePicker.reloadData()
         
         DispatchQueue.main.async {
-            self.datePicker.scrollToSelectedDate(animated: false)
-            self.timePicker.scrollToSelectedDate(animated: false)
+            self.datePicker.scrollToSelectedDate(animated: false, scrollStyle: .secondaryNoHaptic)
+            self.timePicker.scrollToSelectedDate(animated: false, scrollStyle: .secondaryNoHaptic)
         }
     }
 }

@@ -12,7 +12,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var picker: ScrollingDateAndTimePicker! {
         didSet {
             picker.continuousSelection = continuousSelection
-            picker.selectedDate = Date()
+            picker.selectedDate = Date.currentDate
 
             // DatePicker
             do {
@@ -54,7 +54,7 @@ class ViewController: UIViewController {
                 else {
                     times = [Date]()
                     
-                    let now = Date()
+                    let now = Date.currentDate
                     let calendar = Calendar.current
                     
                     var startOfToday = DateComponents()
@@ -121,7 +121,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func goToCurrentTime(_ sender: UIButton) {
-        picker.selectedDate = Date()
+        picker.selectedDate = Date.currentDate
         picker.scrollToSelectedDate(animated: true)
         showSelectedTime()
     }

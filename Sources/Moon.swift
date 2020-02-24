@@ -91,7 +91,7 @@ class Moon {
     }
     
     func illumination(date: Date!) -> Illumination {
-        let d = toDays(date ?? Date())
+        let d = toDays(date ?? Date.currentDate)
         let s = sunCoords(d)
         let m = moonCoords(d)
         

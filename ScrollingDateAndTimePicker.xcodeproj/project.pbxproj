@@ -18,6 +18,7 @@
 		19C5E4D61DA0157E005663E8 /* ScrollingDateAndTimePicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19C5E4D51DA0157E005663E8 /* ScrollingDateAndTimePicker.xib */; };
 		19C5E4D91DA0189A005663E8 /* TimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C5E4D81DA0189A005663E8 /* TimeCell.swift */; };
 		19C5E4DB1DA018DE005663E8 /* TimeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19C5E4DA1DA018DE005663E8 /* TimeCell.xib */; };
+		91381E0624047F7B0059F3C8 /* CoreExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91381E0524047F7B0059F3C8 /* CoreExtensions.swift */; };
 		913A61B523E8BEB3009E5D58 /* TAProgressLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913A61B423E8BEB3009E5D58 /* TAProgressLayer.swift */; };
 		91446CC423E5403400754147 /* MagnifierView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91446CC323E5403400754147 /* MagnifierView.swift */; };
 		915DC899230A980B003D61E0 /* DayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 915DC897230A980B003D61E0 /* DayCell.xib */; };
@@ -45,6 +46,7 @@
 		19C5E4D51DA0157E005663E8 /* ScrollingDateAndTimePicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScrollingDateAndTimePicker.xib; sourceTree = "<group>"; };
 		19C5E4D81DA0189A005663E8 /* TimeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeCell.swift; sourceTree = "<group>"; };
 		19C5E4DA1DA018DE005663E8 /* TimeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimeCell.xib; sourceTree = "<group>"; };
+		91381E0524047F7B0059F3C8 /* CoreExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreExtensions.swift; sourceTree = "<group>"; };
 		913A61B423E8BEB3009E5D58 /* TAProgressLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAProgressLayer.swift; sourceTree = "<group>"; };
 		91446CC323E5403400754147 /* MagnifierView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagnifierView.swift; sourceTree = "<group>"; };
 		915DC897230A980B003D61E0 /* DayCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DayCell.xib; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				91B7D9C023D1269A009A0E42 /* Moon.swift */,
 				91446CC323E5403400754147 /* MagnifierView.swift */,
 				913A61B423E8BEB3009E5D58 /* TAProgressLayer.swift */,
+				91381E0524047F7B0059F3C8 /* CoreExtensions.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -224,6 +227,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91381E0624047F7B0059F3C8 /* CoreExtensions.swift in Sources */,
 				19C5E4D21DA012A3005663E8 /* ScrollingDateAndTimePicker.swift in Sources */,
 				19C5E4C11DA0125F005663E8 /* ViewController.swift in Sources */,
 				19C5E4D41DA013AA005663E8 /* LoadableFromXibView.swift in Sources */,
