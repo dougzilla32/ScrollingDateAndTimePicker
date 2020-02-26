@@ -469,8 +469,8 @@ extension Picker: UICollectionViewDataSource {
             style: configuration.calculateStyle(
                 isWeekend: isWeekendDate,
                 isSelected: isSelectedDate,
-                isCurrent: isCurrentDate,
-                isHighlighted: isHighlighted),
+                isHighlighted: isHighlighted,
+                isCurrent: isCurrentDate),
             showTimeRange: parent?.showTimeRange ?? false)
         
         configureCell(cell, date: date, isWeekend: isWeekendDate, isSelected: isSelectedDate, isHighlighted: isHighlighted)

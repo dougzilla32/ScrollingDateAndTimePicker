@@ -38,17 +38,17 @@ public struct TimeConfiguration: PickerConfiguration {
         return TimeStyleConfiguration()
     }()
     
-    public var currentTimeStyle: TimeStyleConfiguration = {
-        return TimeStyleConfiguration()
-    }()
-
     public var highlightedTimeStyle: TimeStyleConfiguration = {
         return TimeStyleConfiguration()
     }()
     
+    public var currentTimeStyle: TimeStyleConfiguration = {
+        return TimeStyleConfiguration()
+    }()
+
     // MARK: - Methods
     
-    func calculateStyle(isWeekend: Bool, isSelected: Bool, isCurrent: Bool, isHighlighted: Bool) -> PickerStyleConfiguration {
+    func calculateStyle(isWeekend: Bool, isSelected: Bool, isHighlighted: Bool, isCurrent: Bool) -> PickerStyleConfiguration {
         var style = defaultTimeStyle
         
         if isWeekend {
@@ -59,14 +59,14 @@ public struct TimeConfiguration: PickerConfiguration {
             style = style.merge(with: selectedTimeStyle)
         }
         
-        if isCurrent {
-            style = style.merge(with: currentTimeStyle)
-        }
-        
         if isHighlighted {
             style = style.merge(with: highlightedTimeStyle)
         }
 
+        if isCurrent {
+            style = style.merge(with: currentTimeStyle)
+        }
+        
         return style
     }
 

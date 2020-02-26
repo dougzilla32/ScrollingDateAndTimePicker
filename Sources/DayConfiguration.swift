@@ -39,17 +39,17 @@ public struct DayConfiguration: PickerConfiguration {
         return DayStyleConfiguration()
     }()
     
-    public var currentDayStyle: DayStyleConfiguration = {
-        return DayStyleConfiguration()
-    }()
-    
     public var highlightedDayStyle: DayStyleConfiguration = {
         return DayStyleConfiguration()
     }()
 
+    public var currentDayStyle: DayStyleConfiguration = {
+        return DayStyleConfiguration()
+    }()
+    
     // MARK: - Methods
 
-    func calculateStyle(isWeekend: Bool, isSelected: Bool, isCurrent: Bool, isHighlighted: Bool) -> PickerStyleConfiguration {
+    func calculateStyle(isWeekend: Bool, isSelected: Bool, isHighlighted: Bool, isCurrent: Bool) -> PickerStyleConfiguration {
         var style = defaultDayStyle
 
         if isWeekend {
@@ -60,12 +60,12 @@ public struct DayConfiguration: PickerConfiguration {
             style = style.merge(with: selectedDayStyle)
         }
 
-        if isCurrent {
-            style = style.merge(with: currentDayStyle)
-        }
-
         if isHighlighted {
             style = style.merge(with: highlightedDayStyle)
+        }
+
+        if isCurrent {
+            style = style.merge(with: currentDayStyle)
         }
 
         return style
