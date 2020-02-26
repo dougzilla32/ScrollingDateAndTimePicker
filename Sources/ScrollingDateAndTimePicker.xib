@@ -56,7 +56,7 @@
                     </collectionViewFlowLayout>
                 </collectionView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TYI-i7-oYu" userLabel="Top Magnifier" customClass="MagnifierView" customModule="ScrollingDateAndTimePicker" customModuleProvider="target">
-                    <rect key="frame" x="80" y="0.0" width="80" height="50.5"/>
+                    <rect key="frame" x="80" y="0.0" width="80" height="51.5"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="80" id="7Tk-SH-vwh"/>
@@ -71,7 +71,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vGZ-LB-6d6" userLabel="Bottom Magnifier" customClass="MagnifierView" customModule="ScrollingDateAndTimePicker" customModuleProvider="target">
-                    <rect key="frame" x="80" y="52.5" width="80" height="50.5"/>
+                    <rect key="frame" x="80" y="51.5" width="80" height="51.5"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="80" id="S7r-l0-uFF"/>
@@ -87,8 +87,8 @@
                 <constraint firstItem="bHB-sV-bER" firstAttribute="top" secondItem="aOu-w9-3Qt" secondAttribute="top" id="F9g-ft-agD"/>
                 <constraint firstItem="TYI-i7-oYu" firstAttribute="centerX" secondItem="aOu-w9-3Qt" secondAttribute="centerX" id="HZ5-xy-PNq"/>
                 <constraint firstItem="vGZ-LB-6d6" firstAttribute="centerX" secondItem="aOu-w9-3Qt" secondAttribute="centerX" id="JK2-xv-x0p"/>
-                <constraint firstItem="wg9-w4-wuv" firstAttribute="top" secondItem="TYI-i7-oYu" secondAttribute="bottom" constant="-1" id="KJS-cY-Ycf"/>
-                <constraint firstItem="vGZ-LB-6d6" firstAttribute="top" secondItem="wg9-w4-wuv" secondAttribute="bottom" constant="-1" id="LBP-v0-gIq"/>
+                <constraint firstItem="wg9-w4-wuv" firstAttribute="top" secondItem="TYI-i7-oYu" secondAttribute="bottom" constant="-2" id="KJS-cY-Ycf"/>
+                <constraint firstItem="vGZ-LB-6d6" firstAttribute="top" secondItem="wg9-w4-wuv" secondAttribute="bottom" constant="-2" id="LBP-v0-gIq"/>
                 <constraint firstAttribute="bottom" secondItem="EKn-YN-Lpp" secondAttribute="bottom" id="NrX-XE-QZT"/>
                 <constraint firstAttribute="trailing" secondItem="bHB-sV-bER" secondAttribute="trailing" id="SaY-bf-xbF"/>
                 <constraint firstAttribute="trailing" secondItem="veT-JR-cBT" secondAttribute="trailing" id="X0b-3I-Vs7"/>

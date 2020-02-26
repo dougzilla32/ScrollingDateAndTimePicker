@@ -30,7 +30,7 @@ private struct MutableDateText: DateText {
 }
 
 public class TimeCell: PickerCell {
-    static let Moons = ["🌑", "🌒", " 🌓", "🌔", "🌕", "🌖", "🌗", "🌘", "🌑"]
+    static let Moons = ["🌑", "🌒", "🌓", "🌔", "🌕", "🌖", "🌗", "🌘", "🌑"]
 
     @IBOutlet public weak var timeLabel: UILabel!
     @IBOutlet public weak var amPmLabel: UILabel!
@@ -69,7 +69,7 @@ public class TimeCell: PickerCell {
 
         if showTimeRange && text.time == "11-12" {
             if text.amPm == "PM" {
-                text.noon = "NOON"
+                text.noon = "🕛"
             } else {
                 var phase = Moon.shared.illumination(date: date).phase
                 // Show new moon and full moon less often, because this better matches
@@ -110,7 +110,7 @@ public class TimeCell: PickerCell {
         let defaultPointSize = defaultFont?.pointSize ?? 8.0
         if let noon = dateText.noon {
             amPmLabel.text = noon
-            amPmLabel.font = .systemFont(ofSize: defaultPointSize, weight: .medium)
+            amPmLabel.font = .systemFont(ofSize: defaultPointSize + 10.0, weight: .thin)
         }
         else if let midnight = dateText.midnight {
             amPmLabel.text = midnight

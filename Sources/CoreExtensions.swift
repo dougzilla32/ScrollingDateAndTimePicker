@@ -17,3 +17,13 @@ extension Date {
 //        return formatter.date(from: "2020/02/21 13:30")!
     }
 }
+
+func dispatchMainAsync(_ block: @escaping () -> Void) {
+    if Thread.isMainThread {
+        block()
+    } else {
+        DispatchQueue.main.async {
+            block()
+        }
+    }
+}

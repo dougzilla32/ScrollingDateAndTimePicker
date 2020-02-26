@@ -317,6 +317,13 @@ public class Picker: UICollectionView {
     
     var leftHighlightCell: PickerCell!
     var rightHighlightCell: PickerCell!
+    
+    override public func reloadData() {
+        leftHighlightCell?.setupDate = nil
+        rightHighlightCell?.setupDate = nil
+        super.reloadData()
+        
+    }
 
     func updateMagnifier() {
         guard let magnifier = self.magnifier else { return }
@@ -329,14 +336,16 @@ public class Picker: UICollectionView {
                 if cell.superview == nil {
                     magnifier.addSubview(cell)
                 }
-                cell.frame = CGRect(x: 0, y: 0, width: magnifier.frame.size.width, height: magnifier.frame.size.height)
+                if cell.frame.size != magnifier.frame.size {
+                    dispatchMainAsync {
+                        cell.frame.origin = CGPoint(x: 0, y: 0)
+                        cell.frame.size = magnifier.frame.size
+                    }
+                }
                 return cell
             }
             leftHighlightCell = addCell(leftHighlightCell)
             rightHighlightCell = addCell(rightHighlightCell)
-            
-            leftHighlightCell.setupDate = nil
-            rightHighlightCell.setupDate = nil
             
             if magnifier.drawCallback == nil {
                 magnifier.drawCallback = unown(self, type(of: self).drawCallback)
@@ -362,7 +371,7 @@ public class Picker: UICollectionView {
     private func drawCallback(_ rect: CGRect) {
         let itemSize = (self.collectionViewLayout as! UICollectionViewFlowLayout).itemSize
 
-        let translateCell: (String, PickerCell, Int?, CGFloat, CGFloat) -> Int? = { msg, cell, index, superX, cellX in
+        let translateCell: (PickerCell, Int?, CGFloat, CGFloat) -> Int? = { cell, index, superX, cellX in
             let io = Picker.indexAndOffset(x: superX + cellX, cellWidth: itemSize.width)
             guard io.index != index else {
                 cell.isHidden = true
@@ -371,14 +380,16 @@ public class Picker: UICollectionView {
             cell.isHidden = false
 
             let date = self.date(at: io.index)
-            self.setup(cell: cell, date: date, isHighlighted: true)
-            cell.frame.origin = CGPoint(x: cellX - io.offset, y: 0.0)
+            dispatchMainAsync {
+                self.setup(cell: cell, date: date, isHighlighted: true)
+                cell.frame.origin = CGPoint(x: cellX - io.offset, y: 0.0)
+            }
             return io.index
         }
         
         let superX = self.contentOffset.x + magnifier.frame.origin.x
-        let leftIndex = translateCell("leftHighlightCell", leftHighlightCell, nil, superX, 0)
-        let _ = translateCell("rightHighlightCell", rightHighlightCell, leftIndex, superX, magnifier.frame.size.width)
+        let leftIndex = translateCell(leftHighlightCell, nil, superX, 0)
+        let _ = translateCell(rightHighlightCell, leftIndex, superX, magnifier.frame.size.width)
     }
     
     private static func indexAndOffset(x: CGFloat, cellWidth: CGFloat) -> (index: Int, offset: CGFloat) {
@@ -441,6 +452,7 @@ extension Picker: UICollectionViewDataSource {
         if isSelected(date: date) {
             prevSelectedIndex = indexPath.item
         }
+        cell.setupDate = nil
         setup(cell: cell, date: date, isHighlighted: false)
         return cell
     }
