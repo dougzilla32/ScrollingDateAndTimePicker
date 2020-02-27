@@ -46,6 +46,10 @@ public struct TimeConfiguration: PickerConfiguration {
         return TimeStyleConfiguration()
     }()
 
+    public var currentHighlightedTimeStyle: TimeStyleConfiguration = {
+        return TimeStyleConfiguration()
+    }()
+
     // MARK: - Methods
     
     func calculateStyle(isWeekend: Bool, isSelected: Bool, isHighlighted: Bool, isCurrent: Bool) -> PickerStyleConfiguration {
@@ -59,11 +63,13 @@ public struct TimeConfiguration: PickerConfiguration {
             style = style.merge(with: selectedTimeStyle)
         }
         
-        if isHighlighted {
+        if isHighlighted && isCurrent {
+            style = style.merge(with: currentHighlightedTimeStyle)
+        }
+        else if isHighlighted {
             style = style.merge(with: highlightedTimeStyle)
         }
-
-        if isCurrent {
+        else if isCurrent {
             style = style.merge(with: currentTimeStyle)
         }
         
