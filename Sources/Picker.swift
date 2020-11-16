@@ -46,6 +46,7 @@ public class Picker: UICollectionView {
     private var centerItem: Int?
     fileprivate var cachedFrameWidth: CGFloat!
     fileprivate var cachedItemWidth: CGFloat!
+    private var scrollToWorkItem: DispatchWorkItem?
     private var scrollEndWorkItem: DispatchWorkItem?
 
     var dates: [Date]? {
@@ -309,9 +310,12 @@ public class Picker: UICollectionView {
             
             // Wait until picker layer is updated before updating the magnifier layer -- couldn't figure out
             // a better way to do this.
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.01) {
+            scrollToWorkItem?.cancel()
+            let workItem = DispatchWorkItem {
                 self.updateMagnifier()
             }
+            scrollToWorkItem = workItem
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01, execute: workItem)
         }
     }
     
@@ -371,8 +375,8 @@ public class Picker: UICollectionView {
     private func drawCallback(_ rect: CGRect) {
         let itemSize = (self.collectionViewLayout as! UICollectionViewFlowLayout).itemSize
 
-        let translateCell: (PickerCell, Int?, CGFloat, CGFloat) -> Int? = { cell, index, superX, cellX in
-            let io = Picker.indexAndOffset(x: superX + cellX, cellWidth: itemSize.width)
+        let translateCell: (PickerCell, Int?, Double, Double) -> Int? = { cell, index, superX, cellX in
+            let io = Picker.indexAndOffset(x: superX + cellX, cellWidth: Double(itemSize.width))
             guard io.index != index else {
                 cell.isHidden = true
                 return nil
@@ -387,14 +391,14 @@ public class Picker: UICollectionView {
             return io.index
         }
         
-        let superX = self.contentOffset.x + magnifier.frame.origin.x
+        let superX = Double(self.contentOffset.x) + Double(magnifier.frame.origin.x)
         let leftIndex = translateCell(leftHighlightCell, nil, superX, 0)
-        let _ = translateCell(rightHighlightCell, leftIndex, superX, magnifier.frame.size.width)
+        let _ = translateCell(rightHighlightCell, leftIndex, superX, Double(itemSize.width))
     }
     
-    private static func indexAndOffset(x: CGFloat, cellWidth: CGFloat) -> (index: Int, offset: CGFloat) {
+    private static func indexAndOffset(x: Double, cellWidth: Double) -> (index: Int, offset: Double) {
         return (
-            index: Int((x / cellWidth).rounded(.towardZero)),
+            index: Int((Double(x) / Double(cellWidth)).rounded(.towardZero)),
             offset: x.truncatingRemainder(dividingBy: cellWidth))
     }
 }
