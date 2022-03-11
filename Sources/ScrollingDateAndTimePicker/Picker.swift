@@ -336,7 +336,7 @@ public class Picker: UICollectionView {
             magnifier.clipsToBounds = true
             
             let addCell: (PickerCell?) -> PickerCell = { currentCell in
-                let cell = currentCell ?? (LoadableFromXibView.xibView(bundleClass: ScrollingDateAndTimePicker.self, viewClass: self.xibClass) as! PickerCell)
+                let cell = currentCell ?? (LoadableFromXibView.xibView(viewClass: self.xibClass) as! PickerCell)
                 if cell.superview == nil {
                     magnifier.addSubview(cell)
                 }

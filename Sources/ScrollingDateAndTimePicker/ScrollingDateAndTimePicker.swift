@@ -129,21 +129,21 @@ open class ScrollingDateAndTimePicker: LoadableFromXibView {
         updateMagnifiers()
     }
     
-    var bundle: Bundle? {
-        let podBundle = Bundle(for: ScrollingDateAndTimePicker.self)
-        let bundlePath = podBundle.path(forResource: String(describing: type(of: self)), ofType: "bundle")
-        var bundle: Bundle? = nil
-        
-        if bundlePath != nil {
-            bundle = Bundle(path: bundlePath!)
-        }
-        
-        return bundle
-    }
+//    var bundle: Bundle? {
+//        let podBundle = Bundle(for: ScrollingDateAndTimePicker.self)
+//        let bundlePath = podBundle.path(forResource: String(describing: type(of: self)), ofType: "bundle")
+//        var bundle: Bundle? = nil
+//
+//        if bundlePath != nil {
+//            bundle = Bundle(path: bundlePath!)
+//        }
+//
+//        return bundle
+//    }
 
     @IBOutlet public weak var datePicker: DatePicker! {
         didSet {
-            let cellNib = UINib(nibName: DayCell.ClassName, bundle: bundle)
+            let cellNib = UINib(nibName: DayCell.ClassName, bundle: .module)
             datePicker.register(cellNib, forCellWithReuseIdentifier: DayCell.ClassName)
             datePicker.parent = self
             datePicker.dataSource = datePicker
@@ -154,7 +154,7 @@ open class ScrollingDateAndTimePicker: LoadableFromXibView {
 
     @IBOutlet public weak var timePicker: TimePicker! {
         didSet {
-            let cellNib = UINib(nibName: TimeCell.ClassName, bundle: bundle)
+            let cellNib = UINib(nibName: TimeCell.ClassName, bundle: .module)
             timePicker.register(cellNib, forCellWithReuseIdentifier: TimeCell.ClassName)
             timePicker.parent = self
             timePicker.dataSource = timePicker

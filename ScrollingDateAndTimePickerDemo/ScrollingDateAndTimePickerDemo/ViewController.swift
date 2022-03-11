@@ -2,8 +2,11 @@
 //  Created by Dmitry Ivanenko on 01.10.16.
 //  Copyright © 2016 Dmitry Ivanenko. All rights reserved.
 //
+//  Set up project with help from: https://stackoverflow.com/a/69659509/5468406
+//
 
 import UIKit
+import ScrollingDateAndTimePicker
 
 class ViewController: UIViewController {
     let continuousSelection = true
@@ -135,7 +138,7 @@ extension ViewController: ScrollingDateAndTimePickerDelegate {
     func datepicker(_ datepicker: ScrollingDateAndTimePicker, didSelectDate date: Date) {
         showSelectedTime()
     }
-    
+
     func timepicker(_ timepicker: ScrollingDateAndTimePicker, didSelectTime time: Date) {
         showSelectedTime()
     }
