@@ -17,7 +17,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="firstBaseline" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="FcK-Sc-nuG">
-                        <rect key="frame" x="10" y="13" width="53" height="19.5"/>
+                        <rect key="frame" x="10" y="10" width="53" height="19.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="12:22" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qvg-q9-SfV">
                                 <rect key="frame" x="0.0" y="0.0" width="38" height="19.5"/>
@@ -42,7 +42,7 @@
                 </subviews>
             </view>
             <constraints>
-                <constraint firstItem="FcK-Sc-nuG" firstAttribute="centerY" secondItem="JlJ-Yf-ukc" secondAttribute="centerY" constant="-3" id="LGD-l2-1IZ"/>
+                <constraint firstItem="FcK-Sc-nuG" firstAttribute="centerY" secondItem="JlJ-Yf-ukc" secondAttribute="centerY" constant="-6" id="LGD-l2-1IZ"/>
                 <constraint firstItem="FAF-y2-LkQ" firstAttribute="centerX" secondItem="JlJ-Yf-ukc" secondAttribute="centerX" id="vMY-zM-ybZ"/>
                 <constraint firstItem="FcK-Sc-nuG" firstAttribute="centerX" secondItem="JlJ-Yf-ukc" secondAttribute="centerX" id="yKp-ci-PNo"/>
                 <constraint firstAttribute="bottom" secondItem="FAF-y2-LkQ" secondAttribute="bottom" constant="7" id="zny-1i-MST"/>
