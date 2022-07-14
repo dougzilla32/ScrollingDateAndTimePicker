@@ -78,7 +78,9 @@ open class ScrollingDateAndTimePicker: LoadableFromXibView {
         }
     }
     
-    func didSelect(date: Date) {
+    func didSelect(date: Date?) {
+        guard let date = date else { return }
+        
         do {
             let style = dateConfiguration.calculateStyle(
                 isWeekend: Calendar.current.isDateInWeekend(date),
@@ -129,9 +131,7 @@ open class ScrollingDateAndTimePicker: LoadableFromXibView {
         set {
             datePicker.selectedDate = newValue
             timePicker.selectedDate = newValue
-            if let value = newValue {
-                didSelect(date: value)
-            }
+            didSelect(date: newValue)
         }
     }
     
@@ -141,19 +141,31 @@ open class ScrollingDateAndTimePicker: LoadableFromXibView {
     }
     
     public var dateConfiguration = DayConfiguration() {
-        didSet { datePicker.configuration = dateConfiguration }
+        didSet {
+            datePicker.configuration = dateConfiguration
+            didSelect(date: selectedDate)
+        }
     }
     
     public var timeConfiguration = TimeConfiguration() {
-        didSet { timePicker.configuration = timeConfiguration }
+        didSet {
+            timePicker.configuration = timeConfiguration
+            didSelect(date: selectedDate)
+        }
     }
     
     public var dateCellConfigurer: ((_ cell: DayCell, _ date: Date, _ isWeekend: Bool, _ isSelected: Bool, _ isHighlighted: Bool) -> Void)? {
-        didSet { datePicker.cellConfigurer = dateCellConfigurer }
+        didSet {
+            datePicker.cellConfigurer = dateCellConfigurer
+            didSelect(date: selectedDate)
+        }
     }
     
     public var timeCellConfigurer: ((_ cell: TimeCell, _ date: Date, _ isWeekend: Bool, _ isSelected: Bool, _ isHighlighted: Bool) -> Void)? {
-        didSet { timePicker.cellConfigurer = timeCellConfigurer }
+        didSet {
+            timePicker.cellConfigurer = timeCellConfigurer
+            didSelect(date: selectedDate)
+        }
     }
     
     // ToDo: for better efficiency, update the configurations without recreating the cells

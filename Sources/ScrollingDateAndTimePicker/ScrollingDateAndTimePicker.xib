@@ -61,7 +61,7 @@
                     <rect key="frame" x="80" y="0.0" width="80" height="51.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="APRIL" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nNk-Zc-cze">
-                            <rect key="frame" x="28.5" y="36" width="23" height="10"/>
+                            <rect key="frame" x="28.5" y="34.5" width="23" height="10"/>
                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="8"/>
                             <color key="textColor" red="0.44239271470000002" green="0.44239271470000002" blue="0.44239271470000002" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -71,14 +71,14 @@
                     <constraints>
                         <constraint firstAttribute="width" constant="80" id="7Tk-SH-vwh"/>
                         <constraint firstItem="nNk-Zc-cze" firstAttribute="centerX" secondItem="TYI-i7-oYu" secondAttribute="centerX" id="JW5-DC-NQS"/>
-                        <constraint firstAttribute="bottom" secondItem="nNk-Zc-cze" secondAttribute="bottom" constant="5.5" id="cCG-Er-Lhm"/>
+                        <constraint firstAttribute="bottom" secondItem="nNk-Zc-cze" secondAttribute="bottom" constant="7" id="cCG-Er-Lhm"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vGZ-LB-6d6" userLabel="Bottom Magnifier" customClass="MagnifierView" customModule="ScrollingDateAndTimePicker">
                     <rect key="frame" x="80" y="51.5" width="80" height="51.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WED" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l9J-mN-TGU" userLabel="Day Label">
-                            <rect key="frame" x="30.5" y="36" width="19" height="10"/>
+                            <rect key="frame" x="30.5" y="34.5" width="19" height="10"/>
                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="8"/>
                             <color key="textColor" red="0.44218015869999999" green="0.44218015869999999" blue="0.44218015869999999" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -87,7 +87,7 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="80" id="S7r-l0-uFF"/>
-                        <constraint firstAttribute="bottom" secondItem="l9J-mN-TGU" secondAttribute="bottom" constant="5.5" id="ghx-8D-fWt"/>
+                        <constraint firstAttribute="bottom" secondItem="l9J-mN-TGU" secondAttribute="bottom" constant="7" id="ghx-8D-fWt"/>
                         <constraint firstItem="l9J-mN-TGU" firstAttribute="centerX" secondItem="vGZ-LB-6d6" secondAttribute="centerX" id="zDY-gC-WuM"/>
                     </constraints>
                 </view>

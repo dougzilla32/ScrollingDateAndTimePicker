@@ -34,7 +34,7 @@
                         </subviews>
                     </stackView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="APRIL" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FAF-y2-LkQ">
-                        <rect key="frame" x="25" y="35.5" width="23" height="10"/>
+                        <rect key="frame" x="25" y="34" width="23" height="10"/>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="8"/>
                         <color key="textColor" red="0.44239271470716779" green="0.44239271470716779" blue="0.44239271470716779" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -53,7 +53,7 @@
                 <constraint firstItem="FcK-Sc-nuG" firstAttribute="centerX" secondItem="JlJ-Yf-ukc" secondAttribute="centerX" id="8en-5w-lbX"/>
                 <constraint firstItem="FcK-Sc-nuG" firstAttribute="centerY" secondItem="JlJ-Yf-ukc" secondAttribute="centerY" constant="-3" id="PJg-TG-Vzb"/>
                 <constraint firstAttribute="trailing" secondItem="dAR-fx-ZQV" secondAttribute="trailing" id="RhD-Un-X2s"/>
-                <constraint firstAttribute="bottom" secondItem="FAF-y2-LkQ" secondAttribute="bottom" constant="5.5" id="YfK-dr-wdA"/>
+                <constraint firstAttribute="bottom" secondItem="FAF-y2-LkQ" secondAttribute="bottom" constant="7" id="YfK-dr-wdA"/>
                 <constraint firstItem="FAF-y2-LkQ" firstAttribute="centerX" secondItem="JlJ-Yf-ukc" secondAttribute="centerX" id="kox-IK-eQv"/>
                 <constraint firstItem="dAR-fx-ZQV" firstAttribute="leading" secondItem="JlJ-Yf-ukc" secondAttribute="leading" id="se5-hb-vgV"/>
             </constraints>
