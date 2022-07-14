@@ -35,7 +35,6 @@ public class TimeCell: PickerCell {
     @IBOutlet public weak var timeLabel: UILabel!
     @IBOutlet public weak var amPmLabel: UILabel!
     @IBOutlet public weak var weekDayLabel: UILabel!
-    @IBOutlet public weak var selectorView: UIView!
 
     static var ClassName: String {
         return String(describing: self)
@@ -126,7 +125,6 @@ public class TimeCell: PickerCell {
         weekDayLabel.font = style.weekDayTextFont ?? weekDayLabel.font
         weekDayLabel.textColor = style.weekDayTextColor ?? weekDayLabel.textColor
 
-        selectorView.backgroundColor = style.selectorColor ?? .clear
         backgroundColor = style.backgroundColor ?? backgroundColor
     }
 }
