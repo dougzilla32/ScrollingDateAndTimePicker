@@ -36,7 +36,7 @@ public class DayCell: PickerCell {
         weekDayLabel.textColor = style.weekDayTextColor ?? weekDayLabel.textColor
 
         formatter.dateFormat = "MMMM"
-        monthLabel.text = formatter.string(from: date).uppercased()
+        monthLabel.text = " " // formatter.string(from: date).uppercased()
         monthLabel.font = style.monthTextFont ?? monthLabel.font
         monthLabel.textColor = style.monthTextColor ?? monthLabel.textColor
 

@@ -122,7 +122,7 @@ public class TimeCell: PickerCell {
         }
         amPmLabel.textColor = style.amPmTextColor ?? amPmLabel.textColor
 
-        weekDayLabel.text = dateText.weekDay.uppercased()
+        weekDayLabel.text = " " // dateText.weekDay.uppercased()
         weekDayLabel.font = style.weekDayTextFont ?? weekDayLabel.font
         weekDayLabel.textColor = style.weekDayTextColor ?? weekDayLabel.textColor
 

@@ -46,6 +46,7 @@ public class TimePicker: Picker {
             datePicker.selectedDate = date
             datePicker.scrollToSelectedDate(animated: !datePicker.isScrolling, scrollStyle: .secondaryNoHaptic)
         }
+        parent.didSelect(date: date)
         pickerDelegate?.timepicker(parent, didSelectTime: date)
     }
     

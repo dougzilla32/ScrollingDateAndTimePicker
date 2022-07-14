@@ -23,6 +23,8 @@ open class ScrollingDateAndTimePicker: LoadableFromXibView {
     @IBOutlet public weak var selectorBar: UIView!
     @IBOutlet weak var selectorBarWidth: NSLayoutConstraint!
     @IBOutlet public weak var selectorBarHeight: NSLayoutConstraint!
+    @IBOutlet weak var monthLabel: UILabel!
+    @IBOutlet weak var weekDayLabel: UILabel!
     
     public var continuousSelection: Bool = true {
         didSet {
@@ -76,6 +78,35 @@ open class ScrollingDateAndTimePicker: LoadableFromXibView {
         }
     }
     
+    func didSelect(date: Date) {
+        do {
+            let style = dateConfiguration.calculateStyle(
+                isWeekend: Calendar.current.isDateInWeekend(date),
+                isSelected: true,
+                isHighlighted: true,
+                isCurrent: date.isCurrentDay) as! DayStyleConfiguration
+            
+            let formatter = DateFormatter()
+            formatter.dateFormat = "MMMM"
+            monthLabel.text = formatter.string(from: date).uppercased()
+            monthLabel.font = style.monthTextFont ?? monthLabel.font
+            monthLabel.textColor = style.monthTextColor ?? monthLabel.textColor
+        }
+
+        do {
+            let style = timeConfiguration.calculateStyle(
+                isWeekend: Calendar.current.isDateInWeekend(date),
+                isSelected: true,
+                isHighlighted: true,
+                isCurrent: date.isCurrentDay) as! TimeStyleConfiguration
+            
+            let dateText = TimeCell.text(forDate: date, showTimeRange: showTimeRange)
+            weekDayLabel.text = dateText.weekDay.uppercased()
+            weekDayLabel.font = style.weekDayTextFont ?? weekDayLabel.font
+            weekDayLabel.textColor = style.weekDayTextColor ?? weekDayLabel.textColor
+        }
+    }
+    
     public var dates: [Date]? {
         get { return datePicker.dates }
         set { datePicker.dates = newValue }
@@ -98,6 +129,9 @@ open class ScrollingDateAndTimePicker: LoadableFromXibView {
         set {
             datePicker.selectedDate = newValue
             timePicker.selectedDate = newValue
+            if let value = newValue {
+                didSelect(date: value)
+            }
         }
     }
     
