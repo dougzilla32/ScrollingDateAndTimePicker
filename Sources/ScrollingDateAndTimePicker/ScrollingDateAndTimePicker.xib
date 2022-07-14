@@ -91,6 +91,13 @@
                         <constraint firstItem="l9J-mN-TGU" firstAttribute="centerX" secondItem="vGZ-LB-6d6" secondAttribute="centerX" id="zDY-gC-WuM"/>
                     </constraints>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qbL-Q7-G6e" userLabel="Divider Bar">
+                    <rect key="frame" x="0.0" y="51" width="240" height="1"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="9df-ec-wKf"/>
+                    </constraints>
+                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wg9-w4-wuv" userLabel="Selector Bar">
                     <rect key="frame" x="80" y="49.5" width="80" height="4"/>
                     <color key="backgroundColor" red="0.950621698943662" green="0.36470588235294116" blue="0.10980392156862745" alpha="1" colorSpace="calibratedRGB"/>
@@ -108,10 +115,12 @@
                 <constraint firstItem="EKn-YN-Lpp" firstAttribute="top" secondItem="aOu-w9-3Qt" secondAttribute="top" id="Ezn-0s-BjI"/>
                 <constraint firstItem="bHB-sV-bER" firstAttribute="top" secondItem="aOu-w9-3Qt" secondAttribute="top" id="F9g-ft-agD"/>
                 <constraint firstItem="TYI-i7-oYu" firstAttribute="centerX" secondItem="aOu-w9-3Qt" secondAttribute="centerX" id="HZ5-xy-PNq"/>
+                <constraint firstItem="qbL-Q7-G6e" firstAttribute="leading" secondItem="aOu-w9-3Qt" secondAttribute="leading" id="IiT-t1-ygx"/>
                 <constraint firstItem="vGZ-LB-6d6" firstAttribute="centerX" secondItem="aOu-w9-3Qt" secondAttribute="centerX" id="JK2-xv-x0p"/>
                 <constraint firstItem="wg9-w4-wuv" firstAttribute="top" secondItem="TYI-i7-oYu" secondAttribute="bottom" constant="-2" id="KJS-cY-Ycf"/>
                 <constraint firstItem="vGZ-LB-6d6" firstAttribute="top" secondItem="wg9-w4-wuv" secondAttribute="bottom" constant="-2" id="LBP-v0-gIq"/>
                 <constraint firstAttribute="bottom" secondItem="EKn-YN-Lpp" secondAttribute="bottom" id="NrX-XE-QZT"/>
+                <constraint firstItem="qbL-Q7-G6e" firstAttribute="centerY" secondItem="aOu-w9-3Qt" secondAttribute="centerY" id="O96-1W-64G"/>
                 <constraint firstAttribute="trailing" secondItem="bHB-sV-bER" secondAttribute="trailing" id="SaY-bf-xbF"/>
                 <constraint firstAttribute="trailing" secondItem="veT-JR-cBT" secondAttribute="trailing" id="X0b-3I-Vs7"/>
                 <constraint firstItem="TYI-i7-oYu" firstAttribute="top" secondItem="aOu-w9-3Qt" secondAttribute="top" id="cNI-bK-3PG"/>
@@ -120,6 +129,7 @@
                 <constraint firstItem="veT-JR-cBT" firstAttribute="top" secondItem="wg9-w4-wuv" secondAttribute="bottom" constant="-2" id="m2J-mE-DaE"/>
                 <constraint firstAttribute="bottom" secondItem="veT-JR-cBT" secondAttribute="bottom" id="r6M-BS-YAe"/>
                 <constraint firstItem="wg9-w4-wuv" firstAttribute="centerX" secondItem="aOu-w9-3Qt" secondAttribute="centerX" id="sL6-Jv-C7N"/>
+                <constraint firstAttribute="trailing" secondItem="qbL-Q7-G6e" secondAttribute="trailing" id="sdR-L4-FJT"/>
                 <constraint firstItem="veT-JR-cBT" firstAttribute="leading" secondItem="aOu-w9-3Qt" secondAttribute="leading" id="yNf-6a-vPC"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
