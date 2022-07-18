@@ -16,6 +16,7 @@ class ViewController: UIViewController {
         didSet {
             picker.continuousSelection = continuousSelection
             picker.selectedDate = Date.currentDate
+            picker.showTimeRange = true
 
             // DatePicker
             do {

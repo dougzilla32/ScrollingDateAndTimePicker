@@ -25,7 +25,7 @@ private struct MutableDateText: DateText {
     public var midnight: String?
     
     public static var emptyDateText: MutableDateText {
-        return MutableDateText(time: "", startTime: nil, endTime: nil, weekDay: "", amPm: "", noon: nil, midnight: nil)
+        return MutableDateText(time: "", /* startTime: nil, endTime: nil, */ weekDay: "", amPm: "", noon: nil, midnight: nil)
     }
 }
 
@@ -35,6 +35,7 @@ public class TimeCell: PickerCell {
     @IBOutlet public weak var timeLabel: UILabel!
     @IBOutlet public weak var amPmLabel: UILabel!
     @IBOutlet public weak var weekDayLabel: UILabel!
+    @IBOutlet public weak var arrowLabel: UILabel!
 
     static var ClassName: String {
         return String(describing: self)
@@ -47,9 +48,10 @@ public class TimeCell: PickerCell {
 
         if let dph = datePlusHour {
             formatter.dateFormat = "h"
+
             let startTime = formatter.string(from: date)
             let endTime = formatter.string(from: dph)
-            text.time = "\(startTime)-\(endTime)"
+            text.time = startTime
 
             formatter.dateFormat = "a"
             text.startTime = "\(startTime)\(formatter.string(from: date))"
@@ -61,12 +63,12 @@ public class TimeCell: PickerCell {
         }
 
         formatter.dateFormat = "a"
-        text.amPm = formatter.string(from: datePlusHour ?? date)
+        text.amPm = formatter.string(from: date)
 
         formatter.dateFormat = "EEE"
         text.weekDay = formatter.string(from: date)
 
-        if showTimeRange && text.time == "11-12" {
+        if showTimeRange && text.time == "12" {
             if text.amPm == "PM" {
                 text.noon = "🕛"
             } else {
@@ -124,6 +126,8 @@ public class TimeCell: PickerCell {
         weekDayLabel.text = " " // dateText.weekDay.uppercased()
         weekDayLabel.font = style.weekDayTextFont ?? weekDayLabel.font
         weekDayLabel.textColor = style.weekDayTextColor ?? weekDayLabel.textColor
+        
+        arrowLabel.isHidden = !showTimeRange
 
         backgroundColor = style.backgroundColor ?? backgroundColor
     }
