@@ -23,7 +23,7 @@ public struct DayConfiguration: PickerConfiguration {
         configuration.weekDayTextColor = .black
         
         configuration.monthTextFont = .systemFont(ofSize: 8, weight: UIFont.Weight.light)
-        configuration.monthTextColor = .gray
+        configuration.monthTextColor = .black
         
         configuration.selectorColor = .clear
         configuration.backgroundColor = .clear

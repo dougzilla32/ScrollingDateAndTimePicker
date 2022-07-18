@@ -22,7 +22,7 @@ public struct TimeConfiguration: PickerConfiguration {
         configuration.amPmTextColor = .black
         
         configuration.weekDayTextFont = .systemFont(ofSize: 8, weight: UIFont.Weight.light)
-        configuration.weekDayTextColor = .gray
+        configuration.weekDayTextColor = .black
         
         configuration.selectorColor = .clear
         configuration.backgroundColor = .clear
