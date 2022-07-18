@@ -36,7 +36,6 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="APRIL" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FAF-y2-LkQ">
                         <rect key="frame" x="25" y="34" width="23" height="10"/>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="8"/>
-                        <color key="textColor" red="0.44239271470716779" green="0.44239271470716779" blue="0.44239271470716779" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dAR-fx-ZQV">
