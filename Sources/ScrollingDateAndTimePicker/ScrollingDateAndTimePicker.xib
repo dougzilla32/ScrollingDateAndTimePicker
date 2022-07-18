@@ -63,7 +63,7 @@
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="APRIL" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nNk-Zc-cze">
                             <rect key="frame" x="28.5" y="34" width="23" height="10"/>
                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="8"/>
-                            <color key="textColor" red="0.44239271470000002" green="0.44239271470000002" blue="0.44239271470000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
@@ -80,7 +80,7 @@
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WED" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l9J-mN-TGU" userLabel="Day Label">
                             <rect key="frame" x="30.5" y="34.5" width="19" height="10"/>
                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="8"/>
-                            <color key="textColor" red="0.44218015869999999" green="0.44218015869999999" blue="0.44218015869999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
