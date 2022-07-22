@@ -26,6 +26,8 @@ open class ScrollingDateAndTimePicker: LoadableFromXibView {
     @IBOutlet weak var monthLabel: UILabel!
     @IBOutlet weak var weekDayLabel: UILabel!
     
+    public var animationDuration = 0.3
+    
     public var continuousSelection: Bool = true {
         didSet {
             updateViewerVisibility()

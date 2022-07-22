@@ -294,7 +294,7 @@ public class Picker: UICollectionView {
 
             do {
                 let anim = CABasicAnimation(keyPath: TAProgressLayer.ProgressKey)
-                anim.duration = 0.3
+                anim.duration = parent?.animationDuration ?? 0.3
                 anim.beginTime = 0
                 anim.fromValue = CGFloat(0)
                 anim.toValue = CGFloat(1)
