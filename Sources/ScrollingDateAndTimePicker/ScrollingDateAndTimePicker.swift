@@ -222,10 +222,12 @@ open class ScrollingDateAndTimePicker: LoadableFromXibView {
         super.xibSetup()
         
         topMagnifier.viewToMagnify = datePicker
+        topMagnifier.labelToMagnify = monthLabel
         datePicker.magnifier = topMagnifier
         topMagnifier.isHidden = true
         
         bottomMagnifier.viewToMagnify = timePicker
+        bottomMagnifier.viewToMagnify = weekDayLabel
         timePicker.magnifier = bottomMagnifier
         bottomMagnifier.isHidden = true
     }

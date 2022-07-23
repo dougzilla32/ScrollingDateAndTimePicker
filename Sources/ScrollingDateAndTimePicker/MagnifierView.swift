@@ -11,6 +11,7 @@ import UIKit
 class MagnifierView: UIView {
     var magnification: CGFloat?
     weak var viewToMagnify: UIView?
+    weak var labelToMagnify: UIView?
     var drawCallback: ((CGRect) -> Void)?
     var touchPoint: CGPoint!
     
@@ -27,7 +28,6 @@ class MagnifierView: UIView {
         }
         
         guard let magnification = self.magnification,
-            let viewToMagnify = self.viewToMagnify,
             let touchPoint = self.touchPoint else {
                 return
         }
@@ -36,6 +36,7 @@ class MagnifierView: UIView {
         ctx.translateBy(x: self.frame.size.width * 0.5, y: self.frame.size.height * 0.5)
         ctx.scaleBy(x: magnification, y: magnification)
         ctx.translateBy(x: -touchPoint.x, y: -touchPoint.y)
-        viewToMagnify.layer.render(in: ctx)
+        viewToMagnify?.layer.render(in: ctx)
+        labelToMagnify?.layer.render(in: ctx)
     }
 }
