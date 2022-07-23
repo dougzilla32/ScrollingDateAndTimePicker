@@ -15,6 +15,12 @@ class MagnifierView: UIView {
     var drawCallback: ((CGRect) -> Void)?
     var touchPoint: CGPoint!
     
+    func bringLabelToFront() {
+        if let label = labelToMagnify {
+            bringSubviewToFront(label)
+        }
+    }
+    
     // Pass-through for all events
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         let view = super.hitTest(point, with: event)
@@ -33,13 +39,9 @@ class MagnifierView: UIView {
         }
 
         let ctx = UIGraphicsGetCurrentContext()!
-        ctx.saveGState()
         ctx.translateBy(x: self.frame.size.width * 0.5, y: self.frame.size.height * 0.5)
         ctx.scaleBy(x: magnification, y: magnification)
         ctx.translateBy(x: -touchPoint.x, y: -touchPoint.y)
         viewToMagnify?.layer.render(in: ctx)
-
-        ctx.restoreGState()
-        labelToMagnify?.layer.render(in: ctx)
     }
 }

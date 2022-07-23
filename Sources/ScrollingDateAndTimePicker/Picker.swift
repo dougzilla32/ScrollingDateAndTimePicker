@@ -339,6 +339,7 @@ public class Picker: UICollectionView {
                 let cell = currentCell ?? (LoadableFromXibView.xibView(viewClass: self.xibClass) as! PickerCell)
                 if cell.superview == nil {
                     magnifier.addSubview(cell)
+                    magnifier.bringLabelToFront()
                 }
                 if cell.frame.size != magnifier.frame.size {
                     dispatchMainAsync {
