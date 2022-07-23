@@ -33,10 +33,13 @@ class MagnifierView: UIView {
         }
 
         let ctx = UIGraphicsGetCurrentContext()!
+        ctx.saveGState()
         ctx.translateBy(x: self.frame.size.width * 0.5, y: self.frame.size.height * 0.5)
         ctx.scaleBy(x: magnification, y: magnification)
         ctx.translateBy(x: -touchPoint.x, y: -touchPoint.y)
         viewToMagnify?.layer.render(in: ctx)
+
+        ctx.restoreGState()
         labelToMagnify?.layer.render(in: ctx)
     }
 }
