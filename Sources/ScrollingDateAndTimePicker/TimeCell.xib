@@ -17,7 +17,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="firstBaseline" translatesAutoresizingMaskIntoConstraints="NO" id="FcK-Sc-nuG">
-                        <rect key="frame" x="14.5" y="12" width="44" height="19.5"/>
+                        <rect key="frame" x="14.5" y="16" width="44" height="19.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="12" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qvg-q9-SfV">
                                 <rect key="frame" x="0.0" y="0.0" width="15.5" height="19.5"/>
@@ -39,26 +39,17 @@
                             </label>
                         </subviews>
                     </stackView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WED" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FAF-y2-LkQ" userLabel="Day Label">
-                        <rect key="frame" x="27" y="35" width="19" height="10"/>
-                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="8"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                 </subviews>
             </view>
             <constraints>
-                <constraint firstItem="FcK-Sc-nuG" firstAttribute="centerY" secondItem="JlJ-Yf-ukc" secondAttribute="centerY" constant="-4" id="LGD-l2-1IZ"/>
-                <constraint firstItem="FAF-y2-LkQ" firstAttribute="centerX" secondItem="JlJ-Yf-ukc" secondAttribute="centerX" id="vMY-zM-ybZ"/>
+                <constraint firstItem="FcK-Sc-nuG" firstAttribute="centerY" secondItem="JlJ-Yf-ukc" secondAttribute="centerY" id="LGD-l2-1IZ"/>
                 <constraint firstItem="FcK-Sc-nuG" firstAttribute="centerX" secondItem="JlJ-Yf-ukc" secondAttribute="centerX" id="yKp-ci-PNo"/>
-                <constraint firstAttribute="bottom" secondItem="FAF-y2-LkQ" secondAttribute="bottom" constant="6" id="zny-1i-MST"/>
             </constraints>
             <size key="customSize" width="73" height="48"/>
             <connections>
                 <outlet property="amPmLabel" destination="5Ye-5o-RAT" id="BZE-a7-yFL"/>
                 <outlet property="arrowLabel" destination="a2v-5B-OzE" id="fV6-1V-myb"/>
                 <outlet property="timeLabel" destination="Qvg-q9-SfV" id="z5r-1I-qRB"/>
-                <outlet property="weekDayLabel" destination="FAF-y2-LkQ" id="qQr-kU-svO"/>
             </connections>
             <point key="canvasLocation" x="10.4" y="64.31784107946028"/>
         </collectionViewCell>

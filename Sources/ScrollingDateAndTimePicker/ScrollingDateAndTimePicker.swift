@@ -5,7 +5,6 @@
 
 import UIKit
 
-
 public protocol ScrollingDateAndTimePickerDelegate: AnyObject {
     func datepicker(_ datepicker: ScrollingDateAndTimePicker, didSelectDate date: Date)
 
@@ -24,7 +23,6 @@ open class ScrollingDateAndTimePicker: LoadableFromXibView {
     @IBOutlet weak var selectorBarWidth: NSLayoutConstraint!
     @IBOutlet public weak var selectorBarHeight: NSLayoutConstraint!
     @IBOutlet weak var monthLabel: UILabel!
-    @IBOutlet weak var weekDayLabel: UILabel!
     
     public var animationDuration = 0.3
     
@@ -83,32 +81,17 @@ open class ScrollingDateAndTimePicker: LoadableFromXibView {
     func didSelect(date: Date?) {
         guard let date = date else { return }
         
-        do {
-            let style = dateConfiguration.calculateStyle(
-                isWeekend: Calendar.current.isDateInWeekend(date),
-                isSelected: true,
-                isHighlighted: true,
-                isCurrent: date.isCurrentDay) as! DayStyleConfiguration
-            
-            let formatter = DateFormatter()
-            formatter.dateFormat = "MMMM"
-            monthLabel.text = formatter.string(from: date).uppercased()
-            monthLabel.font = style.monthTextFont ?? monthLabel.font
-            monthLabel.textColor = style.monthTextColor ?? monthLabel.textColor
-        }
-
-        do {
-            let style = timeConfiguration.calculateStyle(
-                isWeekend: Calendar.current.isDateInWeekend(date),
-                isSelected: true,
-                isHighlighted: true,
-                isCurrent: date.isCurrentDay) as! TimeStyleConfiguration
-            
-            let dateText = TimeCell.text(forDate: date, showTimeRange: showTimeRange)
-            weekDayLabel.text = dateText.weekDay.uppercased()
-            weekDayLabel.font = style.weekDayTextFont ?? weekDayLabel.font
-            weekDayLabel.textColor = style.weekDayTextColor ?? weekDayLabel.textColor
-        }
+        let style = dateConfiguration.calculateStyle(
+            isWeekend: Calendar.current.isDateInWeekend(date),
+            isSelected: true,
+            isHighlighted: true,
+            isCurrent: date.isCurrentDay) as! DayStyleConfiguration
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM"
+        monthLabel.text = formatter.string(from: date).uppercased()
+        monthLabel.font = style.monthTextFont ?? monthLabel.font
+        monthLabel.textColor = style.monthTextColor ?? monthLabel.textColor
     }
     
     public var dates: [Date]? {
@@ -227,7 +210,6 @@ open class ScrollingDateAndTimePicker: LoadableFromXibView {
         topMagnifier.isHidden = true
         
         bottomMagnifier.viewToMagnify = timePicker
-        bottomMagnifier.labelToMagnify = weekDayLabel
         timePicker.magnifier = bottomMagnifier
         bottomMagnifier.isHidden = true
     }

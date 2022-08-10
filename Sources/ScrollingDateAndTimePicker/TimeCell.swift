@@ -34,7 +34,6 @@ public class TimeCell: PickerCell {
 
     @IBOutlet public weak var timeLabel: UILabel!
     @IBOutlet public weak var amPmLabel: UILabel!
-    @IBOutlet public weak var weekDayLabel: UILabel!
     @IBOutlet public weak var arrowLabel: UILabel!
 
     static var ClassName: String {
@@ -123,10 +122,6 @@ public class TimeCell: PickerCell {
         }
         amPmLabel.textColor = style.amPmTextColor ?? amPmLabel.textColor
 
-        weekDayLabel.text = " " // dateText.weekDay.uppercased()
-        weekDayLabel.font = style.weekDayTextFont ?? weekDayLabel.font
-        weekDayLabel.textColor = style.weekDayTextColor ?? weekDayLabel.textColor
-        
         arrowLabel.isHidden = !showTimeRange
 
         backgroundColor = style.backgroundColor ?? backgroundColor

@@ -132,7 +132,6 @@ class ViewController: UIViewController {
 
 }
 
-
 // MARK: - ScrollingDateAndTimePickerDelegate
 
 extension ViewController: ScrollingDateAndTimePickerDelegate {
